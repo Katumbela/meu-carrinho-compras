@@ -1,0 +1,105 @@
+.bans .item img {
+    border-radius: 8px!important;
+    height: 7em;
+}
+
+.lojas .item img {
+    border-top-right-radius: 8px!important;
+    border-top-left-radius: 8px!important;
+    height: 6em;
+}
+
+.card_prod-lojas {
+    width: 10em;
+}
+.card_prod-lojas img{
+    width: 100%;
+}
+
+@media (min-width: 377px) and (max-width: 391px) {
+    
+    .card_prod-lojas {
+        width: 12em !important;
+    }
+    .card_prod-lojas img{
+        width: 100%;
+    }
+    }
+
+@media (min-width: 392px) and (max-width: 501px) {
+    
+.card_prod-lojas {
+    width: 12.65em !important;
+}
+.card_prod-lojas img{
+    width: 100%;
+    margin-top: 2rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    width: 70%;
+}
+}
+
+@media (min-width: 362px) and (max-width: 376px) {
+    
+    .card_prod-lojas img{
+        margin-top: 2rem;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+        width: 70%;
+    }
+    }
+
+    @media (min-width: 101px) and (max-width: 361px) {
+    
+        .card_prod-lojas img{
+            margin-top: 2rem;
+            margin-left: 1.5rem;
+            margin-right: 1.5rem;
+            width: 70%;
+        }
+        }
+
+
+        @media (min-width: 502px) and (max-width: 749px) {
+    
+            .card_prod-lojas img{
+                margin-top: 2rem;
+                margin-left: 1.5rem;
+                margin-right: 1.5rem;
+                width: 70%;
+            }
+            }
+        
+
+            @media (min-width: 750px) and (max-width: 769px) {
+    
+                
+                .card_prod-lojas img{
+                    margin-top: 2rem;
+                    margin-left: 1.5rem;
+                    margin-right: 1.5rem;
+                    width: 70%;
+                }
+            }
+            
+                    
+    @media (min-width: 770px) and (max-width: 1025px) {
+    
+        .card_prod-lojas img{
+            margin-top: 2rem;
+            margin-left: 1.5rem;
+            margin-right: 1.5rem;
+            width: 70%;
+        }
+        }
+
+@media (min-width: 1026px) {
+    
+    .card_prod-lojas img{
+        margin-top: 2rem;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+        width: 70%;
+    }
+    }

@@ -1,0 +1,11 @@
+.card_prods {
+    color: black;
+}
+.card_prods .card-headerr {
+    height: 11em;
+    position: relative;
+    width: 10em;
+}
+.card_prods .precos b {
+    color: #da0101;
+}

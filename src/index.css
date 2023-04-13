@@ -1,0 +1,287 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,body {
+  overflow-x: hidden!important;
+}
+
+.bg-carrinho {
+  background: #FFBF53!important;
+}
+
+input::placeholder {
+  color: rgb(191, 9, 9);
+}
+
+.f-10 {
+  font-size: 10px;
+}
+.f-12 {
+  font-size: 12px;
+}
+.f-14 {
+  font-size: 14px;
+}
+.f-16 {
+  font-size: 16px;
+}
+.f-18 {
+  font-size: 18px;
+}
+.f-20 {
+  font-size: 20px;
+}
+.f-22 {
+  font-size: 22px;
+}
+.f-24 {
+  font-size: 24px;
+}
+.f-26 {
+  font-size: 26px;
+}
+
+.cor {
+  color: #0D6EFD;
+}
+
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
+
+.f-1 {
+  height: 1em;
+}
+.f-1-5 {
+  height: 1.5em;
+}
+
+.f-2 {
+  height: 2em;
+}
+
+.f-3 {
+  height: 3em;
+}
+
+
+@media (max-width: 450px) {
+  .bb {
+    font-size: 11px !important;
+  }
+  .w100 {
+    width: 95%;
+  }
+}
+
+@media (min-width: 550px) {
+    .bb {
+      font-size: 11px !important;
+    }
+   }
+
+   .btn-carrinho {
+    height: 3.1em;
+    margin: auto 0rem;
+    border-radius: 5px!important;
+    background: #e00b04;
+    border:1px solid #e00b04;
+    color: white;
+    transition: .3s all;
+    
+   }
+   .btn-carrinho:hover {
+    background: #fc241d;
+    border:1px solid #e00b04;
+    color: white;
+    transition: .3s all;
+    
+   }
+
+   .btn-carrinho-p {
+    height: auto;
+    margin: auto 0rem;
+    border-radius: 5px!important;
+    background: #FFBF53;
+    border:1px solid #FFBF53;
+    color: white;
+    transition: .3s all;
+    
+   }
+   .btn-carrinho-p:hover {
+    background: #FFBF53;
+    border:1px solid #da9826;
+    color: white;
+    transition: .3s all;
+    
+   }
+
+
+   .bg-soft {
+    background: #FFF8B9!important;
+   }
+
+   .cats .bg-soft {
+    position: relative;
+    height: 7.5em;
+    width: 6.5em;
+   }
+
+   .cats .bg-soft b {
+    position: absolute;
+    bottom: 0.5rem;
+   }
+   .cats .bg-soft img {
+    width: 100%!important;
+    bottom: 0.5rem;
+   }
+
+   .baner-loja {
+    background: url(./imgs/ban-loja.png) center center ;
+    background-position: 100% 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 45vh;
+   }
+
+   .baner-loja .detalhe-merc {
+    background: #131414a8;
+    color: white;
+   }
+   
+   .carrinh {
+    animation: g 1s ease-in-out infinite;
+
+   }
+
+   @keyframes g {
+      0% {
+        transform: translateY(10px);
+      }
+      50% {
+
+        transform: translateY(-10px);
+
+      }
+      100% {
+
+        transform: translateY(10px);
+
+      }
+   }
+
+
+   @media (max-width: 768px) {
+    .my-cart button{
+      z-index: 999;
+      position: fixed;
+      bottom: 1rem;
+      box-shadow: 2px 3px 9px #d9d9d9;
+      margin: 1rem auto !important;
+      left: 0;
+      right: 0;
+      width: 90% !important;
+      padding: .7rem;
+      height: 4.5em;
+      display: flex;
+      justify-content: space-between;
+
+    }
+
+    .my-cart button .bi-cart {
+      float: right !important;
+    }
+    .logo {
+      display: none !important;
+    }
+
+    .my-nav {
+      padding: .5rem 1rem;
+      height: 5.5em !important;
+    }
+    .my-s-dic {
+      width: 100% !important;
+    }
+    .tot1 {
+      display: block !important;
+    }
+    .tot {
+      font-weight: 400!important;
+    }
+    .tot .tot1 {
+      font-weight: bolder;
+      margin-right: .3rem;
+    }
+
+
+  .loginn .bii {
+    position: absolute;
+    top: .3rem;
+    border-radius: 5px!important;
+    background: red;
+    padding: .5rem;
+    height: 1.2em;
+    width: 1.2em;
+    display: grid;
+    place-content: center!important;
+    font-size: 25px;
+    right: 1rem;
+}
+
+.loginn .bi {
+  display: block!important;
+  color: white;
+}
+
+.log {
+  display: none;
+}
+   }
+
+
+
+
+   .my-cartt {
+    z-index: 999;
+    position: fixed;
+    bottom: 1rem;
+    box-shadow: 2px 3px 9px #d9d9d9;
+    margin: 1rem auto !important;
+    left: 0;
+    right: 0;
+    width: 90% !important;
+    padding: .7rem;
+    height: 4em;
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .tot1 {
+    display: none;
+  }
+
+  .tot {
+    font-weight: bold;
+  }
+
+  
+  @media (min-width: 780px) {
+    .carrinho {
+      width: 70%;
+      margin: .5px auto;
+    }
+    .my-cartt {
+     width: 70% !important;
+   }
+  }
+
+  .s::placeholder {
+    color: gray;
+  }
+
+  .loginn .bi {
+    display: none;
+}
+.loginn .bi {
+    display: none;
+}

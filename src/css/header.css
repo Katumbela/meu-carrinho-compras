@@ -1,0 +1,80 @@
+.list ul li {
+    display: inline;
+    padding: .4rem;
+    font-size: 14px;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.logo {
+    height: 1.8em;
+  }  
+
+.list ul li:hover {
+    color: #0D6EFD;
+    transition: .2s;
+    /* border-bottom: 2px dotted #0066be;
+    border-spacing: 12px;
+    border-width: 5px; */
+    transition: .2s;
+    /* mask-border-outset: 10px; */
+}
+
+.bi-cart-fill{
+    font-size: 48px;
+}
+
+.cart .qnt{
+    top: -.5rem;
+    right: -.5rem;
+    background: rgb(37, 123, 37);
+    height: 1.3em;
+    width: 1.3em;
+    font-size: 14px;
+    color: white;
+    display: grid;
+    padding: .5rem;
+    border-radius: 90px;
+    place-content: center;
+}
+
+.carousel-indicators button {
+    width: .5em!important;
+    height: .5em!important;
+}
+
+@media (max-width: 700px) {
+
+.logo {
+    height: 1.3em;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+    .logo {
+        margin-left: 1rem; 
+    }
+    .list ul li {
+        padding-right: .6rem;
+        font-size: 12px;
+    }
+    .list {
+        margin-top: .2em;
+        margin-left: -1.1rem;
+    }
+        
+    .bi-search {
+        margin-right: 1.5rem;
+    }
+}
+
+.link {
+    text-decoration: none!important;
+    color: rgb(41, 41, 41);
+}
+
+.dados {
+    font-weight: 300;
+}
+
+

@@ -1,0 +1,42 @@
+.card_curso, .corpo-curso {
+    width: 13rem;
+}
+
+.card_curso .card-header img {
+    width: 100%;
+    height: 8.5em;
+}
+
+.spa1{
+    color: gray;
+    font-size: 10px;
+}
+
+.spa{
+    color: gray;
+    font-size: 12px;
+}
+
+.corpo-curso .b{
+    color: #202020;
+    font-weight: 450;
+    font-size: 14px;
+}
+
+.corpo-curso {
+    height: 8rem;
+    position: relative;
+}
+
+.corpo-curso .preco{
+    position: absolute;
+    bottom: 0;
+    font-size: 15px;
+    font-weight: 400 ;
+}
+
+.banner-l-curso {
+    background: url(../imgs/logo.png) center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
