@@ -8,6 +8,8 @@ import Lojas from '../components/lojas';
 import DivLoja from '../components/loja/div_prods';
 import Produtos from '../components/loja/produtos';
 import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Home = ( {handleClick, cart, adicionar, remover}) => {
   
