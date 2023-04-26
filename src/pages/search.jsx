@@ -36,7 +36,7 @@ const Search = ({cart, handleClick, adicionar, remover}) => {
         <h2>Pesquise um produto</h2>
        
         </div>
-        <div className="d-flex border rounded-2 py-1 px-3">
+        <div className="d-flex border rounded-2 py-1 px-md-3 px-1">
             <i className="bi text-secondary bi-search my-auto"></i>
             <input type="text" placeholder='Pesquise por... ' style={{border: 'none', outline: 'none'}}  className="px-3 s my-auto" />
 
