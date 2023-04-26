@@ -36,18 +36,20 @@ const Merchant = (props) => {
             </p>
         </div>
       </div>
-      <BannerPreto>
+      {/* <BannerPreto>
+       <div className="owl-carousel owl-theme">
         <NavLink style={{background: '#ff5e5eab', textDecoration: 'none'}} className='rounded-pill  text-white f-12 py-1 my-auto px-4'>Frutas & Vegetais</NavLink>
         <NavLink style={{background: '#ff5e5eab', textDecoration: 'none'}} className='rounded-pill  ms-2 text-white f-12 py-1 my-auto px-4'>Frutas & Vegetais</NavLink>
         <NavLink style={{background: '#ff5e5eab', textDecoration: 'none'}} className='rounded-pill  ms-2 text-white f-12 py-1 my-auto px-4'>Frutas & Vegetais</NavLink>
         <NavLink style={{background: '#ff5e5eab', textDecoration: 'none'}} className='rounded-pill  ms-2 text-white f-12 py-1 my-auto px-4'>Frutas & Vegetais</NavLink>
-      </BannerPreto>
+       </div>
+      </BannerPreto> */}
       <br />
       <div className="">
 
             <h2 className='mx-2 fw-normal'>Em promoção</h2>
             
-            <ProdutosM cat={'promo = 1 AND loja='+idloja} cart={cart}  handleClick={handleClick}  adicionar={adicionar} remover={remover} />
+            <ProdutosM cat={'promo=1 AND loja='+idloja} cart={cart}  handleClick={handleClick}  adicionar={adicionar} remover={remover} />
       </div>
 
       <div className="">
@@ -62,7 +64,7 @@ const Merchant = (props) => {
 
             <h2 className='mx-2 fw-normal'>Em Estoque</h2>
             
-            <ProdutosM cat={'cad=0 AND loja='+idloja} cart={cart} handleClick={handleClick}  adicionar={adicionar} remover={remover} />
+            <ProdutosM cat={'cad!=1 AND loja='+idloja} cart={cart} handleClick={handleClick}  adicionar={adicionar} remover={remover} />
             <br />
       </div>
       <br />
