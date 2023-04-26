@@ -1,7 +1,7 @@
 import Carousel from 'react-bootstrap/Carousel';
 import '../css/banners.css';
 import b1 from '../imgs/pub.png';
-import b2 from '../imgs/pub.webp';
+import b2 from '../imgs/pub.png';
 import pub1 from '../imgs/pub1.png';
 import pub2 from '../imgs/pub2.png';
 import pub3 from '../imgs/pub3.png';
