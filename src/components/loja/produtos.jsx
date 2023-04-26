@@ -1,6 +1,4 @@
-import produtos from '../../pages/lista_prods'; 
 import'../../css/div_loja.css'
-import Card from './card';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -11,25 +9,24 @@ import axios from 'axios';
 import Loader from '../loader';
 
 const Produtos = (props) => {
-    const {handleClick, adicionar, remover, pro_p_cat, cat, cart} = props;
+    const {handleClick, adicionar, remover, cat, cart} = props;
     const [lista_pro, setLista_pro] = useState([]);
 
     const getProds = async () =>  {
         const result = await axios.get('https://www.garimpo.ga/engenharias/produtos.php?cat='+cat);
-        
           setLista_pro(result.data);
     }
 
     useEffect(()=>{
         getProds();
-    }, [])
+    })
 
 
     return (
-  <div className='  text-center'>
+  <div className=' text-center'>
    
             {
-                lista_pro == "" && <center className='my-5'> <Loader/></center> 
+                lista_pro === "" && <center className='my-5'> <Loader/></center> 
             }
             <OwlCarousel className='owl-theme bans' navClass={['owl-prev','owl-next']} margin={15} responsiveClass={false}  dots={false} autoWidth={true} nav={false}>
                 {

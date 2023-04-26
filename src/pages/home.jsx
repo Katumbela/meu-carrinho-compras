@@ -5,7 +5,6 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import Banners from '../components/banners';
 import Lojas from '../components/lojas';
-import DivLoja from '../components/loja/div_prods';
 import Produtos from '../components/loja/produtos';
 import { NavLink } from 'react-router-dom';
 
@@ -39,7 +38,6 @@ const Home = ( {handleClick, cart, adicionar,  pro_p_cat, remover}) => {
  <h2>Farmàcia </h2>
     <NavLink to={'/produtos/ver_tudo/farmacia'} className="text-danger">Ver tudo</NavLink>
  </div>
-
   <br />
   <Produtos cat='farmacia' adicionar={adicionar} cart= {cart} handleClick={handleClick}/>
 </div>
