@@ -10,7 +10,17 @@ import Produtos from '../components/loja/produtos';
 import { NavLink } from 'react-router-dom';
 
 const Home = ( {handleClick, cart, adicionar, remover}) => {
-
+  
+  useEffect(() => {
+    axios.get('http://meucarrinho.epizy.com/request/products.php')
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+  
   document.title='Inicial | Meu Carrinho Compras';
   return (
     <div className="w-100">
