@@ -7,9 +7,10 @@ import { useEffect, useState } from "react";
 import Merchant from "./merchant";
 import DescProd from "../produtos/detalhe_prod";
 import Search from "./search";
+import Finalizar from "./finalizar";
 
 
-const Rotas = ( {cart, handleClick, adicionar, remover}) => {
+const Rotas = ( {cart, setCart, handleClick, adicionar, remover}) => {
 
       // useEffect(()=> {
       //   console.log('carrinho actualizado');
@@ -26,6 +27,7 @@ const Rotas = ( {cart, handleClick, adicionar, remover}) => {
                 <Route element = { <Merchant cart={cart} adicionar={adicionar} handleClick={handleClick} remover={remover} /> }  path="/merchants/mercant/ref/loja1" exact/>
                 <Route element = { <Loja cart={cart} handleClick={handleClick} /> }  path="/produtos/ver_tudo" exact/>
                 <Route element = { <Search cart={cart} handleClick={handleClick} /> }  path="/s/" exact/>
+                <Route element = { <Finalizar setCart={setCart} cart={cart} handleClick={handleClick} /> }  path="/finalizar" exact/>
             </Routes>
        </BrowserRouter>
    )

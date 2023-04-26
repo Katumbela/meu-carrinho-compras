@@ -1,8 +1,6 @@
 import './App.css';
 // Bootstrap CSS
-import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
-import "bootstrap/dist/js/bootstrap.bundle.min";
 import Rotas from './pages/rotas';
 import React, { useState } from 'react';
 
@@ -58,7 +56,7 @@ const App = () => {
 
 
   return (
-       <Rotas adicionar={adicionar} remover = {remover}  handleClick={handleClick} cart={cart} />
+       <Rotas adicionar={adicionar} setCart={setCart} remover = {remover}  handleClick={handleClick} cart={cart} />
      
   );
 }

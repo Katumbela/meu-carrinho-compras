@@ -135,7 +135,27 @@ const Cart = ({cart, handleClick, adicionar, remover}) => {
     <span className='f-16 fw-light'>{preco*0.14} Kz</span>
   </div>
 </div>
-
+  <br />
+  <hr />
+  <div className="cont">
+    <h5 className='text-dark'>Forma de pagamento</h5>
+    <div className="d-flex mt-4  gap-3">
+      <div className="d-flex flex-wrap justify-content-between">
+        <label htmlFor="">
+          <input type="radio" name="" id="" className="form-group-check" />
+          <span className="text-danger ms-2">PayPay</span>
+        </label>
+        <label className='mx-5' htmlFor="">
+          <input type="radio" name="" id="" className="form-group-check" />
+          <span className="text-danger ms-2">Transferencia</span>
+        </label>
+        <label htmlFor="">
+          <input type="radio" name="" id="" className="form-group-check" />
+          <span className="text-danger ms-2">MCX</span>
+        </label>
+      </div>
+    </div>
+  </div>
 </div>
 }
 
@@ -154,7 +174,7 @@ const Cart = ({cart, handleClick, adicionar, remover}) => {
                   </span>
                 </div>
                 <div className='my-auto'>
-                  <b className="fw-light text-white my-auto f-16">Finalizar <i className="bi bi-arrow-right-short "></i></b>
+                  <NavLink to={'/finalizar'} className="fw-light btn text-white my-auto f-16">Finalizar <i className="bi bi-arrow-right-short "></i></NavLink>
                 </div>
               </div>
           </div>
