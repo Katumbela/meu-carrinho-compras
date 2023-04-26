@@ -1,6 +1,4 @@
 import '../App.css';
-// Bootstrap CSS
-// Bootstrap Bundle JS
 import Header from '../components/header';
 import Footer from '../components/footer';
 import Banners from '../components/banners';

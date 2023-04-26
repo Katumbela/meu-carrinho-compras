@@ -180,7 +180,7 @@ const Cart = ({cart, handleClick, adicionar, remover}) => {
 
           <div className="  ">
 
-              <div className="bg-danger justify-content-between d-flex container my-cartt py-2 rounded-2">
+              <div className="bg-carrinho justify-content-between d-flex container my-cartt py-2 rounded-2">
                 <div className="d-flex flex-column">
                   <span className="f-12 text-white">{qnt} Itens</span>
                   <span className="text-white fw-light f-16">
