@@ -13,7 +13,6 @@ import axios from 'axios';
 
 const Home = ( {handleClick, cart, adicionar, remover}) => {
   
-  useEffect(() => {
     axios.get('http://meucarrinho.epizy.com/request/products.php')
       .then(response => {
         setData(response.data);
@@ -21,7 +20,6 @@ const Home = ( {handleClick, cart, adicionar, remover}) => {
       .catch(error => {
         console.log(error);
       });
-  }, []);
   
   document.title='Inicial | Meu Carrinho Compras';
   return (
