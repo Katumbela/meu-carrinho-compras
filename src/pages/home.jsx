@@ -11,6 +11,7 @@ import { NavLink } from 'react-router-dom';
 
 const Home = ( {handleClick, cart, adicionar,  pro_p_cat, remover}) => {
 
+  
   document.title='Inicial | Meu Carrinho Compras';
   return (
     <div className="w-100">
