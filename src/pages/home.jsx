@@ -11,7 +11,6 @@ import { NavLink } from 'react-router-dom';
 
 const Home = ( {handleClick, cart, adicionar,  pro_p_cat, remover}) => {
 
-  
   document.title='Inicial | Meu Carrinho Compras';
   return (
     <div className="w-100">
@@ -37,7 +36,7 @@ const Home = ( {handleClick, cart, adicionar,  pro_p_cat, remover}) => {
 
 <div className="prods px-xxl-4 px-2">
  <div className="justify-content-between d-flex">
- <h2>Farmàcia e bla bla</h2>
+ <h2>Farmàcia </h2>
     <NavLink to={'/produtos/ver_tudo/farmacia'} className="text-danger">Ver tudo</NavLink>
  </div>
 
