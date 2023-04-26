@@ -89,52 +89,52 @@ function Banners() {
 </OwlCarousel>
 <br />
 <div className="d-flex gap-3 flex-wrap cats">
-  <div className="bg-soft p-2 rounded-2 cursor-pointer">
+  <div className="bg-soft p-2 m-1 rounded-2 cursor-pointer">
     <img src={cat1} style={{width:'5em'}} alt="aaa" />
     <br />
     <b className='f-12 text-danger'>Batatas fritas</b>
   </div>
-  <div className="bg-soft p-2 rounded-2 cursor-pointer">
+  <div className="bg-soft p-2 m-1 rounded-2 cursor-pointer">
     <img src={cat2} style={{width:'5em'}} alt="aaa" />
     <br />
     <b className='f-12 text-danger'>Batatas fritas</b>
   </div>
-  <div className="bg-soft p-2 rounded-2 cursor-pointer">
+  <div className="bg-soft p-2 m-1 rounded-2 cursor-pointer">
     <img src={cat3} style={{width:'5em'}} alt="aaa" />
     <br />
     <b className='f-12 text-danger'>Batatas fritas</b>
   </div>
-  <div className="bg-soft p-2 rounded-2 cursor-pointer">
+  <div className="bg-soft p-2 m-1 rounded-2 cursor-pointer">
     <img src={cat4} style={{width:'5em'}} alt="aaa" />
     <br />
     <b className='f-12 text-danger'>Batatas fritas</b>
   </div>
-  <div className="bg-soft p-2 rounded-2 cursor-pointer">
+  <div className="bg-soft p-2 m-1 rounded-2 cursor-pointer">
     <img src={cat5} style={{width:'5em'}} alt="aaa" />
     <br />
     <b className='f-12 text-danger'>Batatas fritas</b>
   </div>
-  <div className="bg-soft p-2 rounded-2 cursor-pointer">
+  <div className="bg-soft p-2 m-1 rounded-2 cursor-pointer">
     <img src={cat3} style={{width:'5em'}} alt="aaa" />
     <br />
     <b className='f-12 text-danger'>Batatas fritas</b>
   </div>
-  <div className="bg-soft p-2 rounded-2 cursor-pointer">
+  <div className="bg-soft p-2 m-1 rounded-2 cursor-pointer">
     <img src={cat5} style={{width:'5em'}} alt="aaa" />
     <br />
     <b className='f-12 text-danger'>Batatas fritas</b>
   </div>
-  <div className="bg-soft p-2 rounded-2 cursor-pointer">
+  <div className="bg-soft p-2 m-1 rounded-2 cursor-pointer">
     <img src={cat5} style={{width:'5em'}} alt="aaa" />
     <br />
     <b className='f-12 text-danger'>Batatas fritas</b>
   </div>
-  <div className="bg-soft p-2 rounded-2 cursor-pointer">
+  <div className="bg-soft p-2 m-1 rounded-2 cursor-pointer">
     <img src={cat5} style={{width:'5em'}} alt="aaa" />
     <br />
     <b className='f-12 text-danger'>Batatas fritas</b>
   </div>
-  <div className="bg-soft p-2 rounded-2 cursor-pointer">
+  <div className="bg-soft p-2 m-1 rounded-2 cursor-pointer">
     <img src={cat5} style={{width:'5em'}} alt="aaa" />
     <br />
     <b className='f-12 text-danger'>Batatas fritas</b>
