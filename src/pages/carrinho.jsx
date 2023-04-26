@@ -142,15 +142,15 @@ const Cart = ({cart, handleClick, adicionar, remover}) => {
     <div className="d-flex mt-4  gap-3">
       <div className="d-flex flex-wrap justify-content-between">
         <label htmlFor="">
-          <input type="radio" name="" id="" className="form-group-check" />
+          <input type="radio" name="metodo" id="" className="form-group-check" />
           <span className="text-danger ms-2">PayPay</span>
         </label>
         <label className='mx-5' htmlFor="">
-          <input type="radio" name="" id="" className="form-group-check" />
+          <input type="radio" name="metodo" id="" className="form-group-check" />
           <span className="text-danger ms-2">Transferencia</span>
         </label>
         <label htmlFor="">
-          <input type="radio" name="" id="" className="form-group-check" />
+          <input type="radio" name="metodo" id="" className="form-group-check" />
           <span className="text-danger ms-2">MCX</span>
         </label>
       </div>
