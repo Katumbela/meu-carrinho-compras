@@ -10,7 +10,7 @@ import Search from "./search";
 import Finalizar from "./finalizar";
 
 
-const Rotas = ( {cart, setCart, handleClick, adicionar, remover}) => {
+const Rotas = ( {cart, setCart, handleClick, adicionar, pro_p_cat, remover}) => {
 
       // useEffect(()=> {
       //   console.log('carrinho actualizado');
@@ -21,13 +21,13 @@ const Rotas = ( {cart, setCart, handleClick, adicionar, remover}) => {
    return(
        <BrowserRouter>
             <Routes >
-                <Route element = { <Home adicionar={adicionar} remover={remover} handleClick={handleClick} cart={cart}/> }  path="/"  />
-                <Route element = { <DescProd adicionar={adicionar} remover={remover} cart={cart} handleClick={handleClick}  /> }  path="/produtos/store/:id" exact/>
-                <Route element = { <Cart adicionar={adicionar} remover={remover} cart={cart} handleClick={handleClick} /> }  path="/cart" exact/>
-                <Route element = { <Merchant cart={cart} adicionar={adicionar} handleClick={handleClick} remover={remover} /> }  path="/merchants/mercant/ref/loja1" exact/>
-                <Route element = { <Loja cart={cart} handleClick={handleClick} /> }  path="/produtos/ver_tudo" exact/>
-                <Route element = { <Search cart={cart} handleClick={handleClick} /> }  path="/s/" exact/>
-                <Route element = { <Finalizar setCart={setCart} cart={cart} handleClick={handleClick} /> }  path="/finalizar" exact/>
+                <Route element = { <Home pro_p_cat={pro_p_cat} adicionar={adicionar} remover={remover} handleClick={handleClick} cart={cart}/> }  path="/"  />
+                <Route element = { <DescProd pro_p_cat={pro_p_cat} adicionar={adicionar} remover={remover} cart={cart} handleClick={handleClick}  /> }  path="/produtos/store/:id" exact/>
+                <Route element = { <Cart pro_p_cat={pro_p_cat} adicionar={adicionar} remover={remover} cart={cart} handleClick={handleClick} /> }  path="/cart" exact/>
+                <Route element = { <Merchant pro_p_cat={pro_p_cat} cart={cart} adicionar={adicionar} handleClick={handleClick} remover={remover} /> }  path="/merchants/mercant/ref/:idloja" exact/>
+                <Route element = { <Loja pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/produtos/ver_tudo/:cat" exact/>
+                <Route element = { <Search pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/s/" exact/>
+                <Route element = { <Finalizar pro_p_cat={pro_p_cat} setCart={setCart} cart={cart} handleClick={handleClick} /> }  path="/finalizar" exact/>
             </Routes>
        </BrowserRouter>
    )

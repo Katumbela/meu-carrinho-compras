@@ -5,9 +5,11 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import DivLoja from '../components/loja/div_prods';
 import BannerPreto from '../components/banner_preto';
+import { useParams } from 'react-router-dom';
 
 const Loja = (props) => {
-  const {cart, handleClick} =props;
+  const {cat} = useParams();
+  const {cart, categoria, handleClick} =props;
 
     document.title='Categoria | MeuCarrinho Compras';
   
@@ -16,12 +18,12 @@ const Loja = (props) => {
       
       < Header cart={cart} />
       <BannerPreto>
-        Nome da categoria
+        Categoria: {cat}
       </BannerPreto>
       <br />
-      <h2 className='mx-2 fw-normal'>Compre $categoria online</h2>
+      <h2 className='mx-2 fw-normal'>Compre {cat} online</h2>
       <br />
-      <DivLoja cart={cart} handleClick={handleClick} />
+      <DivLoja cat={cat} cart={cart} handleClick={handleClick} />
       <br />
       <br />
       < Footer />

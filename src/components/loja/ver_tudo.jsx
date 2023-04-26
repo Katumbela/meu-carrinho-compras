@@ -8,14 +8,14 @@ import BannerPreto from '../components/banner_preto';
 
 const Loja = ({handleClick, cart, cat}) => {
 
-    document.title='Ver Todos os Produtos | AROTEC';
+    document.title='Ver Todos os Produtos | Meu Carrinho';
   
     return (
     <div className=" bg-light">
       
       < Header cart={cart} />
       <BannerPreto>
-        LOJA AROTEC
+        Meu Carrinho Compras
       </BannerPreto>
       <br />
       <br />

@@ -19,7 +19,7 @@ const Header = (props) => {
     <div className=" row my-nav" style={{height:'4em', borderBottom:'.5px solid red'}}>
             
         <div className="py-3 col-12 logo col-md-2 px-3" style={{ borderRight:'.5px solid red'}}>
-        <NavLink className="link my-auto" to="/" ><img src={logo} alt="logo carrinho" className='w-100 my-auto' /></NavLink> 
+        <NavLink className="link my-auto" to="/" ><img src={logo} alt="logo carrinho" style={{height: '2.2em'}} className=' my-auto' /></NavLink> 
         </div>
                 
         <div className='px-2 my-s-div  col-12 col-sm-3 my-auto col-md-2 '>

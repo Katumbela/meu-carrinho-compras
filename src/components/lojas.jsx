@@ -10,7 +10,9 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { NavLink } from 'react-router-dom';
 
-function Lojas() {
+function Lojas(props) {
+   const { pro_p_cat } = props;
+
   return (
     <>
     <div className="px-2 bg-light py-1">
@@ -28,10 +30,10 @@ function Lojas() {
                         <span className='f-14'>Aberto</span>
                         
                     </div>
-                    <NavLink to={'/merchants/mercant/ref/loja1'}>
+                    <NavLink to={'/merchants/mercant/ref/1'}>
                     <button style={{height:'2em'}} className="w-100 btn-carrinho-p mb-2">
                             Ir para Loja
-                        </button>
+                    </button>
                     </NavLink>
                     </div>
                 </div>

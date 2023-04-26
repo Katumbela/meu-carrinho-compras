@@ -10,12 +10,12 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import Loader from '../loader';
 
-const Produtos = (props) => {
+const ProdutosM = (props) => {
     const {handleClick, adicionar, remover, pro_p_cat, cat, cart} = props;
     const [lista_pro, setLista_pro] = useState([]);
 
     const getProds = async () =>  {
-        const result = await axios.get('https://www.garimpo.ga/engenharias/produtos.php?cat='+cat);
+        const result = await axios.get('https://www.garimpo.ga/engenharias/produto_merchants.php?cat='+cat);
         
           setLista_pro(result.data);
     }
@@ -43,4 +43,4 @@ const Produtos = (props) => {
 )
     }
 
-export default Produtos;
+export default ProdutosM;

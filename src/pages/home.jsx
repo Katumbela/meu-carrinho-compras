@@ -9,7 +9,7 @@ import DivLoja from '../components/loja/div_prods';
 import Produtos from '../components/loja/produtos';
 import { NavLink } from 'react-router-dom';
 
-const Home = ( {handleClick, cart, adicionar, remover}) => {
+const Home = ( {handleClick, cart, adicionar,  pro_p_cat, remover}) => {
 
   document.title='Inicial | Meu Carrinho Compras';
   return (
@@ -17,18 +17,18 @@ const Home = ( {handleClick, cart, adicionar, remover}) => {
       
       < Header cart={cart} />
       <div className="s">
-         < Banners />
+         <Banners />
       <br />
-      <Lojas />
+      <Lojas pro_p_cat={pro_p_cat}/>
       <br />
 
       <div className="prods px-xxl-4 px-2">
        <div className="justify-content-between d-flex">
        <h2>Bebidas, espumantes & Alcool</h2>
-       <NavLink to={'/produtos/ver_tudo'} className="text-danger">Ver tudo</NavLink>
+       <NavLink to={'/produtos/ver_tudo/bebida'} className="text-danger">Ver tudo</NavLink>
        </div>
         <br />
-        <Produtos adicionar={adicionar}  handleClick={handleClick} cart={cart}/>
+        <Produtos cat='bebida' pro_p_cat={pro_p_cat} adicionar={adicionar}  handleClick={handleClick} cart={cart}/>
       </div>
 
 <br />
@@ -37,10 +37,11 @@ const Home = ( {handleClick, cart, adicionar, remover}) => {
 <div className="prods px-xxl-4 px-2">
  <div className="justify-content-between d-flex">
  <h2>Farmàcia e bla bla</h2>
- <NavLink to={'/produtos/ver_tudo'} className="text-danger">Ver tudo</NavLink>
+    <NavLink to={'/produtos/ver_tudo/farmacia'} className="text-danger">Ver tudo</NavLink>
  </div>
+
   <br />
-  <Produtos adicionar={adicionar} cart= {cart} handleClick={handleClick}/>
+  <Produtos cat='farmacia' adicionar={adicionar} cart= {cart} handleClick={handleClick}/>
 </div>
 
       < Footer />

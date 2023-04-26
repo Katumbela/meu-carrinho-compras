@@ -4,12 +4,30 @@ import Produtos from '../components/loja/produtos';
 
 const Cart = ({cart, handleClick, adicionar, remover}) => {
 
+
   let preco = 0 ;
   let qnt = 0 ;
   cart.map((item) => (preco +=  item.preco * item.qty));
   cart.map((item) => (qnt +=  item.qty ));
 
 
+  let taxa = 0;
+  if(preco >= 500 & preco<=900) {
+    taxa = 350;
+  }
+  if(preco >= 910 & preco<=1900) {
+    taxa = 500;
+  }
+  if(preco >= 1910 & preco<=6999) {
+    taxa = 800;
+  }
+  if(preco >= 7000 & preco<=10000) {
+    taxa = 1000;
+  }
+
+  if(preco>10000) {
+    taxa = 2000;
+  }
 
   // const precos = () => {
   //   let ans = 0;
@@ -92,7 +110,7 @@ const Cart = ({cart, handleClick, adicionar, remover}) => {
                   <div>
                     <div className="d-flex gap-2">
                       <div className="imgg border ">
-                        <img src={item.img} style={{height: '3.5em'}} alt="" />
+                        <img src={'https://www.garimpo.ga/engenharias/img/'+item.img} style={{height: '3.5em'}} alt="" />
                       </div>
                       <div className="item_desc w-100">
                         <span className='fw-light'>{item.tit}</span>
@@ -116,7 +134,7 @@ const Cart = ({cart, handleClick, adicionar, remover}) => {
 <div className="">
 <div className="pub">
 <h5>Antes de finalizar...</h5>
-<Produtos cart={cart} handleClick={handleClick}/>
+<Produtos cat='bebida' cart={cart} handleClick={handleClick}/>
 </div>
 
 
@@ -127,12 +145,8 @@ const Cart = ({cart, handleClick, adicionar, remover}) => {
     <span className='f-16 fw-light'>{preco} Kz</span>
   </div>
   <div style={{borderTop: '.8px dotted #d9d9d9'}} className="d-flex py-1 justify-content-between">
-    <b className="f-16 fw-normal">Taxa de Entrega</b>
-    <span className='f-16 fw-light'>{preco*0.5} Kz</span>
-  </div>
-  <div style={{borderTop: '.8px dotted #d9d9d9'}} className="d-flex pt-1 justify-content-between">
-    <b className="f-16 fw-normal">Taxa de IVA</b>
-    <span className='f-16 fw-light'>{preco*0.14} Kz</span>
+    <b className="f-16 fw-normal">Taxa de Serviço</b>
+    <span className='f-16 fw-light'>{taxa} Kz</span>
   </div>
 </div>
   <br />
@@ -141,16 +155,16 @@ const Cart = ({cart, handleClick, adicionar, remover}) => {
     <h5 className='text-dark'>Forma de pagamento</h5>
     <div className="d-flex mt-4  gap-3">
       <div className="d-flex flex-wrap justify-content-between">
-        <label htmlFor="">
-          <input type="radio" name="metodo" id="" className="form-group-check" />
+        <label htmlFor="r1">
+          <input type="radio" name="metodo" id="r1" className="form-group-check" />
           <span className="text-danger ms-2">PayPay</span>
         </label>
-        <label className='mx-5' htmlFor="">
-          <input type="radio" name="metodo" id="" className="form-group-check" />
+        <label className='mx-5' htmlFor="r2">
+          <input type="radio" name="metodo" id="r2" className="form-group-check" />
           <span className="text-danger ms-2">Transferencia</span>
         </label>
-        <label htmlFor="">
-          <input type="radio" name="metodo" id="" className="form-group-check" />
+        <label htmlFor="r3">
+          <input type="radio" name="metodo" id="r3" className="form-group-check" />
           <span className="text-danger ms-2">MCX</span>
         </label>
       </div>
@@ -170,7 +184,7 @@ const Cart = ({cart, handleClick, adicionar, remover}) => {
                 <div className="d-flex flex-column">
                   <span className="f-12 text-white">{qnt} Itens</span>
                   <span className="text-white fw-light f-16">
-                    Total: {preco + preco*0.5 + preco*0.14} Kzs
+                    Total: {preco + taxa} Kzs
                   </span>
                 </div>
                 <div className='my-auto'>
