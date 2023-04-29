@@ -28,7 +28,7 @@ const Mob = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
             <div className="bg-white nav-b justify-content-between d-flex px-3 py-3" style={{}}>
                 <img src={bann} style={{ height: '1.6em' }} alt="" />
                 <div className="d-flex">
-                    <NavLink to={'/track'} className={'text-danger f-14 me-2 my-auto'} style={{ textDecoration: 'none' }}>Rastrear Pedido</NavLink>
+                    <NavLink to={'/track/123456789'} className={'text-danger f-14 me-2 my-auto'} style={{ textDecoration: 'none' }}>Rastrear Pedido</NavLink>
                     <NavLink to={'/pedido'} className={'btn btn-outline-danger f-14 rounded-1 shadow'}> Solicitar</NavLink>
                 </div>
             </div>
