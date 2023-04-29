@@ -106,7 +106,7 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
         <div className="w-100">
             <div className="bg-white nav-b fixed justify-content-between d-flex px-3 py-3" style={{}}>
                 <NavLink to={'/'}>
-                    <img src={bann} style={{ height: '2em' }} alt="" />
+                    <img src={bann} style={{ height: '1.6em' }} alt="" />
                 </NavLink>
                 <NavLink to={'/login'} className={'btn btn-outline-danger f-14 rounded-1 shadow'}> <i className="bi bi-person"></i></NavLink>
             </div>
