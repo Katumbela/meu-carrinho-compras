@@ -54,7 +54,7 @@ const Mob = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     <img src={mob4} className='w-100' alt="" />
                 </div>
             </div>
-            <a href='https://wa.me/244934131274' style={{ border: '1px solid yellow' }} className="suporte rounded-pill color-white px-3 d-flex bg-danger py-1">
+            <a href='https://wa.me/244934131274' style={{textDecoration:'none', border: '1px solid yellow' }} className="suporte rounded-pill color-white px-3 d-flex bg-danger py-1">
                 <span className='text-white me-2'>Suporte </span>
                 <i className="bi bi-headset text-white"></i>
             </a>
@@ -66,8 +66,8 @@ const Mob = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     <i className="bi bi-whatsapp"></i>
                 </div>
                 <div className="text-start">
-                    <span className="text-white">Parceiros</span><br />
-                    <span className="text-white">Agentes</span><br />
+                    <NavLink to={'/parceiro'} className="text-white">Parceiros</NavLink><br />
+                    <NavLink to={'/agente'} className="text-white">Agentes</NavLink><br />
                     <span className="text-white">Termos & Condições</span>
                 </div>
                 <hr />

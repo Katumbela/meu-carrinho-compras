@@ -12,6 +12,8 @@ import Mob from "./mobilidade";
 import Formulario from "./formulario";
 import Login from "./login";
 import Track from "./rastrear";
+import Agente from "./agente/dashboard.agente";
+import Parceiro from "./parceiro/dashboard.parceiro";
 
 
 const Rotas = ( {cart, setCart, handleClick, adicionar, pro_p_cat, remover}) => {
@@ -33,6 +35,8 @@ const Rotas = ( {cart, setCart, handleClick, adicionar, pro_p_cat, remover}) => 
                 <Route element = { <Loja pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/produtos/ver_tudo/:cat" exact/>
                 <Route element = { <Search pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/s/" exact/>
                 <Route element = { <Formulario pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/pedido" exact/>
+                <Route element = { <Agente pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/agente" exact/>
+                <Route element = { <Parceiro pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/parceiro" exact/>
                 <Route element = { <Login pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/login" exact/>
                 <Route element = { <Track pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/track" exact/>
                 <Route element = { <Finalizar pro_p_cat={pro_p_cat} setCart={setCart} cart={cart} handleClick={handleClick} /> }  path="/finalizar" exact/>

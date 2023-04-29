@@ -1,13 +1,13 @@
-import '../App.css';
-import ban from '../imgs/del.jpg'
-import bann from '../imgs/logo.png'
-import bg from '../imgs/bg-nav.jpg'
-import '../css/mob.css'
+import '../../App.css';
+import ban from '../../imgs/del.jpg'
+import bann from '../../imgs/logo.png'
+import bg from '../../imgs/bg-nav.jpg'
+import '../../css/mob.css'
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
+const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
@@ -329,4 +329,4 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     );
 }
 
-export default Formulario;
+export default Agente;
