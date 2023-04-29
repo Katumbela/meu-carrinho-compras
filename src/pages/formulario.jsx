@@ -15,8 +15,10 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     const [tel, setTel] = useState("");
     const [address1, setAd1] = useState("");
     const [address2, setAd2] = useState("");
+    const [nome2, setN2] = useState("");
+    const [tel2, setTel2] = useState("");
     const [mensagem, setMensagem] = useState("");
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedI2n] = useState(false);
     const randomNum = Math.floor(Math.random() * 90000000) + 10000000;
     let taxa = 0;
     const [price, setPrice] = useState("");
@@ -165,6 +167,16 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
                 <br />
 
+                <div className="input py-2">
+                    <span className="text-secondary f-14">Nome <span className="text-danger">*</span></span>
+                    <input type="text" autoComplete='false' value={nome2} onChange={(e) => setN2(e.target.value)} name="" placeholder='Digite o nome da pessoa' id="" className="form-control in" />
+                   
+                </div>
+                <div className="input py-2">
+                    <span className="text-secondary f-14">Telefone <span className="text-danger">*</span></span>
+                    <input  type="text" autoComplete='false' value={nome2} onChange={(e) => setN2(e.target.value)} name="" placeholder='Digite o tel da pessoa' id="" className="form-control in" />
+                  
+                </div>
                 <div className="input py-2">
                     <span className="text-secondary f-14">Endereço <span className="text-danger">*</span></span>
                     <input list='opcoes' type="text" autoComplete='false' value={address2} onChange={(e) => setAd2(e.target.value)} name="" placeholder='Digite o endereço' id="" className="form-control in" />
