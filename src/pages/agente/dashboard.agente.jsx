@@ -23,12 +23,17 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     const handleCadastro = async () =>  {
         setLoad(true);
-       await axios.post("http://www.garimpo.ga/engenharias/signup.php", {
+       await axios.post("https://www.garimpo.ga/engenharias/signup.php", {
             nome: nome,
             email: email,
             tel: tel,
             end: address1,
         }).then((res) => {
+            res.setHeader("Access-Control-Allow-Origin", "*");
+		res.setHeader("Access-Control-Allow-Credentials", "true");
+		res.setHeader("Access-Control-Max-Age", "1800");
+		res.setHeader("Access-Control-Allow-Headers", "content-type");
+		res.setHeader("Access-Control-Allow-Methods","PUT, POST, GET, DELETE, PATCH, OPTIONS");
             setLoad(false);
             setMensagem(res.data.mensagem);
         }).catch((err) => {
