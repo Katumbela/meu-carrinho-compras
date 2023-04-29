@@ -21,13 +21,13 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     const options = ['Futungo', 'Sequele', 'Cacuaco', 'Cidade', 'Maianga', 'Porto de Luanda', 'Zango 5mil', 'zango 8mil', 'Viana', 'Zango 3', 'Mártires', 'Zango 4', 'Kimbangu', 'Aeroporto', 'Zango 2', 'Rocha Pinto', 'Zango 8000', 'Zango 5000', 'Kapolo', 'Zango 1', 'São Paulo', 'Kilamba', 'Cassenda', 'Nova vida', 'Golf 2', 'Mutamba', 'Golf 1', 'Via Expressa', 'camama', 'patriota', 'benfica', 'Zango 0', 'Alvalade', 'Vila Alice', 'Projecto Nova Vida', 'Gamek', 'Talatona', 'Morro Bento', 'Kinaxixi', 'Miramar'];
 
 
-    const handleCadastro = async () =>  {
+    const handleCadastro =  () =>  {
         setLoad(true);
-       await axios.post("https://www.garimpo.ga/engenharias/signup.php", {
-            nome: nome,
-            email: email,
-            tel: tel,
-            end: address1,
+        axios.post("https://www.garimpo.ga/engenharias/signup.php", {
+            nome: 'nome',
+            email: 'email',
+            tel: 'tel',
+            end: 'address1',
         }).then((res) => {
           
             
