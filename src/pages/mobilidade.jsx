@@ -54,10 +54,10 @@ const Mob = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     <img src={mob4} className='w-100' alt="" />
                 </div>
             </div>
-            <div style={{ border: '1px solid yellow' }} className="suporte rounded-pill color-white px-3 d-flex bg-danger py-1">
+            <a href='https://wa.me/244934131274' style={{ border: '1px solid yellow' }} className="suporte rounded-pill color-white px-3 d-flex bg-danger py-1">
                 <span className='text-white me-2'>Suporte </span>
                 <i className="bi bi-headset text-white"></i>
-            </div>
+            </a>
             <footer className='bg-danger text-white text-center p-2'>
 
                 <div className="d-flex justify-content-center">

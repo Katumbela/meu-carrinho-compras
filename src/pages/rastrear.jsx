@@ -39,7 +39,7 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
   }, []);
 
   if (!position) {
-    return <div>Carregando...</div>;
+    return <div>Carregando a pagina...</div>;
   }
 
 
@@ -76,6 +76,10 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 </center>
 <br />
  <div>
+  <center>
+  <button className="btn mx-auto f-14 rounded-1 btn-outline-danger">Confirmar recebimento / Entrega</button>
+  </center>
+  <br />
       <h2 className='text-danger f-lilita'>Localização do seu pedido</h2>
       <p>Latitude: {position.lat}</p>
       <p>Longitude: {position.lng}</p>

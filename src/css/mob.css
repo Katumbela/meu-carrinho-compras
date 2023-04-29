@@ -1,6 +1,7 @@
 .nav-b {
     background: url('../imgs/bg-nav.jpg') center center;
     background-size: cover;
+    z-index: 999;
 }
 
 .suporte {
