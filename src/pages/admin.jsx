@@ -78,14 +78,14 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     </thead>
                     <tbody>
 
-//                         {message.map((item, index) => (
+  {/* {message.map((item, index) => (
 
-//                             <tr key={index}>
-//                                 <td>{item.nome}</td>
-//                                 <td>{item.telefone}</td>
-//                                 <td>{item.email}</td>
-//                             </tr>
-//                         ))}
+                            <tr key={index}>
+                                <td>{item.nome}</td>
+                                <td>{item.telefone}</td>
+                                <td>{item.email}</td>
+                            </tr>
+                        ))} */}
 
                     </tbody>
                 </table>
