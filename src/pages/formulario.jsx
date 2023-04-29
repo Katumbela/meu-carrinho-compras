@@ -6,6 +6,8 @@ import '../css/mob.css'
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
@@ -79,29 +81,32 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     const options = ['Futungo', 'Sequele', 'Cacuaco', 'Cidade', 'Maianga', 'Porto de Luanda', 'Zango 5mil', 'zango 8mil', 'Viana', 'Zango 3', 'Mártires', 'Zango 4', 'Kimbangu', 'Aeroporto', 'Zango 2', 'Rocha Pinto', 'Zango 8000', 'Zango 5000', 'Kapolo', 'Zango 1', 'São Paulo', 'Kilamba', 'Cassenda', 'Nova vida', 'Golf 2', 'Mutamba', 'Golf 1', 'Via Expressa', 'camama', 'patriota', 'benfica', 'Zango 0', 'Alvalade', 'Vila Alice', 'Projecto Nova Vida', 'Gamek', 'Talatona', 'Morro Bento', 'Kinaxixi', 'Miramar'];
 
 
-    // function handleCadastro(e) {
-    //     e.preventDefault();
-    //     axios
-    //         .post("http://www.garimpo.ga/engenharias/check_login.php", {
-    //             nome: nome,
-    //             email: email,
-    //             artigo: artigo,
-    //         })
-    //         .then((res) => {
-    //             setMensagem(res.data.mensagem);
-    //         })
-    //         .catch((err) => {
-    //             console.error(err);
-    //         });
-    // }
 
-    // useEffect(() => {
-    //     const checkLogin = async () => {
-    //         const response = await axios.get('http://seusite.com/check_login.php');
-    //         setLoggedIn(response.data.logged_in);
-    //     }
-    //     checkLogin();
-    // }, []);
+    const [message, setMessage] = useState([]);
+    const [load, setLoad] = useState(false);
+
+    const instance = axios.create({
+        baseURL: 'https://www.garimpo.ga/engenharias/',
+        changeOrigin: true,
+    });
+
+    const handleCadastro = () => {
+        setLoad(true);
+        instance.get('signup.php?nome=' + nome + '&email=' + email + '&endereco' + address1 + '&tel=' + tel)
+            .then((response) => {
+                setMessage(response.data);
+                console.log(response.data)
+                setLoad(false);
+                toast.success('Seus dados foram enviados com sucesso!');
+            })
+            .catch(error => {
+                setMessage(error);
+                console.log(error);
+                setLoad(false);
+                toast.error('Ocorreu um erro, verifique sua conexão!');
+            });
+    }
+
 
     document.title = 'Mobilidade | Meu Carrinho ';
     return (
@@ -110,7 +115,7 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <NavLink to={'/'}>
                     <img src={bann} style={{ height: '1.6em' }} alt="" />
                 </NavLink>
-                <NavLink to={'/login'} className={'btn btn-outline-danger f-14 rounded-1 shadow'}> <i className="bi bi-person"></i></NavLink>
+                <b className="text-danger f-lilita">Solicitar Serviço</b>
             </div>
             <br /><br /><br /><br />
 
