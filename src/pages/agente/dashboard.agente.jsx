@@ -29,11 +29,8 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
             tel: tel,
             end: address1,
         }).then((res) => {
-            res.setHeader("Access-Control-Allow-Origin", "*");
-		res.setHeader("Access-Control-Allow-Credentials", "true");
-		res.setHeader("Access-Control-Max-Age", "1800");
-		res.setHeader("Access-Control-Allow-Headers", "content-type");
-		res.setHeader("Access-Control-Allow-Methods","PUT, POST, GET, DELETE, PATCH, OPTIONS");
+          
+            
             setLoad(false);
             setMensagem(res.data.mensagem);
         }).catch((err) => {
