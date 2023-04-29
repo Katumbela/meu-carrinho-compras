@@ -42,7 +42,7 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
             <br /><br />
             <div className="container">
                 <h3 className="f-lilita text-danger">Agentes Cadastrados</h3>
-                <table className='table table-hover table-striped'>
+                <table className='table f-12 table-hover table-striped'>
                     <thead>
                         <tr>
                             <th>Nome</th>
@@ -78,14 +78,14 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     </thead>
                     <tbody>
 
-                        {message.map((item, index) => (
+//                         {message.map((item, index) => (
 
-                            <tr key={index}>
-                                <td>{item.nome}</td>
-                                <td>{item.telefone}</td>
-                                <td>{item.email}</td>
-                            </tr>
-                        ))}
+//                             <tr key={index}>
+//                                 <td>{item.nome}</td>
+//                                 <td>{item.telefone}</td>
+//                                 <td>{item.email}</td>
+//                             </tr>
+//                         ))}
 
                     </tbody>
                 </table>
