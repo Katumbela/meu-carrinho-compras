@@ -6,37 +6,36 @@ import '../../css/mob.css'
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Loader from '../../components/loader';
 
 const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
-    const [artigo, setArtigo] = useState("");
     const [tel, setTel] = useState("");
     const [address1, setAd1] = useState("");
-    const [address2, setAd2] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [loggedIn, setLoggedIn] = useState(false);
-   
+    const [load, setLoad] = useState(false);
 
     const options = ['Futungo', 'Sequele', 'Cacuaco', 'Cidade', 'Maianga', 'Porto de Luanda', 'Zango 5mil', 'zango 8mil', 'Viana', 'Zango 3', 'Mártires', 'Zango 4', 'Kimbangu', 'Aeroporto', 'Zango 2', 'Rocha Pinto', 'Zango 8000', 'Zango 5000', 'Kapolo', 'Zango 1', 'São Paulo', 'Kilamba', 'Cassenda', 'Nova vida', 'Golf 2', 'Mutamba', 'Golf 1', 'Via Expressa', 'camama', 'patriota', 'benfica', 'Zango 0', 'Alvalade', 'Vila Alice', 'Projecto Nova Vida', 'Gamek', 'Talatona', 'Morro Bento', 'Kinaxixi', 'Miramar'];
 
 
-    // function handleCadastro(e) {
-    //     e.preventDefault();
-    //     axios
-    //         .post("http://www.garimpo.ga/engenharias/check_login.php", {
-    //             nome: nome,
-    //             email: email,
-    //             artigo: artigo,
-    //         })
-    //         .then((res) => {
-    //             setMensagem(res.data.mensagem);
-    //         })
-    //         .catch((err) => {
-    //             console.error(err);
-    //         });
-    // }
+    const handleCadastro = async () =>  {
+        setLoad(true);
+       await axios.post("http://www.garimpo.ga/engenharias/signup.php", {
+            nome: nome,
+            email: email,
+            tel: tel,
+            end: address1,
+        }).then((res) => {
+            setLoad(false);
+            setMensagem(res.data.mensagem);
+        }).catch((err) => {
+            console.error(err);
+            setLoad(false);
+        });
+    }
 
     // useEffect(() => {
     //     const checkLogin = async () => {
@@ -75,8 +74,8 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
 
                 <h5 className="f-lilita text-danger">Seja um agente carrinho</h5>
-                    <span className="text-secondary f-14">Faça seu cadastro </span>
-                    <br />
+                <span className="text-secondary f-14">Faça seu cadastro </span>
+                <br />
 
                 <div className="input py-2">
                     <span className="text-secondary f-14">Nome <span className="text-danger">*</span></span>
@@ -104,9 +103,20 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <br />
                 <br />
 
-                <button disabled={!address1 || !address2 || !nome || !tel || !artigo} data-bs-toggle="modal" data-bs-target="#staticBackdrop" className="btn rounded-1 w-100 btn-danger">
-                    Terminar cadastro
-                </button>
+                {
+                    mensagem
+                }
+
+                {
+                    load == false ?
+                        <button disabled={!address1 || !nome || !tel} onClick={() => handleCadastro()} className="btn rounded-1 w-100 btn-danger">
+                            Terminar cadastro
+                        </button>
+                        :
+                        <center>
+                            <Loader />
+                        </center>
+                }
                 <br />
                 <br />
                 <br />
