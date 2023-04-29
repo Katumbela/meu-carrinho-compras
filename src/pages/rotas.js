@@ -14,6 +14,7 @@ import Login from "./login";
 import Track from "./rastrear";
 import Agente from "./agente/dashboard.agente";
 import Parceiro from "./parceiro/dashboard.parceiro";
+import Admin from "./admin";
 
 
 const Rotas = ( {cart, setCart, handleClick, adicionar, pro_p_cat, remover}) => {
@@ -28,6 +29,7 @@ const Rotas = ( {cart, setCart, handleClick, adicionar, pro_p_cat, remover}) => 
        <BrowserRouter>
             <Routes >
                 <Route element = { <Mob pro_p_cat={pro_p_cat} adicionar={adicionar} remover={remover} handleClick={handleClick} cart={cart}/> }  path="/"  />
+                <Route element = {<Admin pro_p_cat={pro_p_cat} adicionar={adicionar} remover={remover} handleClick={handleClick} cart={cart}/> }  path="/admin"  />
                 <Route element = { <Home pro_p_cat={pro_p_cat} adicionar={adicionar} remover={remover} handleClick={handleClick} cart={cart}/> }  path="/compras"  />
                 <Route element = { <DescProd pro_p_cat={pro_p_cat} adicionar={adicionar} remover={remover} cart={cart} handleClick={handleClick}  /> }  path="/produtos/store/:id" exact/>
                 <Route element = { <Cart pro_p_cat={pro_p_cat} adicionar={adicionar} remover={remover} cart={cart} handleClick={handleClick} /> }  path="/cart" exact/>

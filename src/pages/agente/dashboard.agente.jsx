@@ -7,6 +7,9 @@ import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loader from '../../components/loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
@@ -18,23 +21,45 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [load, setLoad] = useState(false);
 
-    const options = ['Futungo', 'Sequele', 'Cacuaco', 'Cidade', 'Maianga', 'Porto de Luanda', 'Zango 5mil', 'zango 8mil', 'Viana', 'Zango 3', 'Mártires', 'Zango 4', 'Kimbangu', 'Aeroporto', 'Zango 2', 'Rocha Pinto', 'Zango 8000', 'Zango 5000', 'Kapolo', 'Zango 1', 'São Paulo', 'Kilamba', 'Cassenda', 'Nova vida', 'Golf 2', 'Mutamba', 'Golf 1', 'Via Expressa', 'camama', 'patriota', 'benfica', 'Zango 0', 'Alvalade', 'Vila Alice', 'Projecto Nova Vida', 'Gamek', 'Talatona', 'Morro Bento', 'Kinaxixi', 'Miramar'];
 
+    // const handleCadastro =  () =>  {
+    //     setLoad(true);
+    //     axios.post("https://www.garimpo.ga/engenharias/signup.php", {
+    //         nome: 'nome',
+    //         email: 'email',
+    //         tel: 'tel',
+    //         end: 'address1',
+    //     }).then((res) => {
+    //         setLoad(false);
+    //         alert(res.data);
+    //     }).catch((err) => {
+    //         alert(err);
+    //         setLoad(false);
+    //     });
+    // }
 
-    const handleCadastro =  () =>  {
+    const [message, setMessage] = useState([]);
+
+    const instance = axios.create({
+        baseURL: 'https://www.garimpo.ga/engenharias/',
+        changeOrigin: true,
+    });
+
+    const handleCadastro = () => {
+        toast.success('Ação realizada com sucesso!');
         setLoad(true);
-        axios.post("https://www.garimpo.ga/engenharias/signup.php", {
-            nome: 'nome',
-            email: 'email',
-            tel: 'tel',
-            end: 'address1',
-        }).then((res) => {
-            setLoad(false);
-            setMensagem(res.data);
-        }).catch((err) => {
-            console.error(err);
-            setLoad(false);
-        });
+        instance.get('signup.php?nome=' + nome + '&email=' + email + '&endereco' + address1 + '&tel=' + tel)
+            .then((response) => {
+                setMessage(response.data);
+                console.log(response.data)
+                setLoad(false);
+            })
+            .catch(error => {
+                setMessage(error);
+                console.log(error);
+                setLoad(false);
+                toast.success('Ação realizada com sucesso!');
+            });
     }
 
     // useEffect(() => {
@@ -52,7 +77,7 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <NavLink to={'/'}>
                     <img src={bann} style={{ height: '1.6em' }} alt="" />
                 </NavLink>
-                <NavLink to={'/login'} className={'btn btn-outline-danger f-14 rounded-1 shadow'}> <i className="bi bi-person"></i></NavLink>
+                <b className="text-danger f-lilita">Cadastro Agente</b>
             </div>
             <br /><br /><br /><br />
 
@@ -73,10 +98,33 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
 
 
+
+               {
+                message == 'sucesso' ? 
+                <div>
+                    <center>
+                        <br />
+                        <span className=" p-1 anim-scale rounded-circle" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', placeContent: 'center' }}>
+                        <i className="bi bi-hand-thumbs-up-fill f-60 text-danger"></i>
+                    </span>
+                        <br />
+                        <b className="f-lilita text-danger f-30">Seu Cadastro foi recebido com sucesso agente {nome.split(" ")[0]}</b>
+                        <br />
+
+                           <p className="f-20 text-secondary">Entraremos em contacto</p>
+
+<NavLink to={'/'} className="btn btn-outline-danger">
+    OK
+</NavLink>
+                    </center>
+                </div>
+                :
+                <div className="formulario">
                 <h5 className="f-lilita text-danger">Seja um agente carrinho</h5>
                 <span className="text-secondary f-14">Faça seu cadastro </span>
                 <br />
 
+                <br />
                 <div className="input py-2">
                     <span className="text-secondary f-14">Nome <span className="text-danger">*</span></span>
                     <input value={nome} onChange={(e) => setNome(e.target.value)} type="text" name="" placeholder='Nome completo' id="" className="form-control in" />
@@ -91,12 +139,8 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 </div>
                 <div className="input py-2">
                     <span className="text-secondary f-14">Endereço <span className="text-danger">*</span></span>
-                    <input list='opcoes1' value={address1} onChange={(e) => { setAd1(e.target.value); }} type="text" name="" placeholder='Digite o endereço' id="" className="form-control in" />
-                    <datalist id="opcoes1">
-                        {options.map((option, index) => (
-                            <option key={index} value={option} />
-                        ))}
-                    </datalist>
+                    <input value={address1} onChange={(e) => { setAd1(e.target.value); }} type="text" name="" placeholder='Digite o endereço' id="" className="form-control in" />
+                   
                 </div>
                 <br />
                 <a href="#" className="text-danger">Termos & condições</a>
@@ -118,12 +162,21 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                         </center>
                 }
                 <br />
+            </div>
+               }
                 <br />
                 <br />
                 <br />
                 <br />
                 <br />
-
+                <br />
+                <center>
+                <img src={bann} style={{ height: '4.6em', opacity:'.1' }} alt="" />
+                </center>
+                <br />
+                <br />
+                <br />
+                
             </div>
 
 
