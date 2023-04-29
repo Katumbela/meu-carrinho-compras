@@ -21,7 +21,16 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [load, setLoad] = useState(false);
 
-
+    if (navigator.onLine) {
+      } else {
+        toast.error('Você está offline!');
+      }
+      
+    useEffect(()=>{
+        if (!navigator.onLine) {
+            toast.error('Você está offline!');
+          }
+    }, [])
     // const handleCadastro =  () =>  {
     //     setLoad(true);
     //     axios.post("https://www.garimpo.ga/engenharias/signup.php", {
@@ -52,11 +61,13 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 setMessage(response.data);
                 console.log(response.data)
                 setLoad(false);
+                toast.success('Seus dados foram enviados com sucesso!');
             })
             .catch(error => {
                 setMessage(error);
                 console.log(error);
                 setLoad(false);
+                toast.error('Ocorreu um erro, verifique sua conexão!');
             });
     }
 
@@ -71,6 +82,7 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     document.title = 'Mobilidade | Meu Carrinho ';
     return (
         <div className="w-100">
+        <ToastContainer />
             <div className="bg-white nav-b fixed justify-content-between d-flex px-3 py-3" style={{}}>
                 <NavLink to={'/'}>
                     <img src={bann} style={{ height: '1.6em' }} alt="" />
@@ -86,6 +98,8 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
             </div> */}
 
             <div className="container">
+
+
 
                 {/*                 
             {loggedIn ? (
