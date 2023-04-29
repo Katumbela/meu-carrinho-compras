@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
+// var cors = require('cors')
+// App.use(cors()) 
 const root = ReactDOM.createRoot(document.getElementById('arotec'));
 root.render(
   <React.StrictMode>

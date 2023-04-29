@@ -29,10 +29,8 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
             tel: 'tel',
             end: 'address1',
         }).then((res) => {
-          
-            
             setLoad(false);
-            setMensagem(res.data.mensagem);
+            setMensagem(res.data);
         }).catch((err) => {
             console.error(err);
             setLoad(false);
