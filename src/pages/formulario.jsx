@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from '../components/loader';
 
 const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
@@ -21,7 +22,18 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     const [tel2, setTel2] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [loggedIn, setLoggedI2n] = useState(false);
-    const randomNum = Math.floor(Math.random() * 90000000) + 10000000;
+    
+    
+  const [randomNumber, setrandomNumber] = useState(null);
+
+  function gerar() {
+    const min = 100000000;
+    const max = 999999999;
+    const newRandomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+    
+    setrandomNumber(newRandomNumber);
+  }
+
     let taxa = 0;
     const [price, setPrice] = useState("");
 
@@ -74,8 +86,16 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
         taxa = 4000;
     }
     else {
-        taxa = 2;
+        taxa = 3000;
     }
+
+
+    const [selectedValue, setSelectedValue] = useState('');
+
+    function handleRadioChange(event) {
+        setSelectedValue(event.target.value);
+    }
+
 
 
     const options = ['Futungo', 'Sequele', 'Cacuaco', 'Cidade', 'Maianga', 'Porto de Luanda', 'Zango 5mil', 'zango 8mil', 'Viana', 'Zango 3', 'Mártires', 'Zango 4', 'Kimbangu', 'Aeroporto', 'Zango 2', 'Rocha Pinto', 'Zango 8000', 'Zango 5000', 'Kapolo', 'Zango 1', 'São Paulo', 'Kilamba', 'Cassenda', 'Nova vida', 'Golf 2', 'Mutamba', 'Golf 1', 'Via Expressa', 'camama', 'patriota', 'benfica', 'Zango 0', 'Alvalade', 'Vila Alice', 'Projecto Nova Vida', 'Gamek', 'Talatona', 'Morro Bento', 'Kinaxixi', 'Miramar'];
@@ -92,12 +112,12 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     const handleCadastro = () => {
         setLoad(true);
-        instance.get('signup.php?nome=' + nome + '&email=' + email + '&endereco' + address1 + '&tel=' + tel)
+        instance.get('pedido.php?nome=' + nome + '&pag=' + selectedValue + '&preco=' + taxa + '&email=' + email + '&artigo=' + artigo + '&end1=' + address1 + '&tel1=' + tel + '&end2=' + address2 + '&tel2=' + tel2 + '&nome2=' + nome2 + '&id=' + randomNumber)
             .then((response) => {
                 setMessage(response.data);
                 console.log(response.data)
                 setLoad(false);
-                toast.success('Seus dados foram enviados com sucesso!');
+                toast.success('Seus pedido foi adicionado com sucesso!');
             })
             .catch(error => {
                 setMessage(error);
@@ -108,7 +128,7 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     }
 
 
-    document.title = 'Mobilidade | Meu Carrinho ';
+    document.title = 'Solicitacao de servico de Mobilidade | Meu Carrinho ';
     return (
         <div className="w-100">
             <div className="bg-white nav-b fixed justify-content-between d-flex px-3 py-3" style={{}}>
@@ -136,68 +156,108 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
 
 
-                <h5 className="f-lilita text-danger">O que pretende enviar/receber</h5>
+                {
+                    message == 'sucesso' ?
 
-                <br />
-                <textarea name="" value={artigo} onChange={(e) => setArtigo(e.target.value)} id="oque" cols="30" rows="2" placeholder='Descreva o produto a ser levantado. Ex: Carvão, documentos, chaves' className="form-control"></textarea>
-                <br />
+                        <center className='my-4 container'>
+                            <img src={ban} style={{ height: '6em' }} alt="" />
 
-                <h5 className="text-danger f-lilita">Opções levantar</h5>
-                <br />
-                <div className="input py-2">
-                    <span className="text-secondary f-14">Nome <span className="text-danger">*</span></span>
-                    <input value={nome} onChange={(e) => setNome(e.target.value)} type="text" name="" placeholder='Digite seu nome' id="" className="form-control in" />
-                </div>
-                <div className="input py-2">
-                    <span className="text-secondary f-14">Email <span className="text-secondary f-10">( opcional )</span></span>
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" name="" placeholder='Digite seu email' id="" className="form-control in" />
-                </div>
-                <div className="input py-2">
-                    <span className="text-secondary f-14">Telefone <span className="text-danger">*</span></span>
-                    <input value={tel} onChange={(e) => setTel(e.target.value)} type="text" name="" placeholder='Digite seu tel' id="" className="form-control in" />
-                </div>
-                <div className="input py-2">
-                    <span className="text-secondary f-14">Endereço <span className="text-danger">*</span></span>
-                    <input list='opcoes1' value={address1} onChange={(e) => { setAd1(e.target.value); }} type="text" name="" placeholder='Digite o endereço' id="" className="form-control in" />
-                    <datalist id="opcoes1">
-                        {options.map((option, index) => (
-                            <option key={index} value={option} />
-                        ))}
-                    </datalist>
-                </div>
+                            <div className='my-4'>
+                                <span className=" p-1 anim anim-scale rounded-circle" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', placeContent: 'center' }}>
+                                    <i className="bi bi-check2-circle f-60 text-danger"></i>
+                                </span>
+                            </div>
+                            <p className="text-danger">
+                                Seu pedido foi feito com sucesso, estamos dando início a recolha do seu artigo
+                            </p>
+                            <span className="text-secondary f-12 w-75">
+                                Recebeu o link de rastreio do seu pedido no seu Whatsapp <br />
+                                Pedido N: <br />
+                            </span>
+                            <b className="f-20 text-danger">#{randomNumber}</b>
+                            <br />
+                            <br />
+                            <NavLink to={'/track/' + randomNumber} className="btn btn-outline-danger f-12">
+                                OK
+                            </NavLink>
 
-                <br />
+                        </center>
 
-                <h5 className="f-lilita text-danger">Entregar para</h5>
+                        :
+                        <div className="for">
+                            <h5 className="f-lilita text-danger">O que pretende enviar/receber</h5>
 
-                <br />
+                            <br />
+                            <textarea name="" value={artigo} onChange={(e) => setArtigo(e.target.value)} id="oque" cols="30" rows="2" placeholder='Descreva o produto a ser levantado. Ex: Carvão, documentos, chaves' className="form-control"></textarea>
+                            <br />
 
-                <div className="input py-2">
-                    <span className="text-secondary f-14">Nome <span className="text-danger">*</span></span>
-                    <input type="text" autoComplete='false' value={nome2} onChange={(e) => setN2(e.target.value)} name="" placeholder='Digite o nome da pessoa' id="" className="form-control in" />
-                   
-                </div>
-                <div className="input py-2">
-                    <span className="text-secondary f-14">Telefone <span className="text-danger">*</span></span>
-                    <input  type="text" autoComplete='false' value={nome2} onChange={(e) => setN2(e.target.value)} name="" placeholder='Digite o tel da pessoa' id="" className="form-control in" />
-                  
-                </div>
-                <div className="input py-2">
-                    <span className="text-secondary f-14">Endereço <span className="text-danger">*</span></span>
-                    <input list='opcoes' type="text" autoComplete='false' value={address2} onChange={(e) => setAd2(e.target.value)} name="" placeholder='Digite o endereço' id="" className="form-control in" />
-                    <datalist className='custom-datalist' id="opcoes">
-                        {options.map((option, index) => (
-                            <option key={index} value={option} />
-                        ))}
-                    </datalist>
-                </div>
-                <br />
-                <a href="#" className="text-danger">Termos & condições</a>
-                <br />
-                <br />
-                <button disabled={!address1 || !address2 || !nome || !tel || !artigo} data-bs-toggle="modal" data-bs-target="#staticBackdrop" className="btn rounded-1 w-100 btn-danger">
-                    Proceder ao pagamento
-                </button>
+                            <h5 className="text-danger f-lilita">Opções levantar</h5>
+                            <br />
+                            <div className="input py-2">
+                                <span className="text-secondary f-14">Nome <span className="text-danger">*</span></span>
+                                <input value={nome} onChange={(e) => setNome(e.target.value)} type="text" name="" placeholder='Digite seu nome' id="" className="form-control in" />
+                            </div>
+                            <div className="input py-2">
+                                <span className="text-secondary f-14">Email <span className="text-secondary f-10">( opcional )</span></span>
+                                <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" name="" placeholder='Digite seu email' id="" className="form-control in" />
+                            </div>
+                            <div className="input py-2">
+                                <span className="text-secondary f-14">Telefone <span className="text-danger">*</span></span>
+                                <input value={tel} onChange={(e) => setTel(e.target.value)} type="text" name="" placeholder='Digite seu tel' id="" className="form-control in" />
+                            </div>
+                            <div className="input py-2">
+                                <span className="text-secondary f-14">Endereço <span className="text-danger">*</span></span>
+                                <input list='opcoes1' value={address1} onChange={(e) => { setAd1(e.target.value); }} type="text" name="" placeholder='Digite o endereço' id="" className="form-control in" />
+                                <datalist id="opcoes1">
+                                    {options.map((option, index) => (
+                                        <option key={index} value={option} />
+                                    ))}
+                                </datalist>
+                            </div>
+
+                            <br />
+
+                            <h5 className="f-lilita text-danger">Entregar para</h5>
+
+                            <br />
+
+                            <div className="input py-2">
+                                <span className="text-secondary f-14">Nome <span className="text-danger">*</span></span>
+                                <input type="text" autoComplete='false' value={nome2} onChange={(e) => setN2(e.target.value)} name="" placeholder='Digite o nome da pessoa' id="" className="form-control in" />
+
+                            </div>
+                            <div className="input py-2">
+                                <span className="text-secondary f-14">Telefone <span className="text-danger">*</span></span>
+                                <input type="text" autoComplete='false' value={tel2} onChange={(e) => setTel2(e.target.value)} name="" placeholder='Digite o tel da pessoa' id="" className="form-control in" />
+
+                            </div>
+                            <div className="input py-2">
+                                <span className="text-secondary f-14">Endereço <span className="text-danger">*</span></span>
+                                <input list='opcoes' type="text" autoComplete='false' value={address2} onChange={(e) => setAd2(e.target.value)} name="" placeholder='Digite o endereço' id="" className="form-control in" />
+                                <datalist className='custom-datalist' id="opcoes">
+                                    {options.map((option, index) => (
+                                        <option key={index} value={option} />
+                                    ))}
+                                </datalist>
+                            </div>
+                            <br />
+                            <a href="#" className="text-danger">Termos & condições</a>
+                            <br />
+                            <br />
+                            {
+                                load == false ?
+                                    <button disabled={!address1 || !nome || !tel2 || !artigo || !tel} data-bs-toggle="modal" onClick={()=>gerar()} data-bs-target="#staticBackdrop" className="btn rounded-1 w-100 btn-danger">
+                                        Finalizar Pedido
+                                    </button>
+                                    :
+                                    <center>
+                                        <Loader />
+                                    </center>
+                            }
+                        </div>
+                }
+
+
                 <br />
                 <br />
                 <br />
@@ -213,7 +273,7 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="staticBackdropLabel">Pedido #{randomNum}</h1>
+                            <h1 className="modal-title fs-5" id="staticBackdropLabel">Pedido #{randomNumber}</h1>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
@@ -293,28 +353,55 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
                                     <div className="" style={{ display: 'flex', flexDirection: 'column' }}>
                                         <b className="text-secondary f-14">Metodo de pagamento </b>
-                                        <label htmlFor="r1">
-                                            <input type="radio" name="met" id="r1" />
-                                            <span className="text-danger f-14 f-lilita my-auto ms-2">Pay Pay</span>
-                                        </label>
-                                        <label htmlFor="r2">
-                                            <input type="radio" name="met" id="r2" />
-                                            <span className="text-danger f-14 f-lilita my-auto ms-2">MCX</span>
-                                        </label>
-                                        <label htmlFor="r3">
-                                            <input type="radio" name="met" id="r3" />
-                                            <span className="text-danger f-14 f-lilita my-auto ms-2">Pagar no local</span>
-                                        </label>
+                                      
+                                        
+    <div>
+      <label>
+        <input
+          type="radio"
+          value="Pay Pay"
+          checked={selectedValue === 'Pay Pay'}
+          onChange={handleRadioChange}
+        />
+        <b className="text-danger ms-1 f-lilita">Pay Pay</b>
+      </label>
+
+      <label className='mx-2'>
+        <input
+          type="radio"
+          value="Multicaixa Express"
+          checked={selectedValue === 'Multicaixa Express'}
+          onChange={handleRadioChange}
+        />
+        <b className="text-danger ms-1 f-lilita">MCX</b>
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          value="Pagar no Local"
+          checked={selectedValue === 'Pagar no Local'}
+          onChange={handleRadioChange}
+        />
+        <b className="text-danger f-lilita ms-1">Pagar no Local</b>
+      </label>
+<br />
+      <p>Escolhido: <b className="f-lilita">{selectedValue}</b></p>
+    </div>
+
                                     </div>
                                     <div className="">
-                                       
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-danger">Confirmar</button>
+
+
+                            <button type="button" disabled={!selectedValue} data-bs-dismiss="modal" onClick={() => handleCadastro()} className="btn btn-danger">Confirmar</button>
+
                         </div>
                     </div>
                 </div>

@@ -8,9 +8,11 @@ import '../css/mob.css'
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
+  const {pedido} = useParams();
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -68,10 +70,10 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
       <div className="container">
 
-        <h4 className="f-lilita text-danger">Rastrear Seu pedido</h4>
+        <h4 className="f-lilita text-danger">Pedido N- #{pedido}</h4>
         <br />
         <span className="text-secondary mb-1 f-12">Insira o codigo do seu pedido</span>
-        <input type="number" placeholder='Ex: 12345678' className='form-control' />
+        <input type="number" value={pedido} placeholder='Ex: 12345678' className='form-control' />
         <br />
         <center>
           <img src={m} className='img-anim' style={{ height: '5.6em' }} alt="" />

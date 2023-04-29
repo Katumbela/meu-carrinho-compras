@@ -40,7 +40,7 @@ const Rotas = ( {cart, setCart, handleClick, adicionar, pro_p_cat, remover}) => 
                 <Route element = { <Agente pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/agente" exact/>
                 <Route element = { <Parceiro pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/parceiro" exact/>
                 <Route element = { <Login pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/login" exact/>
-                <Route element = { <Track pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/track" exact/>
+                <Route element = { <Track pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/track/:pedido" exact/>
                 <Route element = { <Finalizar pro_p_cat={pro_p_cat} setCart={setCart} cart={cart} handleClick={handleClick} /> }  path="/finalizar" exact/>
             </Routes>
        </BrowserRouter>
