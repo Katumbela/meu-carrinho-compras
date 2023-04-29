@@ -171,6 +171,23 @@ input::placeholder {
    }
 
 
+@keyframes preloader {
+  0% {
+    opacity: .5;
+  }
+  50% {
+    opacity: .9;
+  }
+  100% {
+    opacity: .5;
+  }
+}
+
+.anim {
+  animation: 1s preloader  linear infinite;
+}
+
+
    @media (max-width: 768px) {
     .my-cart button{
       z-index: 999;

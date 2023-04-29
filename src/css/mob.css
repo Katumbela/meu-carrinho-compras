@@ -1,0 +1,66 @@
+.nav-b {
+    background: url('../imgs/bg-nav.jpg') center center;
+    background-size: cover;
+}
+
+.suporte {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+@font-face {
+    font-family: lilita;
+    src: url(./LilitaOne-Regular.ttf);
+}
+
+.f-lilita{
+    font-family: lilita !important;
+}
+
+.form-control:focus-within, .form-control:focus-visible {
+    border-color: red!important;
+}
+
+.in {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    font-size: 14px;
+}
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.ac {
+    background-color: rgba(255, 208, 0, 0.289)!important;
+    box-shadow: none!important;
+}
+
+* {
+    box-shadow: none;
+}
+
+.custom-datalist {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+  }
+.img-anim {
+    animation: .9s animm linear infinite;
+}
+  @keyframes animm {
+    0% {
+        transform: translateX(10px);
+    }
+    50% {
+        transform: translateX(-10px);
+    }
+    100% {
+        transform: translateX(10px);
+    }
+  }

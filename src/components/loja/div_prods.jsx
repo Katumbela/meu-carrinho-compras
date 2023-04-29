@@ -4,6 +4,7 @@ import Card from './card';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loader from '../loader';
+import PreloaderProd from '../preloader_prod';
 
 const DivLoja = (props) => {
 
@@ -27,7 +28,7 @@ const DivLoja = (props) => {
    
    
             {
-                lista_pro == "" && <center className='my-5'> <Loader/></center> 
+                lista_pro == "" && <div className='my-5 px-2'> <PreloaderProd/></div> 
             }
         <div className="row gap-0 ps-1">
           {
