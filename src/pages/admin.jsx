@@ -6,10 +6,13 @@ import '../css/mob.css'
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     const [message, setMessage] = useState([]);
+    const [map, setM] = useState(false);
 
     const instance = axios.create({
         baseURL: 'https://www.garimpo.ga/engenharias/',
@@ -26,9 +29,22 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
             setMessage(error);
         });
 
-    document.title = 'Dasboard Parceiro | Meu Carrinho ';
+
+
+
+    setTimeout(()=>{
+        
+        if (navigator.onLine) {
+        } else {
+        toast.error('Você está offline!');
+        }
+     },5000)
+
+    
+    document.title = 'Dasboard Admin | Meu Carrinho ';
     return (
         <div className="w-100">
+            <ToastContainer/>
             <div className="bg-white nav-b fixed justify-content-between d-flex px-3 py-3" style={{}}>
                 <NavLink to={'/'}>
                     <img src={bann} style={{ height: '1.6em' }} alt="" />
@@ -52,14 +68,14 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     </thead>
                     <tbody>
 
-                        {message.map((item, index) => (
+                        {/* {message.map((item, index) => (
 
                             <tr key={index}>
                                 <td>{item.nome}</td>
                                 <td>{item.telefone}</td>
                                 <td>{item.email}</td>
                             </tr>
-                        ))}
+                        ))} */}
 
                     </tbody>
                 </table>
@@ -78,14 +94,19 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     </thead>
                     <tbody>
 
-                        {message.map((item, index) => (
+                       {
+                        map === true &&
+                        message.map((item, index) => (
 
                             <tr key={index}>
                                 <td>{item.nome}</td>
                                 <td>{item.telefone}</td>
                                 <td>{item.email}</td>
                             </tr>
-                        ))}
+                        ))
+                        }
+                        
+                       
 
                     </tbody>
                 </table>
