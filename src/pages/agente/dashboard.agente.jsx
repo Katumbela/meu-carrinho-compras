@@ -46,7 +46,6 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     });
 
     const handleCadastro = () => {
-        toast.success('Ação realizada com sucesso!');
         setLoad(true);
         instance.get('signup.php?nome=' + nome + '&email=' + email + '&endereco' + address1 + '&tel=' + tel)
             .then((response) => {
@@ -58,7 +57,6 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 setMessage(error);
                 console.log(error);
                 setLoad(false);
-                toast.success('Ação realizada com sucesso!');
             });
     }
 
