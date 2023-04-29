@@ -22,7 +22,8 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     instance.get('teste.php')
         .then((response) => {
             setMessage(response.data);
-            console.log(message)
+            console.log(message);
+            setM(true);
 
         })
         .catch(error => {
@@ -54,9 +55,44 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
             </div>
 
             <br /><br />
-            <br /><br />
-            <br /><br />
+            <br />
             <div className="container">
+
+            <br />
+
+<h3 className="f-lilita text-danger">Registro de Pedidos</h3>
+
+
+<div className="row">
+    {
+        map == true &&
+        message.map((itemm, indexx) => (
+            <div key={indexx} className="col-6 my-2 col-md-4 col-lg-3">
+
+        <div className='shadow position-relative rounded-2' style={{ border: '1px solid red', width: '10rem', height: 'auto' }}>
+            <div className="text-center">
+                <img src={ban} style={{ height: '3.6em' }} alt="" className='mx-auto my-4 img-anim' />
+            </div>
+            <div className='px-2 pb-2'>
+                <span className="text-secondary f-12">
+                    <b>De</b>: Nome Pessoa
+                </span><br />
+                <span className="text-secondary f-12">
+                    <b>Artigo</b>: Nome do artigo
+                </span><br />
+                <span className="text-secondary f-12">
+                    <b>Status</b>: <b className="text-success">Activo</b>
+                </span>
+            </div>
+            <span className=" p-1 rounded-circle position-absolute" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', border: '1px solid red', placeContent: 'center' }}>
+                <i className="bi bi-telephone text-danger"></i>
+            </span>
+        </div>
+    </div>
+))
+}
+</div>
+<br /><br />
                 <h3 className="f-lilita text-danger">Agentes Cadastrados</h3>
                 <table className='table table-hover table-striped'>
                     <thead>
@@ -68,34 +104,8 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     </thead>
                     <tbody>
 
-                        {/* {message.map((item, index) => (
-
-                            <tr key={index}>
-                                <td>{item.nome}</td>
-                                <td>{item.telefone}</td>
-                                <td>{item.email}</td>
-                            </tr>
-                        ))} */}
-
-                    </tbody>
-                </table>
-
-                <br />
-                <br />
-
-                <h3 className="f-lilita text-danger">Registro de Pedidos</h3>
-                <table className='table table-hover table-striped'>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Tel</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                       {
-                        map === true &&
+                    {
+                        map == true &&
                         message.map((item, index) => (
 
                             <tr key={index}>
@@ -105,11 +115,11 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                             </tr>
                         ))
                         }
-                        
-                       
 
                     </tbody>
                 </table>
+
+                <br />
             </div>
 
             <br />

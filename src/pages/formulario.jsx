@@ -117,7 +117,7 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 setMessage(response.data);
                 console.log(response.data)
                 setLoad(false);
-                toast.success('Seus pedido foi adicionado com sucesso!');
+                toast.success('Seus pedido foi adicionado com sucesso, estamos indo!');
             })
             .catch(error => {
                 setMessage(error);
@@ -131,6 +131,7 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     document.title = 'Solicitacao de servico de Mobilidade | Meu Carrinho ';
     return (
         <div className="w-100">
+            <ToastContainer />
             <div className="bg-white nav-b fixed justify-content-between d-flex px-3 py-3" style={{}}>
                 <NavLink to={'/'}>
                     <img src={bann} style={{ height: '1.6em' }} alt="" />
@@ -171,7 +172,7 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                                 Seu pedido foi feito com sucesso, estamos dando início a recolha do seu artigo
                             </p>
                             <span className="text-secondary f-12 w-75">
-                                Recebeu o link de rastreio do seu pedido no seu Whatsapp <br />
+                                Enviamos o link de rastreio do seu pedido no pelo Whatsapp <br />
                                 Pedido N: <br />
                             </span>
                             <b className="f-20 text-danger">#{randomNumber}</b>
