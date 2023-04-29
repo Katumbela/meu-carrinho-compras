@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1436315f.css",
+    "main.js": "/static/js/main.fe3b5ab6.js",
+    "static/media/frutas-vermelhas_1214788639.png": "/static/media/frutas-vermelhas_1214788639.1fd8e09c0c227e7c9de4.png",
+    "static/media/ban-loja.png": "/static/media/ban-loja.0cd3f21012bf98a3e516.png",
+    "static/media/pub2.png": "/static/media/pub2.c97a2ceac570c372b83a.png",
+    "static/media/mob4.jpg": "/static/media/mob4.292831b58b1fb44a43ba.jpg",
+    "static/media/mob1.jpg": "/static/media/mob1.8f53d8aa9536139b5b7e.jpg",
+    "static/media/pub1.png": "/static/media/pub1.4bf16bcd35e77f0213c9.png",
+    "static/media/pub.png": "/static/media/pub.3aa928acf276405709e3.png",
+    "static/media/mob3.jpg": "/static/media/mob3.041e5d88364b84e86271.jpg",
+    "static/media/mob2.jpg": "/static/media/mob2.09f51e63c9e6560a15ea.jpg",
+    "static/media/im3.png": "/static/media/im3.5b2bc09b08fe693e8d0f.png",
+    "static/media/p2.png": "/static/media/p2.3fe88e962cd84bd53ac8.png",
+    "static/media/im16.png": "/static/media/im16.96f085d0fcc6c5e3438d.png",
+    "static/media/p4.png": "/static/media/p4.28c8a1cf6aa6b4675cbc.png",
+    "static/media/im14.png": "/static/media/im14.76e8e23ba39364c2b8f4.png",
+    "static/media/im1.png": "/static/media/im1.175b4d3073d9b97c9eae.png",
+    "static/media/logo.png": "/static/media/logo.daf6d788a7f83f76c128.png",
+    "static/media/im10.png": "/static/media/im10.c3eda9a37bcb36c484f1.png",
+    "static/media/im12.png": "/static/media/im12.569c279f71f777182488.png",
+    "static/media/pub3.png": "/static/media/pub3.0297b4cedc58c4cb55c8.png",
+    "static/media/pub4.jpg": "/static/media/pub4.7aa1378b3266e2a3350e.jpg",
+    "static/media/im13.png": "/static/media/im13.cf471499fec1f2e51356.png",
+    "static/media/pub5.png": "/static/media/pub5.84c2951ed57978570d81.png",
+    "static/media/del.jpg": "/static/media/del.f8ada0176f0dd743b57e.jpg",
+    "static/media/im11.jpg": "/static/media/im11.7cd6d898cb63134a03d3.jpg",
+    "static/media/im11.png": "/static/media/im11.3e5ce80d178f16442659.png",
+    "static/media/LilitaOne-Regular.ttf": "/static/media/LilitaOne-Regular.e970d047065ed950bb8c.ttf",
+    "static/media/im15.jpg": "/static/media/im15.1927cc0d2f92921dc84f.jpg",
+    "index.html": "/index.html",
+    "main.1436315f.css.map": "/static/css/main.1436315f.css.map",
+    "main.fe3b5ab6.js.map": "/static/js/main.fe3b5ab6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1436315f.css",
+    "static/js/main.fe3b5ab6.js"
+  ]
+}
