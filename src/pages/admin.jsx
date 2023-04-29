@@ -38,7 +38,7 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
             <br /><br />
             <br /><br />
-            <br /><br />
+            <br />
             <div className="container">
                 <h3 className="f-lilita text-danger">Agentes Cadastrados</h3>
                 <table className='table f-12 table-hover table-striped'>
@@ -47,7 +47,6 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                             <th>Nome</th>
                             <th>Tel</th>
                             <th>Email</th>
-                            <th>End</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,8 +56,7 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                             <tr key={index}>
                                 <td>{item.nome}</td>
                                 <td>{item.telefone}</td>
-                                <td>{item.email}</td>
-                                <td>{item.endereco}</td>
+                                <td>{item.email}</td
                             </tr>
                         ))}
 
@@ -75,7 +73,6 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                             <th>Nome</th>
                             <th>Tel</th>
                             <th>Email</th>
-                            <th>End</th>
                         </tr>
                     </thead>
                     <tbody>
