@@ -19,6 +19,7 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     instance.get('teste.php')
         .then((response) => {
             setMessage(response.data);
+            console.log(message)
 
         })
         .catch(error => {
@@ -32,16 +33,16 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <NavLink to={'/'}>
                     <img src={bann} style={{ height: '1.6em' }} alt="" />
                 </NavLink>
-                <b className="text-danger">Painel Admin</b>
+                <b className="text-danger f-lilita">Painel Admin</b>
                 {/* <NavLink to={'/login'} className={'btn btn-outline-danger f-14 rounded-1 shadow'}> <i className="bi bi-person"></i></NavLink> */}
             </div>
 
             <br /><br />
             <br /><br />
-            <br />
+            <br /><br />
             <div className="container">
                 <h3 className="f-lilita text-danger">Agentes Cadastrados</h3>
-                <table className='table f-12 table-hover table-striped'>
+                <table className='table table-hover table-striped'>
                     <thead>
                         <tr>
                             <th>Nome</th>
@@ -56,7 +57,7 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                             <tr key={index}>
                                 <td>{item.nome}</td>
                                 <td>{item.telefone}</td>
-                                <td>{item.email}</td
+                                <td>{item.email}</td>
                             </tr>
                         ))}
 
@@ -77,15 +78,14 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     </thead>
                     <tbody>
 
-                        {/* {message.map((item, index) => (
+                        {message.map((item, index) => (
 
                             <tr key={index}>
                                 <td>{item.nome}</td>
                                 <td>{item.telefone}</td>
                                 <td>{item.email}</td>
-                                <td>{item.endereco}</td>
                             </tr>
-                        ))} */}
+                        ))}
 
                     </tbody>
                 </table>
