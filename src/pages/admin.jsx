@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     const [message, setMessage] = useState([]);
+    const [pedidos, setP] = useState([]);
     const [map, setM] = useState(false);
 
     const instance = axios.create({
@@ -22,6 +23,18 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     instance.get('teste.php')
         .then((response) => {
             setMessage(response.data);
+            console.log(message);
+            setM(true);
+
+        })
+        .catch(error => {
+            setMessage(error);
+        });
+
+
+        instance.get('pedidos.php')
+        .then((response) => {
+            setP(response.data);
             console.log(message);
             setM(true);
 
@@ -66,24 +79,25 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 <div className="row">
     {
         map == true &&
-        message.map((itemm, indexx) => (
+        pedidos.map((itemm, indexx) => (
             <div key={indexx} className="col-6 my-2 col-md-4 col-lg-3">
 
-        <div className='shadow position-relative rounded-2' style={{ border: '1px solid red', width: '10rem', height: 'auto' }}>
+        <div className='shadow position-relative rounded-2' data-bs-toggle="modal" data-bs-target={'#id'+itemm.id} style={{ border: '1px solid red', width: '10rem', height: 'auto' }}>
             <div className="text-center">
                 <img src={ban} style={{ height: '3.6em' }} alt="" className='mx-auto my-4 img-anim' />
             </div>
             <div className='px-2 pb-2'>
                 <span className="text-secondary f-12">
-                    <b>De</b>: Nome Pessoa
+                    <b>De</b>: {itemm.nome}
                 </span><br />
                 <span className="text-secondary f-12">
-                    <b>Artigo</b>: Nome do artigo
+                    <b>Artigo</b>: {itemm.artigo}
                 </span><br />
                 <span className="text-secondary f-12">
                     <b>Status</b>: <b className="text-success">Activo</b>
                 </span>
             </div>
+            <b className="text-danger">#{itemm.tel1}</b>
             <span className=" p-1 rounded-circle position-absolute" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', border: '1px solid red', placeContent: 'center' }}>
                 <i className="bi bi-telephone text-danger"></i>
             </span>
@@ -128,6 +142,41 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <br />
                 <br />
                 <br />
+
+
+
+
+
+
+                <div className="modais">
+                {
+        map == true &&
+        pedidos.map((item, indexx) => (
+
+            // <!-- Modal -->
+            <div key={indexx} className="modal fade" id={'id'+item.id} data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h1 className="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div className="modal-body">
+                    
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-primary">Understood</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        ))}
+
+
+
+                </div>
             <footer className='bg-danger shadow text-white text-center p-2'>
 
                 <a href='https://wa.me/244934131274' style={{ textDecoration: 'none', border: '1px solid yellow' }} className="suporte rounded-pill color-white px-3 d-flex bg-danger py-1">
