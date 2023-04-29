@@ -232,7 +232,31 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                                     </h2>
                                     <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse">
                                         <div className="accordion-body">
-                                            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+
+                                            <div className="d-flex justify-content-between my-2">
+                                                <span className="f-12 text-secondary">Nome</span>
+                                                <span className="f-12 text-secondary">{nome}</span>
+                                            </div>
+                                            <div className="d-flex justify-content-between my-2">
+                                                <span className="f-12 text-secondary">Telefone</span>
+                                                <span className="f-12 text-secondary">{tel}</span>
+                                            </div>
+                                            <div className="d-flex justify-content-between my-2">
+                                                <span className="f-12 text-secondary">Email</span>
+                                                <span className="f-12 text-secondary">{email}</span>
+                                            </div>
+                                            <div className="d-flex justify-content-between my-2">
+                                                <span className="f-12 text-secondary">Artigo/produto</span>
+                                                <span className="f-12 text-secondary">{artigo}</span>
+                                            </div>
+                                            <div className="d-flex justify-content-between my-2">
+                                                <b className="f-12 text-secondary">Ponto de recolha</b>
+                                                <span className="f-12 text-secondary">{address1}</span>
+                                            </div>
+                                            <div className="d-flex justify-content-between my-2">
+                                                <b className="f-12 text-secondary">Ponto de Entrega</b>
+                                                <span className="f-12 text-secondary">{address2}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -243,9 +267,30 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                                         <span className="text-secondary f-12">Estamos aqui para ajudar</span>
                                     </div>
                                     <div className="">
-                                        <a href="#" style={{ textDecoration: 'none' }} className="bg-danger py-1 my-auto rounded-1 px-1 text-white f-12">
+                                        <a href="https://wa.me/244934131274" style={{ textDecoration: 'none' }} className="bg-danger py-1 my-auto rounded-1 px-1 text-white f-12">
                                             Conver...connosco
                                         </a>
+                                    </div>
+                                </div>
+                                <div className="d-flex mt-4 justify-content-between">
+
+                                    <div className="" style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <b className="text-secondary f-14">Metodo de pagamento </b>
+                                        <label htmlFor="r1">
+                                            <input type="radio" name="met" id="r1" />
+                                            <span className="text-danger f-14 f-lilita my-auto ms-2">Pay Pay</span>
+                                        </label>
+                                        <label htmlFor="r2">
+                                            <input type="radio" name="met" id="r2" />
+                                            <span className="text-danger f-14 f-lilita my-auto ms-2">MCX</span>
+                                        </label>
+                                        <label htmlFor="r3">
+                                            <input type="radio" name="met" id="r3" />
+                                            <span className="text-danger f-14 f-lilita my-auto ms-2">Pagar no local</span>
+                                        </label>
+                                    </div>
+                                    <div className="">
+                                       
                                     </div>
                                 </div>
                             </div>
