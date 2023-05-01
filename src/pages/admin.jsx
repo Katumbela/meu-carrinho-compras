@@ -153,10 +153,10 @@ useEffect(()=>{
                 <div className="modais">
                 {
         map == true &&
-        pedidos.map((item, indexx) => (
+        pedidos.map((item) => (
 
             // <!-- Modal -->
-            <div key={indexx} className="modal fade" id={'id'+item.id} data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div key={item.id} className="modal fade" id={'id'+item.id} data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
               <div className="modal-dialog">
                 <div className="modal-content">
                   <div className="modal-header">
