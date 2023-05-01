@@ -56,7 +56,7 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     const handleCadastro = () => {
         setLoad(true);
-        instance.get('signup.php?nome=' + nome + '&email=' + email + '&endereco' + address1 + '&tel=' + tel)
+        instance.get('signup.php?nome=' + nome + '&email=' + email + '&endereco=' + address1 + '&tel=' + tel)
             .then((response) => {
                 setMessage(response.data);
                 console.log(response.data)
