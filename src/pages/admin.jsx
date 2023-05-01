@@ -106,12 +106,13 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 </div>
 <br /><br />
                 <h3 className="f-lilita text-danger f-lilita">Agentes Cadastrados</h3>
-                <table className='table table-hover table-striped'>
+                <table className='table f-12 table-hover table-striped'>
                     <thead>
                         <tr>
                             <th>Nome</th>
                             <th>Tel</th>
                             <th>Email</th>
+                            <th>Endereco</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -124,6 +125,7 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                                 <td>{item.nome}</td>
                                 <td>{item.telefone}</td>
                                 <td>{item.email}</td>
+                                <td>{item.endereco}</td>
                             </tr>
                         ))
                         }
