@@ -90,7 +90,7 @@ useEffect(()=>{
             </div>
             <div className='px-2 pb-2'>
                 <span className="text-secondary f-12">
-                    <b>De</b>: {itemm.nome}
+                    <b>De</b>: {itemm.nome1}
                 </span><br />
                 <span className="text-secondary f-12">
                     <b>Artigo</b>: {itemm.artigo}
@@ -99,7 +99,7 @@ useEffect(()=>{
                     <b>Status</b>: <b className="text-success">Activo</b>
                 </span>
             </div>
-            <b className="text-danger f-lilita">#{itemm.tel1}</b>
+            <b style={{top:'.2rem', left:'.5rem'}} className="text-danger f-12 position-absolute f-lilita">P. #{itemm.pedido}</b>
             <span className=" p-1 rounded-circle position-absolute" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', border: '1px solid red', placeContent: 'center' }}>
                 <i className="bi bi-telephone text-danger f-lilita"></i>
             </span>
