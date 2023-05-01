@@ -98,3 +98,7 @@
   .form-control {
     color: red!important;
   }
+
+  .line-gradient {
+    background: linear-gradient(90deg, red 1rem, #EABC02 70%);
+  }

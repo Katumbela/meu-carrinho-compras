@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 
 const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
-  const {pedido} = useParams();
+  const { pedido } = useParams();
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -41,8 +41,33 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
   }, []);
 
   if (!position) {
-    return <div>Carregando a pagina...</div>;
+    return <div>Carregando a coordenadas...</div>;
   }
+
+  let latitude = '';
+  let longitude = '';
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      latitude = position.coords.latitude;
+      longitude = position.coords.longitude;
+      console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+    });
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+
+
+  // fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`)
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     const state = data.address.state;
+  //     const city = data.address.city;
+  //     const suburb = data.address.suburb;
+  //     const road = data.address.road;
+  //     console.log(` State: ${state}, City: ${city}, Suburb: ${suburb}, Road: ${road}`);
+  //   })
+  //   .catch(error => console.error(error));
 
 
   document.title = 'Rastreamento de Pedido | Meu Carrinho Compras';
@@ -82,11 +107,35 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
         <div>
           <center>
             <button className="btn mx-auto f-14 rounded-1 btn-outline-danger">Confirmar recebimento / Entrega</button>
+
+
+            <br /><br />
+            <div className="d-flex position-relative justify-content-between">
+
+              <div className="">
+                <div style={{ height: '5rem', width: '5rem', background: 'red' }} className="anim-scale rounded-circle">
+                  <i className="bi text-white f-50 bi-box-seam-fill anim-scale"></i>
+                </div>
+              </div>
+
+              <div style={{height:'.3rem', background:'', width: '120%'}} className="my-auto line-gradient"></div>
+
+              <div className="">
+                <div style={{ height: '5rem', width: '5rem', background: '#EABC02' }} className=" rounded-circle">
+                  <i className="bi text-white f-50 bi-person-check anim-scale"></i>
+                </div>
+              </div>
+            </div>
+<b className="text-danger ">Em trânsito...</b>
+<hr />
           </center>
+
+          <br />
           <br />
           <h2 className='text-danger f-lilita'>Localização do seu pedido</h2>
-          <p>Latitude: {position.lat}</p>
-          <p>Longitude: {position.lng}</p>
+          {/* <p>Latitude: {position.lat}</p>
+          <p>Longitude: {position.lng}</p> */}
+
           <div
             style={{
               width: "100%",
