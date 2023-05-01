@@ -20,15 +20,6 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
         changeOrigin: true,
     });
 
-    instance.get('teste.php')
-        .then((response) => {
-            setMessage(response.data);
-            setM(true);
-
-        })
-        .catch(error => {
-            setMessage(error);
-        });
 
 useEffect(()=>{
 
@@ -41,6 +32,17 @@ useEffect(()=>{
     .catch(error => {
         setMessage(error);
     });
+
+
+    instance.get('teste.php')
+        .then((response) => {
+            setMessage(response.data);
+            setM(true);
+
+        })
+        .catch(error => {
+            setMessage(error);
+        });
 
 },[])
 
