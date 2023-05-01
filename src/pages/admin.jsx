@@ -90,7 +90,7 @@ useEffect(()=>{
             </div>
             <div className='px-2 pb-2'>
                 <span className="text-secondary f-12">
-                    <b>De</b>: {itemm.nome1}
+                    <b>De</b>: {itemm.nome1.split(" ")[0]}
                 </span><br />
                 <span className="text-secondary f-12">
                     <b>Artigo</b>: {itemm.artigo}
