@@ -65,7 +65,7 @@ useEffect(()=>{
                 <NavLink to={'/'}>
                     <img src={bann} style={{ height: '1.6em' }} alt="" />
                 </NavLink>
-                <b className="text-danger f-lilita">Painel Admin</b>
+                <b className="text-danger f-lilita f-lilita">Painel Admin</b>
                 {/* <NavLink to={'/login'} className={'btn btn-outline-danger f-14 rounded-1 shadow'}> <i className="bi bi-person"></i></NavLink> */}
             </div>
 
@@ -75,14 +75,14 @@ useEffect(()=>{
 
             <br />
 
-<h3 className="f-lilita text-danger">Registro de Pedidos</h3>
+<h3 className="f-lilita text-danger f-lilita">Registro de Pedidos</h3>
 
 
 <div className="row">
     {
         map == true &&
-        pedidos.map((itemm, indexx) => (
-            <div key={indexx} className="col-6 my-2 col-md-4 col-lg-3">
+        pedidos.map((itemm) => (
+            <div key={itemm.id} className="col-6 my-2 col-md-4 col-lg-3">
 
         <div className='shadow position-relative rounded-2' data-bs-toggle="modal" data-bs-target={'#id'+itemm.id} style={{ border: '1px solid red', width: '10rem', height: 'auto' }}>
             <div className="text-center">
@@ -99,9 +99,9 @@ useEffect(()=>{
                     <b>Status</b>: <b className="text-success">Activo</b>
                 </span>
             </div>
-            <b className="text-danger">#{itemm.tel1}</b>
+            <b className="text-danger f-lilita">#{itemm.tel1}</b>
             <span className=" p-1 rounded-circle position-absolute" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', border: '1px solid red', placeContent: 'center' }}>
-                <i className="bi bi-telephone text-danger"></i>
+                <i className="bi bi-telephone text-danger f-lilita"></i>
             </span>
         </div>
     </div>
@@ -109,7 +109,7 @@ useEffect(()=>{
 }
 </div>
 <br /><br />
-                <h3 className="f-lilita text-danger">Agentes Cadastrados</h3>
+                <h3 className="f-lilita text-danger f-lilita">Agentes Cadastrados</h3>
                 <table className='table table-hover table-striped'>
                     <thead>
                         <tr>
@@ -122,9 +122,9 @@ useEffect(()=>{
 
                     {
                         map == true &&
-                        message.map((item, index) => (
+                        message.map((item) => (
 
-                            <tr key={index}>
+                            <tr key={item.id}>
                                 <td>{item.nome}</td>
                                 <td>{item.telefone}</td>
                                 <td>{item.email}</td>
@@ -156,82 +156,84 @@ useEffect(()=>{
         pedidos.map((item) => (
 
             // <!-- Modal -->
-            <div key={item.id} className="modal fade" id={'id'+item.id} data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div key={item.id} className="modal fade" id={'id'+item.id} data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="staticBackdropLabel" aria-hidden="true">
               <div className="modal-dialog">
                 <div className="modal-content">
                   <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="staticBackdropLabel">Pedido <b className="text-danger">#{item.pedido}</b></h1>
+                    <h1 className="modal-title fs-5" id="staticBackdropLabel">Pedido <b className="text-danger f-lilita">#{item.pedido}</b></h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div className="modal-body">
                     <div className="d-flex justify-content-between">
                         <span className="text-secondary">Solicitante</span>
-                        <b className="text-danger">
+                        <b className="text-danger f-lilita">
                             {item.nome1}
                         </b>
                     </div>
                     <div className="d-flex justify-content-between">
                         <span className="text-secondary">Tel:</span>
-                        <b className="text-danger">
+                        <b className="text-danger f-lilita">
                             {item.tel1}
                         </b>
                     </div>
                     <div className="d-flex justify-content-between">
                         <span className="text-secondary">Email:</span>
-                        <b className="text-danger">
+                        <b className="text-danger f-lilita">
                             {item.email}
                         </b>
                     </div>
                     <div className="d-flex justify-content-between">
                         <span className="text-secondary">P. Recolha:</span>
-                        <b className="text-danger">
+                        <b className="text-danger f-lilita">
                             {item.end1}
                         </b>
                     </div>
-                    <div className="d-flex justify-content-between">
-                        <b className="text-danger">Entregar para:</b>
-                        <b className="text-danger">
+                    <hr />
+                    <div className="d-flex mt-3 mb-2 justify-content-between">
+                        <b className="text-secondary ">Entregar para:</b>
+                        <b className="text-danger f-lilita">
                             
                         </b>
                     </div>
                     <div className="d-flex justify-content-between">
                         <span className="text-secondary">Nome:</span>
-                        <b className="text-danger">
+                        <b className="text-danger f-lilita">
                             {item.nome2}
                         </b>
                     </div>
                     <div className="d-flex justify-content-between">
                         <span className="text-secondary">Tel:</span>
-                        <b className="text-danger">
+                        <b className="text-danger f-lilita">
                             {item.tel2}
                         </b>
                     </div>
                     <div className="d-flex justify-content-between">
                         <span className="text-secondary">P. Entrega:</span>
-                        <b className="text-danger">
+                        <b className="text-danger f-lilita">
                             {item.end2}
                         </b>
                     </div>
                     <div className="d-flex justify-content-between">
                         <span className="text-secondary">Payment:</span>
-                        <b className="text-danger">
+                        <b className="text-danger f-lilita">
                             {item.pagamento}
                         </b>
                     </div>
                     <div className="d-flex justify-content-between">
                         <span className="text-secondary">Price:</span>
-                        <b className="text-danger">
+                        <b className="text-danger f-lilita">
                             Kz {item.preco}.00
                         </b>
                     </div>
+                    <hr />
                     <div className="">
                         <span className="text-secondary">Artigo:</span>
                         <br /><br />
-                        <b className="text-danger">
+                        <b className="text-danger f-lilita">
                             {item.artigo}
                         </b>
                     </div>
-
+<hr />
                     <div className="d-flex justify-content-between">
                         <span className="text-secondary">Status:</span>
                         <b className="text-success">
