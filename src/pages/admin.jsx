@@ -112,7 +112,6 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                             <th>Nome</th>
                             <th>Tel</th>
                             <th>Email</th>
-                            <th>Endereco</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -122,10 +121,9 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                         message.map((item) => (
 
                             <tr key={item.id}>
-                                <td>{item.nome}</td>
+                                <td>{item.nome.split(" ")[0]} {item.nome.split(" ")[1][0]}. {item.nome.split(" ")[2]}</td>
                                 <td>{item.telefone}</td>
-                                <td>{item.email}</td>
-                                <td>{item.endereco}</td>
+                                <td>{item.email} &middot; {item.endereco}</td>
                             </tr>
                         ))
                         }
