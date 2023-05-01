@@ -106,7 +106,7 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 </div>
 <br /><br />
                 <h3 className="f-lilita text-danger f-lilita">Agentes Cadastrados</h3>
-                <table className='table f-12 table-hover table-striped'>
+                <table className='table w-100 f-12 table-hover table-striped'>
                     <thead>
                         <tr>
                             <th>Nome</th>
