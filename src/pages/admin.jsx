@@ -21,8 +21,6 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     });
 
 
-useEffect(()=>{
-
     instance.get('pedidos.php')
     .then((response) => {
         setP(response.data);
@@ -43,8 +41,6 @@ useEffect(()=>{
         .catch(error => {
             setMessage(error);
         });
-
-},[])
 
 
 
@@ -75,7 +71,7 @@ useEffect(()=>{
 
             <br />
 
-<h3 className="f-lilita text-danger f-lilita">Registro de Pedidos</h3>
+<h3 className="f-lilita text-danger f-lilita">Registro de Pedidos Activos</h3>
 
 
 <div className="row">
