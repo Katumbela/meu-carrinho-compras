@@ -23,7 +23,6 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     instance.get('teste.php')
         .then((response) => {
             setMessage(response.data);
-            console.log(message);
             setM(true);
 
         })
@@ -31,18 +30,19 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
             setMessage(error);
         });
 
+useEffect(()=>{
 
-        instance.get('pedidos.php')
-        .then((response) => {
-            setP(response.data);
-            console.log(message);
-            setM(true);
+    instance.get('pedidos.php')
+    .then((response) => {
+        setP(response.data);
+        setM(true);
 
-        })
-        .catch(error => {
-            setMessage(error);
-        });
+    })
+    .catch(error => {
+        setMessage(error);
+    });
 
+},[])
 
 
 
@@ -158,15 +158,88 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
               <div className="modal-dialog">
                 <div className="modal-content">
                   <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <h1 className="modal-title fs-5" id="staticBackdropLabel">Pedido <b className="text-danger">#{item.pedido}</b></h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div className="modal-body">
+                    <div className="d-flex justify-content-between">
+                        <span className="text-secondary">Solicitante</span>
+                        <b className="text-danger">
+                            {item.nome1}
+                        </b>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <span className="text-secondary">Tel:</span>
+                        <b className="text-danger">
+                            {item.tel1}
+                        </b>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <span className="text-secondary">Email:</span>
+                        <b className="text-danger">
+                            {item.email}
+                        </b>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <span className="text-secondary">P. Recolha:</span>
+                        <b className="text-danger">
+                            {item.end1}
+                        </b>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <b className="text-danger">Entregar para:</b>
+                        <b className="text-danger">
+                            
+                        </b>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <span className="text-secondary">Nome:</span>
+                        <b className="text-danger">
+                            {item.nome2}
+                        </b>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <span className="text-secondary">Tel:</span>
+                        <b className="text-danger">
+                            {item.tel2}
+                        </b>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <span className="text-secondary">P. Entrega:</span>
+                        <b className="text-danger">
+                            {item.end2}
+                        </b>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <span className="text-secondary">Payment:</span>
+                        <b className="text-danger">
+                            {item.pagamento}
+                        </b>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <span className="text-secondary">Price:</span>
+                        <b className="text-danger">
+                            Kz {item.preco}.00
+                        </b>
+                    </div>
+                    <div className="">
+                        <span className="text-secondary">Artigo:</span>
+                        <br /><br />
+                        <b className="text-danger">
+                            {item.artigo}
+                        </b>
+                    </div>
+
+                    <div className="d-flex justify-content-between">
+                        <span className="text-secondary">Status:</span>
+                        <b className="text-success">
+                            Activo
+                        </b>
+                    </div>
                     
                   </div>
                   <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Understood</button>
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
                   </div>
                 </div>
               </div>

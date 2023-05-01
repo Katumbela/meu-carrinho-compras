@@ -40,7 +40,7 @@ const Mob = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
         <h1>Você precisa fazer login para acessar esta página</h1>
       )} */}
             </div>
-            <div className="row">
+            <div className="row gap-0">
                 <div className="col-12 col-lg-6">
                     <img src={mob1} className='w-100' alt="" />
                 </div>
