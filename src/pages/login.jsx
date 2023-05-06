@@ -63,7 +63,7 @@ const salvar = async () => {
       nome: user.displayName,
       telefone:'',
     };
-    const docRef = await f.collection("agentes").add(dados); // adicione os dados na coleção "usuarios"
+    const docRef = await db.collection("agentes").add(dados); // adicione os dados na coleção "usuarios"
     console.log("Documento adicionado com ID: ", docRef.id);
   } catch (error) {
     console.error("Erro ao adicionar documento: ", error);
