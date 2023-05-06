@@ -13,6 +13,8 @@ import { db } from './firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import Avaliacao from '../components/avaliar';
 import Loader from '../components/loader';
+import moment from 'moment';
+import { Timestamp } from 'firebase/firestore';
 
 const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
@@ -105,9 +107,41 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
   }
 
 
-  const diffInMillis = new Date().getTime() - info.dataEnvio;
-const diffInMinutes = Math.round(diffInMillis / 1000 / 60);
-const min = `Há ${diffInMinutes} minutos`;
+// const timeAgo = (timestamp) => {
+//   const currentTime = moment();
+//   const timestampTime = moment(timestamp * 1000);
+//   const diffInMinutes = currentTime.diff(timestampTime, 'minutes');
+//   const diffInHours = currentTime.diff(timestampTime, 'hours');
+//   const diffInDays = currentTime.diff(timestampTime, 'days');
+
+//   if (diffInMinutes < 60) {
+//     return `há ${diffInMinutes} minutos`;
+//   } else if (diffInHours < 24) {
+//     return `há ${diffInHours} horas`;
+//   } else {
+//     return `há ${diffInDays} dias`;
+//   }
+// };
+
+// if (info ? info.dataEnvio : '') {
+// const timestamp = info.dataEnvio; // o timestamp do Firebase
+// const date = timestamp.toDate(); // converter o timestamp para um objeto Date
+// const diffInMinutes = Math.floor((new Date() - date) / (1000 * 60));
+// const [mm, setMM] = useState('');
+// if (diffInMinutes < 60) {
+//   alert(`há ${diffInMinutes} minutos`);
+// } else if (diffInMinutes < 1440) { // menos de um dia
+//   const diffInHours = Math.floor(diffInMinutes / 60);
+//   alert(`há ${diffInHours} ${diffInHours === 1 ? 'hora' : 'horas'}`);
+// } else { // mais de um dia
+//   const diffInDays = Math.floor(diffInMinutes / 1440);
+//   alert(`há ${diffInDays} ${diffInDays === 1 ? 'dia' : 'dias'}`);
+// }
+//   // restante do código para calcular a diferença em minutos, horas ou dias
+// } else {
+//   // trate o caso em que info ou info.dataEnvio é undefined
+// }
+
 
   document.title = 'Rastreamento de Pedido | Meu Carrinho Compras';
   return (
@@ -218,7 +252,7 @@ const min = `Há ${diffInMinutes} minutos`;
                 <hr />
               <center>
                 <br />
-                <span className="text-secondary">Feito há {min}</span>
+                {/* <span className="text-secondary">Feito há {`${info.dataEnvio}`}</span> */}
               </center>
               </center>
 
