@@ -66,7 +66,7 @@ const Mob = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     <i className="bi bi-whatsapp"></i>
                 </div>
                 <div className="text-start">
-                    <NavLink to={'/parceiro'} className="text-white">Parceiros</NavLink><br />
+                    <NavLink to={'/precos'} className="text-white">Preços</NavLink><br />
                     <NavLink to={'/agente'} className="text-white">Agentes</NavLink><br />
                     <span className="text-white">Termos & Condições</span>
                 </div>

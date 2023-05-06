@@ -27,10 +27,46 @@ const Parceiro = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <NavLink to={'/'}>
                     <img src={bann} style={{ height: '1.6em' }} alt="" />
                 </NavLink>
-                <NavLink to={'/login'} className={'btn btn-outline-danger f-14 rounded-1 shadow'}> <i className="bi bi-person"></i></NavLink>
+                {/* <NavLink to={'/login'} className={'btn btn-outline-danger f-14 rounded-1 shadow'}> <i className="bi bi-person"></i></NavLink> */}
             </div>
 
-            <br /><br />
+
+            <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+            <br /><br /><br />
+            <center className='container w-75'>
+                <img src={bann} style={{height:'4em', opacity:'.5'}} alt="" />
+                <br />
+                <br />
+                <br />
+                <i className="bi bi-exclamation-triangle text-danger f-50"></i>
+                <p className="text-secondary">
+                    Indisponivel neste mmomento, actualizaremos em breve!
+                </p>
+            </center>
+
+
+            <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                
+            {/* <br /><br />
             <div className="container">
                 <br /><br /><br />
                 <h4 className="f-lilita text-danger">Bem vindo ao seu dashboard paceiro(a) $Nome</h4>
@@ -41,7 +77,7 @@ const Parceiro = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 </p>
                 <hr />
                 <center>
-<br />
+                    <br />
                     <span className=" p-1 anim-scale rounded-circle" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', placeContent: 'center' }}>
                         <i className="bi bi-whatsapp f-50 text-success"></i>
                     </span>
@@ -78,7 +114,7 @@ const Parceiro = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 </div>
                 <br />
                 <br />
-            </div>
+            </div> */}
 
 
 
