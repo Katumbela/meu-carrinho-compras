@@ -133,7 +133,7 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
             .get();
       
           if (querySnapshot.empty) { // se não encontrar documentos, adiciona
-            const docRef = await db.collection("pedidos").add(dados);
+            const docRef = await db.collection("pedidos").doc(artigo).set(dados);
             console.log("cadastrado");
             setMessage('sucesso');
             setLoad(false);

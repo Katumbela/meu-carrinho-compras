@@ -9,6 +9,7 @@ import axios from 'axios';
 import Loader from '../../components/loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { db } from '../firebase';
 
 
 const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
@@ -22,14 +23,14 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     const [load, setLoad] = useState(false);
 
     if (navigator.onLine) {
-      } else {
+    } else {
         toast.error('Você está offline!');
-      }
-      
-    useEffect(()=>{
+    }
+
+    useEffect(() => {
         if (!navigator.onLine) {
             toast.error('Você está offline!');
-          }
+        }
     }, [])
     // const handleCadastro =  () =>  {
     //     setLoad(true);
@@ -49,40 +50,45 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     const [message, setMessage] = useState([]);
 
-    const instance = axios.create({
-        baseURL: 'https://www.garimpo.ga/engenharias/',
-        changeOrigin: true,
-    });
 
-    const handleCadastro = () => {
+
+    const envia = async () => {
         setLoad(true);
-        instance.get('signup.php?nome=' + nome + '&email=' + email + '&endereco=' + address1 + '&tel=' + tel)
-            .then((response) => {
-                setMessage(response.data);
-                console.log(response.data)
+        try {
+            const dados = {
+                dataEnvio: new Date(),
+                email: email,
+                endereco1: address1,
+                telefone1: tel,
+                nome: nome,
+                conta: 'Agente',
+            };
+
+            const querySnapshot = await db.collection("agente")
+                .where("nome", "==", nome)
+                .where("email", "==", email)
+                .get();
+
+            if (querySnapshot.empty) { // se não encontrar documentos, adiciona
+                const docRef = await db.collection("agente").doc(nome).set(dados);
+                console.log("cadastrado");
+                setMessage('sucesso');
                 setLoad(false);
-                toast.success('Seus dados foram enviados com sucesso!');
-            })
-            .catch(error => {
-                setMessage(error);
-                console.log(error);
-                setLoad(false);
-                toast.error('Ocorreu um erro, verifique sua conexão!');
-            });
+                toast.success('Seus dados foram recebidos com sucesso, entraremos em contacto!');
+            } else { // se encontrar documentos, informa que já existe
+                console.log("usuario cadastrado.");
+            }
+        } catch (error) {
+            toast.error('Ocorreu um erro, verifique sua conexão ou tente mais tarde!');
+            console.error("Erro ao adicionar documento: ", error);
+        }
     }
 
-    // useEffect(() => {
-    //     const checkLogin = async () => {
-    //         const response = await axios.get('http://seusite.com/check_login.php');
-    //         setLoggedIn(response.data.logged_in);
-    //     }
-    //     checkLogin();
-    // }, []);
 
-    document.title = 'Mobilidade | Meu Carrinho ';
+    document.title = 'Mobilidade Agente | Meu Carrinho ';
     return (
         <div className="w-100">
-        <ToastContainer />
+            <ToastContainer />
             <div className="bg-white nav-b fixed justify-content-between d-flex px-3 py-3" style={{}}>
                 <NavLink to={'/'}>
                     <img src={bann} style={{ height: '1.6em' }} alt="" />
@@ -111,71 +117,81 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
 
 
-               {
-                message == 'sucesso' ? 
-                <div>
-                    <center>
-                        <br />
-                        <span className=" p-1 anim-scale rounded-circle" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', placeContent: 'center' }}>
-                        <i className="bi bi-hand-thumbs-up-fill f-60 text-danger"></i>
-                    </span>
-                        <br />
-                        <b className="f-lilita text-danger f-30">Seu Cadastro foi recebido com sucesso agente {nome.split(" ")[0]}</b>
-                        <br />
-
-                           <p className="f-20 text-secondary">Entraremos em contacto</p>
-
-<NavLink to={'/'} className="btn btn-outline-danger">
-    OK
-</NavLink>
-                    </center>
-                </div>
-                :
-                <div className="formulario">
-                <h5 className="f-lilita text-danger">Seja um agente carrinho</h5>
-                <span className="text-secondary f-14">Faça seu cadastro </span>
-                <br />
-
-                <br />
-                <div className="input py-2">
-                    <span className="text-secondary f-14">Nome <span className="text-danger">*</span></span>
-                    <input value={nome} onChange={(e) => setNome(e.target.value)} type="text" name="" placeholder='Nome completo' id="" className="form-control in" />
-                </div>
-                <div className="input py-2">
-                    <span className="text-secondary f-14">Email </span>
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" name="" placeholder='Digite seu email' id="" className="form-control in" />
-                </div>
-                <div className="input py-2">
-                    <span className="text-secondary f-14">Telefone <span className="text-danger">*</span></span>
-                    <input value={tel} onChange={(e) => setTel(e.target.value)} type="text" name="" placeholder='Digite seu tel' id="" className="form-control in" />
-                </div>
-                <div className="input py-2">
-                    <span className="text-secondary f-14">Endereço <span className="text-danger">*</span></span>
-                    <input value={address1} onChange={(e) => { setAd1(e.target.value); }} type="text" name="" placeholder='Digite o endereço' id="" className="form-control in" />
-                   
-                </div>
-                <br />
-                <a href="#" className="text-danger">Termos & condições</a>
-                <br />
-                <br />
-
                 {
-                    mensagem
-                }
+                    message === 'sucesso' ?
+                        <div>
+                            <center>
+                                <br />
+                                <span className=" p-1 anim-scale rounded-circle" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', placeContent: 'center' }}>
+                                    <i className="bi bi-hand-thumbs-up-fill f-60 text-danger"></i>
+                                </span>
+                                <br />
+                                <b className="f-lilita text-danger f-30">Seu Cadastro foi recebido com sucesso agente {nome.split(" ")[0]}</b>
+                                <br />
 
-                {
-                    load == false ?
-                        <button disabled={!address1 || !nome || !tel} onClick={() => handleCadastro()} className="btn rounded-1 w-100 btn-danger">
-                            Terminar cadastro
-                        </button>
+                                <p className="f-20 text-secondary">Entraremos em contacto</p>
+
+                                <NavLink to={'/'} className="btn btn-outline-danger">
+                                    OK
+                                </NavLink>
+                            </center>
+                        </div>
                         :
-                        <center>
-                            <Loader />
-                        </center>
+                        <div className="formulario">
+                            <center>
+                                <i className="bi bi-cash-coin f-50 text-danger"></i>
+                                <br />
+                            </center>
+                            <h5 className="f-lilita text-danger">Seja um agente carrinho</h5>
+                            <span className="text-secondary f-14">Faça seu cadastro </span>
+                            <br />
+
+                            <br />
+                            <div className="input py-2">
+                                <span className="text-secondary f-14">Nome <span className="text-danger">*</span></span>
+                                <input value={nome} onChange={(e) => setNome(e.target.value)} type="text" name="" placeholder='Nome completo' id="" className="form-control in" />
+                            </div>
+                            <div className="input py-2">
+                                <span className="text-secondary f-14">Email </span>
+                                <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" name="" placeholder='Digite seu email' id="" className="form-control in" />
+                            </div>
+                            <div className="input py-2">
+                                <span className="text-secondary f-14">Telefone <span className="text-danger">*</span></span>
+                                <input value={tel} onChange={(e) => setTel(e.target.value)} type="text" name="" placeholder='Digite seu tel' id="" className="form-control in" />
+                            </div>
+                            <div className="input py-2">
+                                <span className="text-secondary f-14">Endereço <span className="text-danger">*</span></span>
+                                <input value={address1} onChange={(e) => { setAd1(e.target.value); }} type="text" name="" placeholder='Digite o endereço' id="" className="form-control in" />
+
+                            </div>
+                            <br />
+                            <a href="#" className="text-danger">Termos & condições</a>
+                            <br />
+                            <br />
+
+                            {
+                                mensagem
+                            }
+
+                            {
+                                load === false ?
+                                    <button disabled={!address1 || !nome || !tel} onClick={() => envia()} className="btn rounded-1 w-100 btn-danger">
+                                        Terminar cadastro
+                                    </button>
+                                    :
+                                    <center>
+                                        <Loader />
+                                    </center>
+                            }
+                            <br />
+
+                            <center><br />
+                                <span className="text-secondary f-1">Ou</span><br />
+                                <br />
+                                <NavLink to={'/login'} >Faça Login</NavLink>
+                            </center>
+                        </div>
                 }
-                <br />
-            </div>
-               }
                 <br />
                 <br />
                 <br />
@@ -183,12 +199,12 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <br />
                 <br />
                 <center>
-                <img src={bann} style={{ height: '4.6em', opacity:'.1' }} alt="" />
+                    <img src={bann} style={{ height: '4.6em', opacity: '.1' }} alt="" />
                 </center>
                 <br />
                 <br />
                 <br />
-                
+
             </div>
 
 

@@ -61,27 +61,27 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     useEffect(() => {
         // Adicione um listener para o estado da autenticação
         const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-          if (!user) {
-            // Se não houver usuário autenticado, redirecione para a página de login
-            window.location.href = '/login'; // troque '/login' pela rota da sua tela de login
-            
+            if (!user) {
+                // Se não houver usuário autenticado, redirecione para a página de login
+                window.location.href = '/login'; // troque '/login' pela rota da sua tela de login
 
-            const userData = {
-                name: '',
-                email: '',
-                pictureUrl: '',
-                tel: '',
+
+                const userData = {
+                    name: '',
+                    email: '',
+                    pictureUrl: '',
+                    tel: '',
+                }
+
+                localStorage.setItem('user_carrinho', JSON.stringify(userData));
+
             }
-
-            localStorage.setItem('user_carrinho', JSON.stringify(userData));
-
-          }
         });
-        
-    
+
+
         // Retorne uma função de limpeza para remover o listener quando o componente for desmontado
         return unsubscribe;
-      }, []);
+    }, []);
 
     //pegando dados 
 
@@ -177,6 +177,40 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     check();
 
+    const cadastro = async () => {
+        try {
+            const dados = {
+                dataEnvio: new Date(),
+                email: use.email,
+                encomenda: '',
+                endereco: '',
+                id: use.uid,
+                nome: use.displayName,
+                telefone: '',
+            };
+
+            const querySnapshot = await db.collection("agentes")
+                .where("email", "==", use.email)
+                .where("id", "==", use.uid)
+                .get();
+
+            if (querySnapshot.empty) { // se não encontrar documentos, adiciona
+                const docRef = await db.collection("agentes").doc(use.displayName).set(dados);
+                console.log("cadastrado");
+            } else { // se encontrar documentos, informa que já existe
+                console.log("usuario cadastrado.");
+            }
+        } catch (error) {
+            console.error("Erro ao adicionar documento: ", error);
+        }
+    }
+
+
+    cadastro();
+    useEffect(() => {
+
+        cadastro();
+    }, [])
 
     return (
         <div className="w-100">

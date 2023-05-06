@@ -13,72 +13,92 @@ export const f = getFirestore();
 const Login = () => {
 
 
-    const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        firebase.auth().onAuthStateChanged((user) => {
-            setUser(user);
-            cadastro();
-        });
-        
-    }, []);
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      setUser(user);
 
-
-    const handleLoginWithGoogle = () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-
-        firebase.auth().signInWithPopup(provider)
-            .then((result) => {
-                // login bem-sucedido, faça algo aqui
-                setUser(result.user);
-                
-                const userData = {
-                    name: result.user.displayName,
-                    email: result.user.email,
-                    pictureUrl: result.user.photoURL,
-                    tel: result.user.phoneNumber,
-                    uid: result.user.uid,
-                  };
-
-                localStorage.setItem('user_carrinho', JSON.stringify(userData))
-                
-
-            
-            })
-            .catch((error) => {
-                // erro no login, faça algo aqui
-            });
-    };
-
-
-    const cadastro = async () => {
-      try {
-        const dados = {
-          dataEnvio: new Date(),
-          email: user.email,
-          encomenda:'',
-          endereco:'',
-          id: user.uid,
-          nome: user.displayName,
-          telefone:'',
-        };
-    
-        const querySnapshot = await db.collection("agentes")
-          .where("email", "==", user.email)
-          .where("id", "==", user.uid)
-          .get();
-    
-        if (querySnapshot.empty) { // se não encontrar documentos, adiciona
-          const docRef = await db.collection("agentes").add(dados);
-          console.log("cadastrado");
-        } else { // se encontrar documentos, informa que já existe
-          console.log("usuario cadastrado.");
+      db.collection('agentes').doc(user.displayName).get().then((doc) => {
+        if (!doc.exists) {
+          db.collection('agentes').doc(user.displayName).set({
+            dataEnvio: new Date(),
+            email: user.email,
+            encomenda: '',
+            endereco: '',
+            id: user.uid,
+            nome: user.displayName,
+            telefone: '',
+          }).then(() => {
+            console.logo('usuário adicionado');
+          }).catch((error) => {
+            console.error('Erro ao adicionar usuário: ', error);
+          });
+        } else {
+          console.log('Usuário já cadastrado.');
         }
-      } catch (error) {
-        console.error("Erro ao adicionar documento: ", error);
+      });
+      
+
+  } )
+}, []);
+
+
+  const handleLoginWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase.auth().signInWithPopup(provider)
+      .then((result) => {
+        // login bem-sucedido, faça algo aqui
+        setUser(result.user);
+
+        const userData = {
+          name: result.user.displayName,
+          email: result.user.email,
+          pictureUrl: result.user.photoURL,
+          tel: result.user.phoneNumber,
+          uid: result.user.uid,
+        };
+
+        localStorage.setItem('user_carrinho', JSON.stringify(userData))
+
+
+
+      })
+      .catch((error) => {
+        // erro no login, faça algo aqui
+      });
+  };
+
+
+  const cadastro = async () => {
+    try {
+      const dados = {
+        dataEnvio: new Date(),
+        email: user.email,
+        encomenda: '',
+        endereco: '',
+        id: user.uid,
+        nome: user.displayName,
+        telefone: '',
+      };
+
+      const querySnapshot = await db.collection("agentes")
+        .where("email", "==", user.email)
+        .where("id", "==", user.uid)
+        .get();
+
+      if (querySnapshot.empty) { // se não encontrar documentos, adiciona
+        const docRef = await db.collection("agentes").add(dados);
+        console.log("cadastrado");
+      } else { // se encontrar documentos, informa que já existe
+        console.log("usuario cadastrado.");
       }
+    } catch (error) {
+      console.error("Erro ao adicionar documento: ", error);
     }
-    
+  }
+
 
   const salva = () => {
 
@@ -86,16 +106,16 @@ const Login = () => {
     db.collection('agentes').add({
       dataEnvio: new Date(),
       email: user.email,
-      encomenda:'',
-      endereco:'',
+      encomenda: '',
+      endereco: '',
       id: user.uid,
       nome: user.displayName,
-      telefone:'',
+      telefone: '',
     }).then(() => {
       console.logo('erro')
-      }).catch((error) => {
-        console.logo('erro')
-      });
+    }).catch((error) => {
+      console.logo('erro')
+    });
 
   }
 
@@ -115,85 +135,85 @@ const Login = () => {
 
 
 
-    const handleLogout = () => {
-        firebase.auth().signOut()
-            .then(() => {
-                setUser(null);
+  const handleLogout = () => {
+    firebase.auth().signOut()
+      .then(() => {
+        setUser(null);
 
-                const userData = {
-                    name: '',
-                    email: '',
-                    pictureUrl: '',
-                    tel: '',
-                  }
+        const userData = {
+          name: '',
+          email: '',
+          pictureUrl: '',
+          tel: '',
+        }
 
-                localStorage.setItem('user_carrinho', JSON.stringify(userData));
-                
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
+        localStorage.setItem('user_carrinho', JSON.stringify(userData));
 
-    
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    return (
-        <div className="c mx-auto body">
-            <div className=" ">
-                    <div className="container my-auto form">
-                        
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <center> <img src={logo} style={{ height: '1.5em' }} alt="Logo Arotec" /></center>
 
-                        <br />
-                        <center>
-                               {user ? (
-                                <div>
-                                    <p className='text-primary'>Você está logado como <b> {user.displayName}</b> <br />
-                                    
-                                   <span className="text-secondary">
-                                   Email: {user.email}
-                                   </span>
-                                   </p>
 
-                                    <button className='btn btn-danger' onClick={handleLogout}>Sair</button>
 
-<NavLink className={'btn btn-outline-danger'} to={'/home_agente'} >Painel <i className="bi bi-house"></i></NavLink>
 
-                                </div>
-                            ) : (
-<>
-                            <b className='text-danger'>Faça login com Google</b>
-                            <br />
-                            <br />
+  return (
+    <div className="c mx-auto body">
+      <div className=" ">
+        <div className="container my-auto form">
 
-                                <button className='d-flex btn-google btn btn-outline-danger' onClick={handleLoginWithGoogle}>
-                                    <i className="bi bi-google text- me-2"> </i><span>Login com o Google</span>
-                                </button>
-                                <br />
-                                <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <center> <img src={logo} style={{ height: '1.5em' }} alt="Logo Arotec" /></center>
 
-<NavLink className={'btn btn-outline-secondary'} to={'/'} >Pagina Inicial <i className="bi bi-house"></i></NavLink>
+          <br />
+          <center>
+            {user ? (
+              <div>
+                <p className='text-primary'>Você está logado como <b> {user.displayName}</b> <br />
 
-                           
-</> )}
-                        </center>
+                  <span className="text-secondary">
+                    Email: {user.email}
+                  </span>
+                </p>
 
-                    </div>
-                    <br />
-<center>
-</center>
-                </div>
-                
+                <button className='btn btn-danger' onClick={handleLogout}>Sair</button>
+
+                <NavLink className={'btn btn-outline-danger'} to={'/home_agente'} >Painel <i className="bi bi-house"></i></NavLink>
+
+              </div>
+            ) : (
+              <>
+                <b className='text-danger'>Faça login com Google</b>
+                <br />
+                <br />
+
+                <button className='d-flex btn-google btn btn-outline-danger' onClick={handleLoginWithGoogle}>
+                  <i className="bi bi-google text- me-2"> </i><span>Login com o Google</span>
+                </button>
+                <br />
+                <br />
+
+                <NavLink className={'btn btn-outline-secondary'} to={'/'} >Pagina Inicial <i className="bi bi-house"></i></NavLink>
+
+
+              </>)}
+          </center>
+
         </div>
-    )
+        <br />
+        <center>
+        </center>
+      </div>
+
+    </div>
+  )
 }
 
 export default Login;
