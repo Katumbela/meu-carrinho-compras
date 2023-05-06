@@ -10,6 +10,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
 import { db } from './firebase';
+import { ToastContainer, toast } from 'react-toastify';
+import Loader from '../components/loader';
 
 const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
@@ -34,45 +36,48 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     useEffect(() => {
         // Obtém o valor de 'user' do local storage quando o componente for montado
         const userString = localStorage.getItem('user_carrinho');
-        if(userString) {
+        if (userString) {
             const user = JSON.parse(userString);
             setUser(user);
         }
 
+
         else {
-          const userData = {
-              name: '',
-              email: '',
-              pictureUrl: '',
-              tel: '',
+            const userData = {
+                name: '',
+                email: '',
+                pictureUrl: '',
+                tel: '',
             }
-          setUser(userData);
+            setUser(userData);
         }
-        if(use.name == '') {
+        if (use.name == '') {
             window.location.href = '/login';
         }
-      }, []);
+        check();
+    }, []);
 
 
-      //pegando dados 
+    //pegando dados 
 
-      const [data, setData] = useState(null);
+    //   const [data, setData] = useState(null);
 
-      useEffect(() => {
-        const fetchData = async () => {
-          const db = firebase.firestore();
-          const docRef = db.collection('myCollection').doc(use.email);
-          const docSnapshot = await docRef.get();
-          if (docSnapshot.exists) {
-            setData(docSnapshot.data());
-          }
-        };
-    
-        fetchData();
-      }, [use.email]);
-    
+    //   useEffect(() => {
+    //     const fetchData = async () => {
+    //       const db = firebase.firestore();
+    //       const docRef = db.collection('myCollection').doc(use.email);
+    //       const docSnapshot = await docRef.get();
+    //       if (docSnapshot.exists) {
+    //         setData(docSnapshot.data());
+    //       }
+    //     };
+
+    //     fetchData();
+    //   }, [use.email]);
+
+
     const handleLogout = () => {
-            window.location.href = '/login';
+        window.location.href = '/login';
         firebase.auth().signOut()
             .then(() => {
                 setUser(null);
@@ -82,26 +87,83 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     email: '',
                     pictureUrl: '',
                     tel: '',
-                  }
+                }
 
                 localStorage.setItem('user_carrinho', JSON.stringify(userData));
-                
+
             })
             .catch((error) => {
                 console.log(error);
             });
     };
 
+    const [info, setInfo] = useState({});
+
+    const check = async () => {
+        try {
+            const querySnapshot = await db.collection("agentes")
+                .where("email", "==", use.email)
+                .where("id", "==", use.uid)
+                .get();
+
+            if (querySnapshot.empty) {
+                console.log("Usuário não cadastrado.");
+            } else {
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    setInfo(data);
+                });
+            }
+        } catch (error) {
+            console.error("Erro ao buscar documento: ", error);
+        }
+    }
+
+    const [novoTel, setT] = useState('');
+    const [load, setLoad] = useState(false);
+
+    const actTel = async () => {
+        setLoad(true);
+        try {
+            // Recupere o documento do usuário que deseja atualizar
+            const querySnapshot = await db.collection("agentes")
+                .where("email", "==", use.email)
+                .where("id", "==", use.uid)
+                .get();
+
+            if (querySnapshot.empty) {
+                console.log("Usuário não cadastrado.");
+            } else {
+                querySnapshot.forEach(async (doc) => {
+                    // Atualize o campo "telefone" do documento
+                    await db.collection("agentes").doc(doc.id).update({
+                        telefone: novoTel
+                    });
+                    console.log("Telefone atualizado com sucesso!");
+                    toast.success('Telefone/ Whatsapp actualizado com sucesso!');
+                    setLoad(true);
+                });
+            }
+        } catch (error) {
+            console.error("Erro ao atualizar telefone: ", error);
+            toast.success('Ocorreu um erro ao tentar actualizar seu numero!');
+        }
+    }
+
+    check();
+
+
     return (
         <div className="w-100">
+            <ToastContainer />
             <div className="bg-white nav-b fixed justify-content-between d-flex px-3 py-3" style={{}}>
                 <NavLink to={'/'}>
                     <img src={bann} style={{ height: '1.6em' }} alt="" />
                 </NavLink>
-               <div className="d-flex">
-                <span onClick={()=> handleLogout()} className="text-danger cursor my-auto me-3">Sair</span>
-               <img src={`${use.pictureUrl}`} style={{height:'2.2em', border:'2px solid red'}} className='rounded-circle ' alt={use.name} />
-               </div>
+                <div className="d-flex">
+                    <span onClick={() => handleLogout()} className="text-danger cursor my-auto me-3">Sair</span>
+                    <img src={`${use.pictureUrl}`} style={{ height: '2.2em', border: '2px solid red' }} className='rounded-circle ' alt={use.name} />
+                </div>
             </div>
 
             <br /><br />
@@ -109,53 +171,83 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <br /><br />
                 <div className="a position-relative rounded-4 shadow py-3 bg-light fw-light px-2">
 
-                <img src={`${use.pictureUrl}`} style={{height:'6.2em', border:'2px solid red', }} className='rounded-circle ' alt={use.name} /> <br />
-                <b>Agente: <b className="text-danger">{use.name}</b></b><br />
-                <b>Email: <b className="text-danger">{use.email}</b></b>
-            
-            <img src={bann} style={{position:'absolute', height:'4em',right:'0', bottom:'0', top:'0rem',opacity:'.1'}} alt="" />
+                    <img src={`${use.pictureUrl}`} style={{ height: '6.2em', border: '2px solid red', }} className='rounded-circle ' alt={use.name} /> <br />
+                    <b>Agente: <b className="text-danger">{use.name}</b></b><br />
+                    <b>Email: <b className="text-danger">{use.email}</b></b>
+
+                    <img src={bann} style={{ position: 'absolute', height: '4em', right: '0', bottom: '0', top: '0rem', opacity: '.1' }} alt="" />
                 </div>
                 <br />
-                <h4 className="f-lilita text-danger">Bem vindo ao seu dashboard Agente {use.name}</h4>
+                <h4 className="f-lilita text-danger">Bem vindo ao seu painel Agente {use.name}</h4>
 
                 <hr />
-                <center>
-<br />
-                    <span className=" p-1 anim-scale rounded-circle" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', placeContent: 'center' }}>
-                        <i className="bi bi-whatsapp f-50 text-success"></i>
-                    </span>
-                    <br />
-                    <span className="text-secondary  f-10">Active notificações para o whatsapp</span><br />
-                    <button className="btn f-12 btn-outline-danger">Activar</button>
-                </center>
+
+                {
+                    info.telefone == '' ?
+                        <center>
+                            <br />
+                            <span className=" p-1 anim-scale rounded-circle" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', placeContent: 'center' }}>
+                                <i className="bi bi-whatsapp f-50 text-success"></i>
+                            </span>
+                            <br />
+                            <span className="text-secondary  f-10">Adicione seu o whatsapp {info.nome} !</span><br />
+                            <input type="tel" value={novoTel} onChange={(e) => setT(e.target.value)} placeholder='900 000 000' className="form-control w-50" />
+                            <button onClick={() => actTel()} className="btn f-12 btn-outline-danger" disabled={!novoTel}>{load == false ? <span>Activar</span> : <Loader />}</button>
+                        </center>
+                        :
+                        <div>
+                            <div className="d-flex">
+                                <i className="bi bi-whatsapp text-success"></i> <span className="ms-2 text-success">+244 {info.telefone}</span>
+                            </div>
+                            <span className="text-secondary f-14">Para alterar seu whatsapp contacte o suporte</span>
+                        </div>
+                }
+
+
+
                 <br /><br />
                 <b className="text-danger f-lilita">Pedidos activos</b>
                 <br />
                 <br />
                 <div className="row">
-                    <div className="col-6 col-md-4 col-lg-3">
-                        <div className='shadow position-relative rounded-2' style={{ border: '1px solid red', width: '10rem', height: 'auto' }}>
-                            <div className="text-center">
-                                <img src={ban} style={{ height: '3.6em' }} alt="" className='mx-auto my-4 img-anim' />
+                    {
+                        info.encomenda != '' ?
+
+                            <div className="col-6 col-md-4 col-lg-3">
+                                <div className='shadow position-relative rounded-2' style={{ border: '1px solid red', width: '10rem', height: 'auto' }}>
+                                    <div className="text-center">
+                                        <img src={ban} style={{ height: '3.6em' }} alt="" className='mx-auto my-4 img-anim' />
+                                    </div>
+                                    <div className='px-2 pb-2'>
+                                        <span className="text-secondary f-12">
+                                            <b>De</b>: Nome Pessoa
+
+                                        </span><br />
+                                        <span className="text-secondary f-12">
+                                            <b>Artigo</b>: Nome do artigo
+                                        </span><br />
+                                        <span className="text-secondary f-12">
+                                            <b>Status</b>: <b className="text-success">Activo</b>
+                                        </span>
+                                    </div>
+                                    <span className=" p-1 rounded-circle position-absolute" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', border: '1px solid red', placeContent: 'center' }}>
+                                        <i className="bi bi-telephone text-danger"></i>
+                                    </span>
+                                </div>
                             </div>
-                            <div className='px-2 pb-2'>
-                                <span className="text-secondary f-12">
-                                    <b>De</b>: Nome Pessoa 
-                {use.pictureUrl}
-                                </span><br />
-                                <span className="text-secondary f-12">
-                                    <b>Artigo</b>: Nome do artigo
-                                </span><br />
-                                <span className="text-secondary f-12">
-                                    <b>Status</b>: <b className="text-success">Activo</b>
-                                </span>
+                            :
+                            <div className='col-12 w-100'>
+                                <center className='w-75 mx-auto'>
+                                    <i className="bi bi-exclamation-triangle text-warning f-50"></i><br />
+                                    <span className="text-secondary">Não tem ainda nenhuma encomenda para ser feito agente {use.name}</span>
+                                </center>
                             </div>
-                            <span className=" p-1 rounded-circle position-absolute" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', border: '1px solid red', placeContent: 'center' }}>
-                                <i className="bi bi-telephone text-danger"></i>
-                            </span>
-                        </div>
-                    </div>
+
+                    }
                 </div>
+                <br />
+                <br />
+                <br />
                 <br />
                 <br />
             </div>

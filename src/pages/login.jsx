@@ -18,7 +18,7 @@ const Login = () => {
     useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
             setUser(user);
-
+            cadastro();
         });
         
     }, []);
@@ -51,25 +51,34 @@ const Login = () => {
     };
 
 
-
-const salvar = async () => {
-  try {
-    const dados = { // crie um objeto com os dados que você quer adicionar
-      dataEnvio: new Date(),
-      email: user.email,
-      encomenda:'',
-      endereco:'',
-      id: user.uid,
-      nome: user.displayName,
-      telefone:'',
-    };
-    const docRef = await db.collection("agentes").add(dados); // adicione os dados na coleção "usuarios"
-    console.log("Documento adicionado com ID: ", docRef.id);
-  } catch (error) {
-    console.error("Erro ao adicionar documento: ", error);
-  }
-}
-
+    const cadastro = async () => {
+      try {
+        const dados = {
+          dataEnvio: new Date(),
+          email: user.email,
+          encomenda:'',
+          endereco:'',
+          id: user.uid,
+          nome: user.displayName,
+          telefone:'',
+        };
+    
+        const querySnapshot = await db.collection("agentes")
+          .where("email", "==", user.email)
+          .where("id", "==", user.uid)
+          .get();
+    
+        if (querySnapshot.empty) { // se não encontrar documentos, adiciona
+          const docRef = await db.collection("agentes").add(dados);
+          console.log("cadastrado");
+        } else { // se encontrar documentos, informa que já existe
+          console.log("usuario cadastrado.");
+        }
+      } catch (error) {
+        console.error("Erro ao adicionar documento: ", error);
+      }
+    }
+    
 
   const salva = () => {
 
@@ -139,7 +148,7 @@ const salvar = async () => {
                         
                         <br />
                         <br />
-                        <button onClick={()=>salvar()}>Enviarr</button>
+                        <br />
                         <br />
                         <br />
                         <br />
