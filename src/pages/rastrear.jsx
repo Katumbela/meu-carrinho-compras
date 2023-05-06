@@ -23,6 +23,7 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
   const [inputValue, setInputValue] = useState(pedido);
 
+  let data = new Date();
 
   let pp = pedido;
 
@@ -103,6 +104,10 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     }
   }
 
+
+  const diffInMillis = new Date().getTime() - info.dataEnvio;
+const diffInMinutes = Math.round(diffInMillis / 1000 / 60);
+const min = `Há ${diffInMinutes} minutos`;
 
   document.title = 'Rastreamento de Pedido | Meu Carrinho Compras';
   return (
@@ -211,6 +216,10 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                   {info.estado == 'Recebido' && <span><span className="text-success">Entregue:</span> <span className="fw-light"> este artigo já foi recebido!</span></span>}
                 </b>
                 <hr />
+              <center>
+                <br />
+                <span className="text-secondary">Feito há {min}</span>
+              </center>
               </center>
 
           }

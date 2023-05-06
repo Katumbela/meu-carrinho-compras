@@ -109,7 +109,7 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                                             <b>Artigo</b>: {itemm.artigo}
                                         </span><br />
                                         <span className="text-secondary f-12">
-                                            <b>Status</b>: <b className={itemm.estado === 'Activo' ? 'text-success' : 'text-danger'}>{itemm.estado}</b>
+                                            <b>Status</b>: <b className={itemm.estado === 'Recebido' ? 'text-success' : 'text-danger'}>{itemm.estado}</b>
                                         </span>
                                     </div>
                                     <b style={{ top: '.2rem', left: '.5rem' }} className="text-danger f-12 position-absolute f-lilita">P. #{itemm.pedido}</b>

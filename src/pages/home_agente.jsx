@@ -146,6 +146,7 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     const [novoTel, setT] = useState('');
     const [load, setLoad] = useState(false);
+    const [load2, setLoad2] = useState(false);
 
     const actTel = async () => {
         setLoad(true);
@@ -166,12 +167,13 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     });
                     console.log("Telefone atualizado com sucesso!");
                     toast.success('Telefone/ Whatsapp actualizado com sucesso!');
-                    setLoad(true);
+                    setLoad(false);
                 });
             }
         } catch (error) {
             console.error("Erro ao atualizar telefone: ", error);
             toast.success('Ocorreu um erro ao tentar actualizar seu numero!');
+            setLoad(false);
         }
     }
 
@@ -206,9 +208,142 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     }
 
 
-    cadastro();
-    useEffect(() => {
+    const [pedidos, setPedido] = useState({});
+    const [pp, setPP] = useState(info.encomenda);
 
+    useEffect(() => {
+        setPP(pp);
+        const fetchPedido = async () => {
+
+            const docId = parseInt(pp);
+            const docRef = await db.collection('pedidos').where('pedido', '==', docId).limit(1).get();
+            if (!docRef.empty) {
+                const data = docRef.docs[0].data();
+                setPedido(data);
+            } else {
+                setPedido({});
+                // alert('Nenhum documento encontrado com o parâmetro fornecido.');
+            }
+        };
+
+        fetchPedido();
+    }, [pp]);
+
+    const fetchPedid = async () => {
+        const docId = parseInt(pp);
+        const docRef = await db.collection('pedidos').where('pedido', '==', docId).limit(1).get();
+        if (!docRef.empty) {
+            const data = docRef.docs[0].data();
+            setPedido(data);
+        } else {
+            setPedido({});
+            // alert('Nenhum documento encontrado com o parâmetro fornecido.');
+        }
+    };
+
+
+
+const [load3, setLoad3] = useState(false);
+
+    const recolhi = async () => {
+        setLoad3(true);
+
+        const ped = parseInt(pp);
+        try {
+            // Recupere o documento do usuário que deseja atualizar
+            const querySnapshot = await db.collection("pedidos")
+                .where("pedido", "==", ped)
+                .get();
+
+            if (querySnapshot.empty) {
+                console.log("Usuário não cadastrado.");
+            } else {
+                querySnapshot.forEach(async (doc) => {
+                    // Atualize o campo "telefone" do documento
+                    await db.collection("pedidos").doc(doc.id).update({
+                        estado: 'Recolhido',
+                    });
+                    console.log("Estado alterado co sucesso!");
+                    toast.success('Estado alterado com sucesso!');
+                    setLoad3(false);
+                });
+            }
+        } catch (error) {
+            setLoad3(false)
+            console.error("Erro ao atualizar telefone: ", error);
+            toast.success('Ocorreu um erro ao tentar actualizar seu estado de compra!');
+        }
+    }
+
+    const cheguei = async () => {
+        setLoad(true);
+
+        const ped = parseInt(pp);
+        try {
+            // Recupere o documento do usuário que deseja atualizar
+            const querySnapshot = await db.collection("pedidos")
+                .where("pedido", "==", ped)
+                .get();
+
+            if (querySnapshot.empty) {
+                console.log("Usuário não cadastrado.");
+            } else {
+                querySnapshot.forEach(async (doc) => {
+                    // Atualize o campo "telefone" do documento
+                    await db.collection("pedidos").doc(doc.id).update({
+                        estado: 'Chegou',
+                    });
+                    console.log("Estado alterado co sucesso!");
+                    toast.success('Estado alterado com sucesso! ');
+                    setLoad(false);
+                });
+            }
+        } catch (error) {
+            setLoad(false)
+            console.error("Erro ao atualizar telefone: ", error);
+            toast.success('Ocorreu um erro ao tentar actualizar seu estado de compra!');
+        }
+    }
+
+    const setbill = async () => {
+        setLoad2(true);
+        const currentUser = firebase.auth().currentUser;
+        if (currentUser) {
+            const userId = currentUser.uid;
+            try {
+                const querySnapshot = await firebase.firestore()
+                    .collection("agentes")
+                    .where("id", "==", userId)
+                    .get();
+                if (querySnapshot.empty) {
+                    console.log("Usuário não cadastrado.");
+                } else {
+                    const docId = querySnapshot.docs[0].id;
+                    await firebase.firestore()
+                        .collection("agentes")
+                        .doc(docId)
+                        .update({
+                            encomenda: pp == '' ? info.encomenda : pp,
+                        });
+
+                    setLoad2(false);
+                    console.log("Encomenda atualizada com sucesso!");
+                }
+            } catch (error) {
+
+                setLoad2(false);
+                console.error("Erro ao atualizar encomenda: ", error);
+            }
+        } else {
+            console.log("Usuário não autenticado.");
+        }
+    };
+
+
+
+    cadastro();
+
+    useEffect(() => {
         cadastro();
     }, [])
 
@@ -265,45 +400,67 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
 
                 <br /><br />
-                <b className="text-danger f-lilita">Pedidos activos</b>
+                <b className="text-danger f-20 f-lilita">Vai Levar um pedido ?</b><br />
+                <span className=" f-16 text-secondary">
+                    Adicione a referencia do pedido para começar sua corrida!
+                </span>
+                <br />
+                <div className="">
+                    <div className="d-flex">
+                        <input value={pp} onChange={(e) => setPP(e.target.value)} type="text" placeholder='Ex: 12345678' className='form-control' />
+                        <button onClick={() => fetchPedid()} disabled={!pp} className="text-center btn btn-danger" style={{ display: 'grid', placeContent: 'center' }}>
+                            <i className="bi bi-play-circle"></i>
+                        </button>
+                    </div>
+                </div>
                 <br />
                 <br />
-                <div className="row">
-                    {
-                        info.encomenda != '' ?
+                {
+                    pedidos.artigo ==null ?
+                        <div>
+                            <center>
+                                <span className="text-secondary">Não há ainda pedidos para ser entregue</span><br />
+                                <span className="text-secondary">Seu ultimo codigo digitado foi <b className='text-danger'>{info.encomenda}</b> {info.encomenda != '' && 'copie e cole na caixa de teste para continuar!'}</span>
+                            </center>
+                        </div>
 
-                            <div className="col-6 col-md-4 col-lg-3">
-                                <div className='shadow position-relative rounded-2' style={{ border: '1px solid red', width: '10rem', height: 'auto' }}>
-                                    <div className="text-center">
-                                        <img src={ban} style={{ height: '3.6em' }} alt="" className='mx-auto my-4 img-anim' />
-                                    </div>
-                                    <div className='px-2 pb-2'>
-                                        <span className="text-secondary f-12">
-                                            <b>De</b>: Nome Pessoa
-
-                                        </span><br />
-                                        <span className="text-secondary f-12">
-                                            <b>Artigo</b>: Nome do artigo
-                                        </span><br />
-                                        <span className="text-secondary f-12">
-                                            <b>Status</b>: <b className="text-success">Activo</b>
-                                        </span>
-                                    </div>
-                                    <span className=" p-1 rounded-circle position-absolute" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', border: '1px solid red', placeContent: 'center' }}>
-                                        <i className="bi bi-telephone text-danger"></i>
-                                    </span>
+                        :
+                        <div className='bg-light p-2'>
+                            <h3 className="text-secondary">Artigo: <b className="text-danger">{pedidos.artigo}</b></h3>
+                            <hr />
+                            <p className="text-secondary">
+                                <span> Pedido de: <b className="text-danger">{pedidos.nome}</b></span> <br />
+                                <span> Telefone: <a href={'tel:244' + pedidos.telefone1} className="text-danger">{pedidos.telefone1}</a></span> <br />
+                                <span> Recolha: <b className="text-danger">{pedidos.endereco1}</b></span> <br />
+                                <hr />
+                                <span>Vai entregar para:</span> <br />
+                                <span> Nome: <b className="text-danger">{pedidos.nome2}</b></span> <br />
+                                <span> Telefone: <a href={'tel:244' + pedidos.telefone2} className="text-danger">{pedidos.telefone2}</a></span> <br />
+                                <span> P. entrega: <b className="text-danger">{pedidos.endereco2}</b></span> <br />
+                                <hr />
+                                <span>Dados do pedido:</span><br />
+                                <span> Pagamento: <b className="mt-4 text-danger">{pedidos.pagamento}</b></span> <br />
+                                <span> Total: <b className="mt-4 text-danger">{pedidos.taxa} Kz</b></span> <br />
+                                <span> Estado: <b className={pedidos.estado === 'Recebido' ? 'text-success' : 'text-danger'}>{pedidos.estado}</b></span> <br />
+                            </p>
+                            <br />
+                            <div className="row">
+                                <div className="col-12 col-sm-6 text-start">
+                                    <button disabled={pedidos.estado === 'Recolhido' || pedidos.estado === 'Recebido'}  onClick={()=>recolhi()} className="btn btn-outline-info">
+                                        {load3 == false ? pedidos.estado === 'Recolhido' || pedidos.estado === 'Recebido' ? 'Artigo Recolhido' : 'Recolher Artigo' : <Loader />}
+                                    </button>
+                                </div>
+                                <div className="col-12 col-sm-6 text-end">
+                                    <button disabled={pedidos.estado === 'Chegou' || pedidos.estado === 'Recebido'}  onClick={()=>cheguei()} className="btn btn-outline-danger">
+                                        {load3 == false ? pedidos.estado != 'Chegou' ? 'Cheguei ao Destino' : 'Corrida terminada' : <Loader />}
+                                    </button>
                                 </div>
                             </div>
-                            :
-                            <div className='col-12 w-100'>
-                                <center className='w-75 mx-auto'>
-                                    <i className="bi bi-exclamation-triangle text-warning f-50"></i><br />
-                                    <span className="text-secondary">Não tem ainda nenhuma encomenda para ser feito agente {use.name}</span>
-                                </center>
-                            </div>
 
-                    }
-                </div>
+                        </div>
+                }
+
+               
                 <br />
                 <br />
                 <br />
