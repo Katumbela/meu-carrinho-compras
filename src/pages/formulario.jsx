@@ -9,6 +9,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../components/loader';
+import { db } from './firebase';
 
 const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
@@ -27,8 +28,8 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
   const [randomNumber, setrandomNumber] = useState(null);
 
   function gerar() {
-    const min = 100000000;
-    const max = 999999999;
+    const min = 100000;
+    const max = 999999;
     const newRandomNumber = Math.floor(Math.random() * (max - min + 1) + min);
     
     setrandomNumber(newRandomNumber);
@@ -105,27 +106,46 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     const [message, setMessage] = useState([]);
     const [load, setLoad] = useState(false);
 
-    const instance = axios.create({
-        baseURL: 'https://www.garimpo.ga/engenharias/',
-        changeOrigin: true,
-    });
 
-    const handleCadastro = () => {
+
+    const enviar = async () => {
         setLoad(true);
-        instance.get('pedido.php?nome=' + nome + '&pag=' + selectedValue + '&preco=' + taxa + '&email=' + email + '&artigo=' + artigo + '&end1=' + address1 + '&tel1=' + tel + '&end2=' + address2 + '&tel2=' + tel2 + '&nome2=' + nome2 + '&id=' + randomNumber)
-            .then((response) => {
-                setMessage(response.data);
-                console.log(response.data)
-                setLoad(false);
-                toast.success('Seus pedido foi adicionado com sucesso, estamos indo!');
-            })
-            .catch(error => {
-                setMessage(error);
-                console.log(error);
-                setLoad(false);
-                toast.error('Ocorreu um erro, verifique sua conexão!');
-            });
-    }
+        try {
+          const dados = {
+            dataEnvio: new Date(),
+            email: email,
+            pedido: randomNumber,
+            endereco1:address1,
+            telefone1: tel,
+            nome: nome,
+            telefone2:tel2,
+            artigo:artigo,
+            endereco2:address2,
+            taxa: taxa,
+            nome2:nome2,
+            estado: 'Pendente',
+            pagamento: selectedValue,
+          };
+      
+          const querySnapshot = await db.collection("pedidos")
+            .where("nome", "==", nome)
+            .where("pedido", "==", randomNumber)
+            .get();
+      
+          if (querySnapshot.empty) { // se não encontrar documentos, adiciona
+            const docRef = await db.collection("pedidos").add(dados);
+            console.log("cadastrado");
+            setMessage('sucesso');
+            setLoad(false);
+            toast.success('Seus pedido foi adicionado com sucesso, estamos indo!');
+          } else { // se encontrar documentos, informa que já existe
+            console.log("usuario cadastrado.");
+          }
+        } catch (error) {
+            toast.error('Ocorreu um erro, verifique sua conexão ou tente mais tarde!');
+          console.error("Erro ao adicionar documento: ", error);
+        }
+      }
 
 
     document.title = 'Solicitacao de servico de Mobilidade | Meu Carrinho ';
@@ -401,7 +421,7 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                             <button type="button" className="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
 
 
-                            <button type="button" disabled={!selectedValue} data-bs-dismiss="modal" onClick={() => handleCadastro()} className="btn btn-danger">Confirmar</button>
+                            <button type="button" disabled={!selectedValue} data-bs-dismiss="modal" onClick={() => enviar()} className="btn btn-danger">Confirmar</button>
 
                         </div>
                     </div>

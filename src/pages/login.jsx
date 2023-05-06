@@ -139,13 +139,11 @@ const Login = () => {
 
     return (
         <div className="c mx-auto body">
-            <div className="row ">
-                <div className="col-12 autoo col-md-6 col-xl-6 col-xxl-6 luanda">
-                  
-                </div>
-                <div className="col-12 col-md-6 autoo col-xl-6 col-xxl-6 ">
+            <div className=" ">
                     <div className="container my-auto form">
                         
+                        <br />
+                        <br />
                         <br />
                         <br />
                         <br />
@@ -193,7 +191,7 @@ const Login = () => {
 <center>
 </center>
                 </div>
-            </div>
+                
         </div>
     )
 }
