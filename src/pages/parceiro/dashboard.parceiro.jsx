@@ -1,110 +1,104 @@
 import '../../App.css';
-import ban from '../../imgs/del.jpg'
-import bann from '../../imgs/logo.png'
-import bg from '../../imgs/bg-nav.jpg'
-import '../../css/mob.css'
-import { NavLink } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+// Bootstrap CSS
+// Bootstrap Bundle JS
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import BannerPreto from '../../components/banner_preto';
+import { db } from '../firebase';
+import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loader from '../../components/loader';
 
-const Parceiro = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
+const Contactar = ({emaill,nomee, cart }) => {
+  document.title = 'Formulario de Contacto | AROTEC';
+  
+  const [nomeCompleto, setNC] = useState('');
+  const [telefone, setTel] = useState('');
+  const [email, setEmail] = useState('');
+  const [mensagem, setMsg] = useState('');
+  const [load, setLoad] = useState(false);
 
-    const [nome, setNome] = useState("");
-    const [email, setEmail] = useState("");
-    const [artigo, setArtigo] = useState("");
-    const [tel, setTel] = useState("");
-    const [address1, setAd1] = useState("");
-    const [address2, setAd2] = useState("");
-    const [mensagem, setMensagem] = useState("");
-    const [loggedIn, setLoggedIn] = useState(false);
-    const randomNum = Math.floor(Math.random() * 90000000) + 10000000;
-    let taxa = 0;
+  
+  const salvar = () => {
+    setLoad(true)
+    db.collection('mensagens').add({
+        dataEnvio: new Date(),
+        email: 'user.email',
+        encomenda:'',
+        endereco:'',
+        id: 'user.uid',
+        nome: 'user.displayName',
+        telefone:'',
+    })
+    .then(() => {
+      setEmail('');
+      setTel('');
+      setNC('');
+      setMsg('');
+      setLoad(false);
+      toast.success('Recebemos a sua mensagem com sucesso!');
+    })
+    .catch((error) => {
+      setLoad(false);
+      toast.error('Erro ao enviar mensagem:');
+    });
+  }
+  
+  return (
+    <div className="w-100">
+      <ToastContainer />
 
-    document.title = 'Dasboard Parceiro | Meu Carrinho ';
-    return (
-        <div className="w-100">
-            <div className="bg-white nav-b fixed justify-content-between d-flex px-3 py-3" style={{}}>
-                <NavLink to={'/'}>
-                    <img src={bann} style={{ height: '1.6em' }} alt="" />
-                </NavLink>
-                <NavLink to={'/login'} className={'btn btn-outline-danger f-14 rounded-1 shadow'}> <i className="bi bi-person"></i></NavLink>
-            </div>
-
-            <br /><br />
-            <div className="container">
-                <br /><br /><br />
-                <h4 className="f-lilita text-danger">Bem vindo ao seu dashboard paceiro(a) $Nome</h4>
-
-                <hr />
-                <p>
-                    <span>Seu Facturamento: <b className="text-danger">0.00</b></span>
-                </p>
-                <hr />
-                <center>
-<br />
-                    <span className=" p-1 anim-scale rounded-circle" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', placeContent: 'center' }}>
-                        <i className="bi bi-whatsapp f-50 text-success"></i>
-                    </span>
-                    <br />
-                    <span className="text-secondary  f-10">Active notificações para o whatsapp</span><br />
-                    <button className="btn f-12 btn-outline-danger">Activar</button>
-                </center>
-                <br /><br />
-                <b className="text-danger f-lilita">Pedidos activos</b>
-                <br />
-                <br />
-                <div className="row">
-                    <div className="col-6 col-md-4 col-lg-3">
-                        <div className='shadow position-relative rounded-2' style={{ border: '1px solid red', width: '10rem', height: 'auto' }}>
-                            <div className="text-center">
-                                <img src={ban} style={{ height: '3.6em' }} alt="" className='mx-auto my-4 img-anim' />
-                            </div>
-                            <div className='px-2 pb-2'>
-                                <span className="text-secondary f-12">
-                                    <b>De</b>: Nome Pessoa
-                                </span><br />
-                                <span className="text-secondary f-12">
-                                    <b>Artigo</b>: Nome do artigo
-                                </span><br />
-                                <span className="text-secondary f-12">
-                                    <b>Status</b>: <b className="text-success">Activo</b>
-                                </span>
-                            </div>
-                            <span className=" p-1 rounded-circle position-absolute" style={{ right: '.5rem', bottom: '.5rem', height: '1.6rem', width: '1.6rem', display: 'grid', border: '1px solid red', placeContent: 'center' }}>
-                                <i className="bi bi-telephone text-danger"></i>
-                            </span>
-                        </div>
-                    </div>
+      < Header  nomee={nomee} emaill={emaill} cart={cart} />
+      <BannerPreto>
+        CONTACTAR AROTEC
+      </BannerPreto>
+      <br />
+      <br /><br />
+      <div className="container">
+        <div className="row">
+          <div style={{display: 'grid', }} className="col-12 col-sm-6 text-center">
+            <span className="text-secondary py-3 my-auto">
+              Industry.Robotics.Tecnology
+            </span>
+          </div>
+          <div className="col-12 col-sm-6">
+            <div className="">
+              <b>Preencha o Formulário</b>
+              <div className="row">
+                <div className="col-12 col-lg-6 my-2">
+                  <label className='text-secodary f-12' htmlFor="">Nome completo </label>
+                  <input value={nomeCompleto} onChange={(e)=> setNC(e.target.value)} type="text" name="" placeholder="Nome completo" id="" className="form-control" />
                 </div>
-                <br />
-                <br />
-            </div>
-
-
-
-            <footer className='bg-danger shadow text-white text-center p-2'>
-
-                <a href='https://wa.me/244934131274' style={{ textDecoration: 'none', border: '1px solid yellow' }} className="suporte rounded-pill color-white px-3 d-flex bg-danger py-1">
-                    <span className='text-white me-2'>Suporte </span>
-                    <i className="bi bi-headset text-white"></i>
-                </a>
-                <div className="d-flex justify-content-center">
-                    <i className="bi bi-facebook"></i>
-                    <i className="bi bi-linkedin mx-2"></i>
-                    <i className="bi bi-whatsapp"></i>
+                <div className="col-12 col-lg-6 my-2">
+                  <label className='text-secodary f-12' htmlFor="">Telefone</label>
+                  <input value={telefone} onChange={(e)=> setTel(e.target.value)}  type="text" name="" placeholder="909 433 978" id="" className="form-control" />
                 </div>
-                <center className='f-12'>
-                    &copy; Meu Carrinho - 2023
-                </center>
-
-            </footer>
-
-
-
-
-
+                <div className="col-12 col-lg-6 my-2">
+                  <label className='text-secodary f-12' htmlFor="">Email</label>
+                  <input value={email} onChange={(e)=> setEmail(e.target.value)}  type="text" name="" placeholder="Seu email" id="" className="form-control" />
+                </div>
+                <div className="col-12 col-lg-6 my-2">
+                  <label className='text-secodary f-12' htmlFor="">Ficheiro ( Opcional )</label>
+                  <input  type="file" name="" id="" className="form-control" />
+                </div>
+                <div className="col-12 col-lg-6 my-2">
+                  <label className='text-secodary f-12' htmlFor="">Sua Mensagem</label>
+                  <textarea value={mensagem} onChange={(e)=> setMsg(e.target.value)}  type="text" name="" placeholder="Seu email" id="" className="form-control" ></textarea>
+                </div>
+                  <div className="col-12 my-3">
+                     <button onClick={()=> salvar()} className="btn btn-primary w-100"> {load == false ? <span>Envar <i className="bi bi-send ms-2"></i></span> : <Loader/>} </button>
+                  </div>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      </div>
+      <br /><br /><br />
+      < Footer />
+
+    </div>
+  );
 }
 
-export default Parceiro;
+export default Contactar;

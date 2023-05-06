@@ -15,6 +15,7 @@ import Track from "./rastrear";
 import Agente from "./agente/dashboard.agente";
 import Parceiro from "./parceiro/dashboard.parceiro";
 import Admin from "./admin";
+import HAgente from "./home_agente";
 
 
 const Rotas = ( {cart, setCart, handleClick, adicionar, pro_p_cat, remover}) => {
@@ -38,6 +39,7 @@ const Rotas = ( {cart, setCart, handleClick, adicionar, pro_p_cat, remover}) => 
                 <Route element = { <Search pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/s/" exact/>
                 <Route element = { <Formulario pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/pedido" exact/>
                 <Route element = { <Agente pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/agente" exact/>
+                <Route element = { <HAgente pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/home_agente" exact/>
                 <Route element = { <Parceiro pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/parceiro" exact/>
                 <Route element = { <Login pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/login" exact/>
                 <Route element = { <Track pro_p_cat={pro_p_cat} cart={cart} handleClick={handleClick} /> }  path="/track/:pedido" exact/>

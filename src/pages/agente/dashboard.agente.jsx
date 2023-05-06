@@ -87,7 +87,7 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <NavLink to={'/'}>
                     <img src={bann} style={{ height: '1.6em' }} alt="" />
                 </NavLink>
-                <b className="text-danger f-lilita">Cadastro Agente</b>
+                <NavLink to={'/login'} className="text-danger f-lilita"><i className="bi bi-person"></i> Entrar</NavLink>
             </div>
             <br /><br /><br /><br />
 
