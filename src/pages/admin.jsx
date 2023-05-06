@@ -8,6 +8,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import { db } from './firebase';
+
 
 const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
@@ -52,7 +56,35 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
         }
      },5000)
 
+
+    // pegando dados 
+
+      const [data, setData] = useState([]);
+
+        const fetchData = async () => {
+          const db = firebase.firestore();
+          const docRef = db.collection('agentes');
+          const docSnapshot = await docRef.get();
+          if (docSnapshot.exists) {
+            setData(docSnapshot.data());
+          }
+        };
+
+        fetchData();
     
+
+  const [info, setInfo] = useState([]);
+
+  useEffect(() => {
+    const fetchInfo = async () => {
+      const querySnapshot = await db.collection("agentes").get();
+
+      const docs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setInfo(docs);
+    }
+
+    fetchInfo();
+  }, []);
     document.title = 'Dasboard Admin | Meu Carrinho ';
     return (
         <div className="w-100">
@@ -100,6 +132,7 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <i className="bi bi-telephone text-danger f-lilita"></i>
             </span>
         </div>
+      
     </div>
 ))
 }
@@ -109,22 +142,21 @@ const Admin = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <table className='table w-100 f-12 table-hover table-striped'>
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Tel</th>
-                            <th>Email</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
 
                     {
                         map == true &&
-                        message.map((item) => (
-
-                            <tr key={item.id}>
-                                <td>{item.nome.split(" ")[0]} {item.nome.split(" ")[1][0]}. {item.nome.split(" ")[2]}</td>
-                                <td>{item.telefone}</td>
-                                <td>{item.email} &middot; {item.endereco}</td>
-                            </tr>
+                        info.map((doc) => (
+                          <tr key={doc.id}>
+                            <td> {doc.email}</td>
+                            <td>ID {doc.id}</td>
+                            <td>{doc.nome}</td>
+                            <td>Data: {doc.dataEnvio.toDate().toLocaleDateString()}</td>
+                            <hr />
+                          </tr>
                         ))
                         }
 
