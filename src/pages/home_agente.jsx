@@ -58,6 +58,31 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     }, []);
 
 
+    useEffect(() => {
+        // Adicione um listener para o estado da autenticação
+        const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+          if (!user) {
+            // Se não houver usuário autenticado, redirecione para a página de login
+            window.location.href = '/login'; // troque '/login' pela rota da sua tela de login
+            
+
+            const userData = {
+                name: '',
+                email: '',
+                pictureUrl: '',
+                tel: '',
+            }
+
+            localStorage.setItem('user_carrinho', JSON.stringify(userData));
+
+          }
+        });
+        
+    
+        // Retorne uma função de limpeza para remover o listener quando o componente for desmontado
+        return unsubscribe;
+      }, []);
+
     //pegando dados 
 
     //   const [data, setData] = useState(null);
