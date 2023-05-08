@@ -36,7 +36,7 @@ const Parceiro = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 <br />
                 <br />
                 <br />
-                <br />
+                <br />jr 
             <br /><br /><br />
             <center className='container w-75'>
                 <img src={bann} style={{height:'4em', opacity:'.5'}} alt="" />
