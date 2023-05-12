@@ -41,6 +41,14 @@ const Mob = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
       )} */}
             </div>
             <div className="row gap-0">
+                <div className="col-12 bg-danger text-center py-2 ">
+                    <center>
+                        <i className="bi bi-cart2 f-50 text-white"></i>
+                    </center>
+                    <NavLink to={'/meu_carrinho_compras'} className="btn mx-auto border-white text-white">
+                        Meu Carrinho Compras <i className="bi bi-arrow-right-short"></i>
+                        </NavLink>
+                </div>
                 <div className="col-12 col-lg-6">
                     <img src={mob1} className='w-100' alt="" />
                 </div>
