@@ -34,6 +34,27 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     pp = event.target.value;
   };
 
+
+  const msg = async (phoneNumber, text) => {
+    const encodedText = encodeURIComponent(text);
+    const url = `http://api.textmebot.com/send.php?recipient=+244${phoneNumber}&apikey=QKp5DRLU3HnH&text=${encodedText}`;
+
+    try {
+      const response = await fetch(url);
+
+      if (response.ok) {
+        // A mensagem foi enviada com sucesso
+        console.log('Mensagem enviada com sucesso!');
+      } else {
+        // Ocorreu um erro ao enviar a mensagem
+        console.log('Erro ao enviar a mensagem.');
+      }
+    } catch (error) {
+      console.error('Ocorreu um erro na chamada da API:', error);
+    }
+  };
+
+
   const [position, setPosition] = useState(null);
 
   // fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`)
@@ -48,6 +69,8 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
   //   .catch(error => console.error(error));
   const [info, setInfo] = useState({});
 
+  const [ainfo, setAInfo] = useState({});
+
 
   const fetchInfo = async () => {
 
@@ -56,7 +79,7 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     if (!docRef.empty) {
       const data = docRef.docs[0].data(); // Obtenha os dados do documento
-      
+
       setInfo(data)
     } else {
 
@@ -64,13 +87,30 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
       // alert('Nenhum documento encontrado com o parâmetro fornecido.');
     }
   }
+  const fetchAInfo = async () => {
+
+    const docId = parseInt(pp); // Substitua por seu parâmetro
+    const docRef = await db.collection('agentes').where('encomenda', '==', docId).limit(1).get();
+
+    if (!docRef.empty) {
+      const data = docRef.docs[0].data(); // Obtenha os dados do documento
+
+      setAInfo(data)
+    } else {
+
+      setAInfo({})
+      // alert('Nenhum documento encontrado com o parâmetro fornecido.');
+    }
+  }
 
   useEffect(() => {
     fetchInfo();
+    fetchAInfo();
   }, []);
 
 
   fetchInfo();
+  fetchAInfo();
 
 
   const [load, setLoad] = useState(false);
@@ -97,6 +137,20 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
           console.log("Estado alterado co sucesso!");
           toast.success('Confirmação recebida com sucesso! obrigado por preferir a Meu Carrinho');
           setLoad(false);
+          const currentDate = new Date();
+          const formattedDate = currentDate.toLocaleDateString();
+          const formattedTime = currentDate.toLocaleTimeString();
+          
+          let linkk = `https://meucarrinho-zeta.vercel.app/track/${pp}`;
+          let textoo = `Caríssimo/a ${info.nome},o seu artigo: ${info.artigo} 📦 chegou ao destino de entrega [${info.endereco2}] e foi recebido/a por ${info.nome2} 👀👌📦🧾 as ${formattedTime}.\n\n Veja aqui: ${linkk}\n\n Obs: Não partilhe este link!\n\n\n Avalie nos na plataforma, como foi sua experiência.\n\nTotal a pagar: **${info.taxa} Kz** \nForma de pagamento: **${info.pagamento}** \n\n\n\n**Atenciosamente, Meu Carrinho LTDA.**`;
+          let textoo2 = `Caríssimo/a ${info.nome2},você confirmou que recebeu o artigo enviado(${info.artigo}) 📦. Obrigado por usar ps nossos serviços. \n\nEntregue pelo agente ${ainfo.nome.split(" ")[0]} 📦👌\n\n Veja aqui: ${linkk}\n\n\nTotal: **${info.taxa} Kz**  \n\n Avalie nos na plataforma, como foi sua experiência **Atenciosamente, Meu Carrinho LTDA.**`;
+          let textoo3 = `Olá Boss o artigo ${info.artigo} 📦 , foi entregue com sucesso em ${info.endereco2}, recebido por ${info.nome2} em ${formattedDate} as ${formattedTime}. Entregue pelo agente ${ainfo.nome} - ${ainfo.telefone} 🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+          let textoo4 = `Olá Agente ${ainfo.nome} voce concluiu sua entrega com sucesso, parabéns 📦 🛵, \n\nEncomenda: **${info.artigo}**\n\n Total: **${info.taxa} Kz** \n Pagamento: **${info.pagamento}**\n\nFeito em ${formattedDate} as ${formattedTime}.. \nObrigado!\n\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+          msg(info.telefone1, textoo)
+          msg(info.telefone2, textoo2)
+          msg(924358193, textoo3)
+          msg(ainfo.telefone, textoo4)
+           
         });
       }
     } catch (error) {
@@ -107,40 +161,40 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
   }
 
 
-// const timeAgo = (timestamp) => {
-//   const currentTime = moment();
-//   const timestampTime = moment(timestamp * 1000);
-//   const diffInMinutes = currentTime.diff(timestampTime, 'minutes');
-//   const diffInHours = currentTime.diff(timestampTime, 'hours');
-//   const diffInDays = currentTime.diff(timestampTime, 'days');
+  // const timeAgo = (timestamp) => {
+  //   const currentTime = moment();
+  //   const timestampTime = moment(timestamp * 1000);
+  //   const diffInMinutes = currentTime.diff(timestampTime, 'minutes');
+  //   const diffInHours = currentTime.diff(timestampTime, 'hours');
+  //   const diffInDays = currentTime.diff(timestampTime, 'days');
 
-//   if (diffInMinutes < 60) {
-//     return `há ${diffInMinutes} minutos`;
-//   } else if (diffInHours < 24) {
-//     return `há ${diffInHours} horas`;
-//   } else {
-//     return `há ${diffInDays} dias`;
-//   }
-// };
+  //   if (diffInMinutes < 60) {
+  //     return `há ${diffInMinutes} minutos`;chego
+  //   } else if (diffInHours < 24) {
+  //     return `há ${diffInHours} horas`;
+  //   } else {
+  //     return `há ${diffInDays} dias`;
+  //   }
+  // };
 
-// if (info ? info.dataEnvio : '') {
-// const timestamp = info.dataEnvio; // o timestamp do Firebase
-// const date = timestamp.toDate(); // converter o timestamp para um objeto Date
-// const diffInMinutes = Math.floor((new Date() - date) / (1000 * 60));
-// const [mm, setMM] = useState('');
-// if (diffInMinutes < 60) {
-//   alert(`há ${diffInMinutes} minutos`);
-// } else if (diffInMinutes < 1440) { // menos de um dia
-//   const diffInHours = Math.floor(diffInMinutes / 60);
-//   alert(`há ${diffInHours} ${diffInHours === 1 ? 'hora' : 'horas'}`);
-// } else { // mais de um dia
-//   const diffInDays = Math.floor(diffInMinutes / 1440);
-//   alert(`há ${diffInDays} ${diffInDays === 1 ? 'dia' : 'dias'}`);
-// }
-//   // restante do código para calcular a diferença em minutos, horas ou dias
-// } else {
-//   // trate o caso em que info ou info.dataEnvio é undefined
-// }
+  // if (info ? info.dataEnvio : '') {
+  // const timestamp = info.dataEnvio; // o timestamp do Firebase
+  // const date = timestamp.toDate(); // converter o timestamp para um objeto Date
+  // const diffInMinutes = Math.floor((new Date() - date) / (1000 * 60));
+  // const [mm, setMM] = useState('');
+  // if (diffInMinutes < 60) {
+  //   alert(`há ${diffInMinutes} minutos`);
+  // } else if (diffInMinutes < 1440) { // menos de um dia
+  //   const diffInHours = Math.floor(diffInMinutes / 60);
+  //   alert(`há ${diffInHours} ${diffInHours === 1 ? 'hora' : 'horas'}`);
+  // } else { // mais de um dia
+  //   const diffInDays = Math.floor(diffInMinutes / 1440);
+  //   alert(`há ${diffInDays} ${diffInDays === 1 ? 'dia' : 'dias'}`);
+  // }
+  //   // restante do código para calcular a diferença em minutos, horas ou dias
+  // } else {
+  //   // trate o caso em que info ou info.dataEnvio é undefined
+  // }
 
 
   document.title = 'Rastreamento de Pedido | Meu Carrinho Compras';
@@ -183,7 +237,7 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
         </div>
         <br />
         {
-          info.artigo == '' ||  info.estado =='Entregue' ?
+          info.artigo == '' || info.estado == 'Entregue' ?
             <div>
               <center>
                 <img src={bann} style={{ height: '4em', opacity: '.4' }} alt="" /> <br /><br />
@@ -211,26 +265,26 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     {
                       info.estado != 'Entregue' ?
 
-                      <>
-                        <button onClick={()=> Confirmar()} className="btn mx-auto f-14 rounded-1 btn-outline-danger">{load == false ? <span >Confirmar recebimento / Entrega</span>: <Loader />}</button>
+                        <>
+                          <button onClick={() => Confirmar()} className="btn mx-auto f-14 rounded-1 btn-outline-danger">{load == false ? <span >Confirmar recebimento / Entrega</span> : <Loader />}</button>
 
-                        <div className="d-flex position-relative justify-content-between">
+                          <div className="d-flex position-relative justify-content-between">
 
-<div className="">
-  <div style={{ height: '5rem', width: '5rem', background: 'red' }} className="anim-scale rounded-circle">
-    <i className="bi text-white f-50 bi-box-seam-fill anim-scale"></i>
-  </div>
-</div>
+                            <div className="">
+                              <div style={{ height: '5rem', width: '5rem', background: 'red' }} className="anim-scale rounded-circle">
+                                <i className="bi text-white f-50 bi-box-seam-fill anim-scale"></i>
+                              </div>
+                            </div>
 
-<div style={{ height: '.3rem', background: '', width: '120%' }} className="my-auto line-gradient"></div>
+                            <div style={{ height: '.3rem', background: '', width: '120%' }} className="my-auto line-gradient"></div>
 
-<div className="">
-  <div style={{ height: '5rem', width: '5rem', background: '#EABC02' }} className=" rounded-circle">
-    <i className="bi text-white f-50 bi-person-check anim-scale"></i>
-  </div>
-</div>
-</div>
-                      </>
+                            <div className="">
+                              <div style={{ height: '5rem', width: '5rem', background: '#EABC02' }} className=" rounded-circle">
+                                <i className="bi text-white f-50 bi-person-check anim-scale"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </>
                         :
                         <div>
                           <h2 className="text-danger">Este pedido já foi entregue!</h2>
@@ -245,15 +299,15 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
                 <b className="text-danger ">
                   {info.estado == 'Pendente' && <span><span className="text-warning">Pendente:</span> <span className="fw-light">ainda não foi recolhido!</span></span>}
-                  {info.estado == 'Recolhido' && <span><span className="text-success">Recolhido:</span> <span className="fw-light"> está em trânsito agora!</span></span>}
-                  {info.estado == 'Chegou' && <span><span className="text-success">Recolhido:</span> <span className="fw-light"> chegou ao seu destino!</span></span>}
+                  {info.estado == 'Recolhido' && <span><span className="text-warning">Recolhido:</span> <span className="fw-light"> está em trânsito agora!</span></span>}
+                  {info.estado == 'Chegou' && <span><span className="text-success">Chegou ao destino:</span> <span className="fw-light text-green"> chegou ao seu destino!</span> <br /> <center>Agente: {ainfo.nome}</center></span>}
                   {info.estado == 'Recebido' && <span><span className="text-success">Entregue:</span> <span className="fw-light"> este artigo já foi recebido!</span></span>}
                 </b>
                 <hr />
-              <center>
-                <br />
-                {/* <span className="text-secondary">Feito há {`${info.dataEnvio}`}</span> */}
-              </center>
+                <center>
+                  <br />
+                  {/* <span className="text-secondary">Feito há {`${info.dataEnvio}`}</span> */}
+                </center>
               </center>
 
           }

@@ -148,6 +148,28 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     const [load, setLoad] = useState(false);
     const [load2, setLoad2] = useState(false);
 
+
+
+    const msg = async (phoneNumber, text) => {
+        const encodedText = encodeURIComponent(text);
+        const url = `http://api.textmebot.com/send.php?recipient=+244${phoneNumber}&apikey=QKp5DRLU3HnH&text=${encodedText}`;
+
+        try {
+            const response = await fetch(url);
+
+            if (response.ok) {
+                // A mensagem foi enviada com sucesso
+                console.log('Mensagem enviada com sucesso!');
+            } else {
+                // Ocorreu um erro ao enviar a mensagem
+                console.log('Erro ao enviar a mensagem.');
+            }
+        } catch (error) {
+            console.error('Ocorreu um erro na chamada da API:', error);
+        }
+    };
+
+
     const actTel = async () => {
         setLoad(true);
         try {
@@ -168,6 +190,9 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     console.log("Telefone atualizado com sucesso!");
                     toast.success('Telefone/ Whatsapp actualizado com sucesso!');
                     setLoad(false);
+                    //  let link = `https://meucarrinho-zeta.vercel.app/track/${randomNumber}`;
+                let texto = `Agente ${use.name}, Seu whatsapp foi actualizado com sucesso! 👍👌\n\nVamos ao trabalho 🤝🛵 !!!\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                    msg(novoTel, texto)
                 });
             }
         } catch (error) {
@@ -241,7 +266,10 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
         }
     };
 
-
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString();
+    const formattedTime = currentDate.toLocaleTimeString();
+    
 
 const [load3, setLoad3] = useState(false);
 
@@ -265,7 +293,14 @@ const [load3, setLoad3] = useState(false);
                     });
                     console.log("Estado alterado co sucesso!");
                     toast.success('Estado alterado com sucesso!');
-                    setLoad3(false);
+                    setLoad3(false);  
+                    let linkk = `https://meucarrinho-zeta.vercel.app/track/${pp}`;
+                    let textoo3 = `Olá Boss o agente ${use.name}, já recolheu o artigo: ${pedidos.artigo} 📦 da/o Sr/a ${pedidos.nome} - ${pedidos.telefone1} em ${formattedDate} as ${formattedTime} e está em trânsito neste momento para o P. entrega: ${pedidos.endereco2} 🚦🚥🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                    let textoo = `Caríssimo/a ${pedidos.nome}, Seu artigo: ${pedidos.artigo} 📦 foi recolhido  em ${formattedDate} as ${formattedTime} e está em trânsito neste momento 🚦🚥🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                    let texto2 = `Olá ${pedidos.nome2}, temos uma encomenda para sí em nome de ${pedidos.nome}, artigo: ${pedidos.artigo} 📦 , o mesmo já foi recolhido  em ${formattedDate} as ${formattedTime} e está em trânsito neste momento com o agente ${use.name} 🚦🚥🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                        msg(pedidos.telefone1, textoo)
+                        msg(pedidos.telefone2, texto2)
+                        msg(924358193, textoo3)
                 });
             }
         } catch (error) {
@@ -295,7 +330,14 @@ const [load3, setLoad3] = useState(false);
                     });
                     console.log("Estado alterado co sucesso!");
                     toast.success('Estado alterado com sucesso! ');
-                    setLoad(false);
+                    setLoad(false);  
+                    let linkk = `https://meucarrinho-zeta.vercel.app/track/${pp}`;
+                    let textoo = `Caríssimo/a ${pedidos.nome},o seu artigo: ${pedidos.artigo} 📦 chegou ao destino de entrega [${pedidos.endereco2}] aguardando pela recepção 👀👌📦🧾\n\n Veja aqui: ${linkk}\n\n\n Avalie nos na plataforma, como foi sua experiência.\n\nTotal a pagar: **${pedidos.taxa} Kz** \nForma de pagamento: **${pedidos.pagamento}** \n\n\n\n**Atenciosamente, Meu Carrinho LTDA.**`;
+                    let textoo2 = `Caríssimo/a ${pedidos.nome2},o artigo que lhe foi enviado(${pedidos.artigo}) 📦  chegou ao destino de entrega [${pedidos.endereco2}] que é supostamente o seu endereço, o Agente ${use.name.split(" ")[0]} está aguardando pela recepção 👀👌📦🧾\n\n Veja aqui: ${linkk}\n\n\nTotal: **${pedidos.taxa} Kz**  \n\n Avalie nos na plataforma, como foi sua experiência **Atenciosamente, Meu Carrinho LTDA.**`;
+                    let textoo3 = `Olá Boss o agente ${use.name}, já fez a entrega do artigo: ${pedidos.artigo} 📦 da/o Sr/a ${pedidos.nome} - ${pedidos.telefone1} em/no entrega: ${pedidos.endereco2} 🚦🚥🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                    msg(pedidos.telefone1, textoo)
+                    msg(pedidos.telefone2, textoo2)
+                    msg(924358193, textoo3)
                 });
             }
         } catch (error) {
@@ -385,7 +427,7 @@ const [load3, setLoad3] = useState(false);
                             </span>
                             <br />
                             <span className="text-secondary  f-10">Adicione seu o whatsapp {info.nome} !</span><br />
-                            <input type="tel" value={novoTel} onChange={(e) => setT(e.target.value)} placeholder='900 000 000' className="form-control w-50" />
+                            <input type="tel" maxLength={9} value={novoTel} onChange={(e) => setT(e.target.value)} placeholder='900 000 000' className="form-control w-50" />
                             <button onClick={() => actTel()} className="btn f-12 btn-outline-danger" disabled={!novoTel}>{load == false ? <span>Activar</span> : <Loader />}</button>
                         </center>
                         :
@@ -446,13 +488,13 @@ const [load3, setLoad3] = useState(false);
                             <br />
                             <div className="row">
                                 <div className="col-12 col-sm-6 text-start">
-                                    <button disabled={pedidos.estado === 'Recolhido' || pedidos.estado === 'Recebido'}  onClick={()=>recolhi()} className="btn btn-outline-info">
-                                        {load3 == false ? pedidos.estado === 'Recolhido' || pedidos.estado === 'Recebido' ? 'Artigo Recolhido' : 'Recolher Artigo' : <Loader />}
+                                    <button disabled={pedidos.estado === 'Recolhido' || pedidos.estado === 'Chegou' || pedidos.estado === 'Recebido'}  onClick={()=>recolhi()} className="btn btn-outline-info">
+                                        {load3 == false ? pedidos.estado === 'Recolhido' || pedidos.estado === 'Chegou' || pedidos.estado === 'Recebido' ? 'Artigo Recolhido' : 'Recolher Artigo' : <Loader />}
                                     </button>
                                 </div>
                                 <div className="col-12 col-sm-6 text-end">
                                     <button disabled={pedidos.estado === 'Chegou' || pedidos.estado === 'Recebido'}  onClick={()=>cheguei()} className="btn btn-outline-danger">
-                                        {load3 == false ? pedidos.estado != 'Chegou' ? 'Cheguei ao Destino' : 'Corrida terminada' : <Loader />}
+                                        {load == false ? pedidos.estado != 'Chegou' ? 'Cheguei ao Destino' : 'Corrida terminada' : <Loader />}
                                     </button>
                                 </div>
                             </div>

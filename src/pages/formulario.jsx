@@ -155,10 +155,16 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 const docRef = await db.collection("pedidos").doc(artigo).set(dados);
                 console.log("cadastrado");
                 setMessage('sucesso');
+                const currentDate = new Date();
+                const formattedDate = currentDate.toLocaleDateString();
+                const formattedTime = currentDate.toLocaleTimeString();
+                
                 let link = `https://meucarrinho-zeta.vercel.app/track/${randomNumber}`;
-                let texto = `Caro ${nome}, seu pedido foi recebido com sucesso, abaixo anexamos o seu link de rastreio do seu pedido, qualquer dúvida não hesite em nos contatar:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n\nForma de pagamento: **${selectedValue}** \nP. Recolha: **${address1}**\nP. Entrega: **${address2}**\nReceptor: **${nome2}**\nTotal: **${taxa} AOA**\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                let texto = `Caro ${nome}, seu pedido foi recebido com sucesso, abaixo anexamos o seu link de rastreio do seu pedido, qualquer dúvida não hesite em nos contatar:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n*Obs:* Não partilhe este link.\n\nForma de pagamento: **${selectedValue}** \nP. Recolha: **${address1}**\nP. Entrega: **${address2}**\nReceptor: **${nome2}**\nTotal: **${taxa} AOA**\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                let texto2 = `Boss ${nome}, fez um pedido em ${formattedDate} as ${formattedTime}, abaixo anexamos o link de rastreio e os dados do pedido:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n\nForma de pagamento: **${selectedValue}** \nP. Recolha: **${address1}**\nP. Entrega: **${address2}**\nReceptor: **${nome2}**\nTotal: **${taxa} AOA**\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
                 
                  msg(tel, texto)
+                 msg(924358193, texto2)
                 setLoad(false);
                 toast.success('Seus pedido foi adicionado com sucesso, estamos indo!');
             } else { // se encontrar documentos, informa que já existe
