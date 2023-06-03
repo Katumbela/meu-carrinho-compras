@@ -9,8 +9,10 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../components/loader';
+import 'react-phone-input-2/lib/style.css';
 import { db } from './firebase';
-
+import InputMask from 'react-input-mask';
+import PhoneInput from 'react-phone-input-2';
 const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     const [nome, setNome] = useState("");
@@ -23,17 +25,17 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
     const [tel2, setTel2] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [loggedIn, setLoggedI2n] = useState(false);
-    
-    
-  const [randomNumber, setrandomNumber] = useState(null);
 
-  function gerar() {
-    const min = 100000;
-    const max = 999999;
-    const newRandomNumber = Math.floor(Math.random() * (max - min + 1) + min);
-    
-    setrandomNumber(newRandomNumber);
-  }
+
+    const [randomNumber, setrandomNumber] = useState(null);
+
+    function gerar() {
+        const min = 100000;
+        const max = 999999;
+        const newRandomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+
+        setrandomNumber(newRandomNumber);
+    }
 
     let taxa = 0;
     const [price, setPrice] = useState("");
@@ -105,47 +107,68 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     const [message, setMessage] = useState([]);
     const [load, setLoad] = useState(false);
+    const msg = async (phoneNumber, text) => {
+        const encodedText = encodeURIComponent(text);
+        const url = `http://api.textmebot.com/send.php?recipient=+244${phoneNumber}&apikey=QKp5DRLU3HnH&text=${encodedText}`;
 
+        try {
+            const response = await fetch(url);
+
+            if (response.ok) {
+                // A mensagem foi enviada com sucesso
+                console.log('Mensagem enviada com sucesso!');
+            } else {
+                // Ocorreu um erro ao enviar a mensagem
+                console.log('Erro ao enviar a mensagem.');
+            }
+        } catch (error) {
+            console.error('Ocorreu um erro na chamada da API:', error);
+        }
+    };
 
 
     const enviar = async () => {
         setLoad(true);
         try {
-          const dados = {
-            dataEnvio: new Date(),
-            email: email,
-            pedido: randomNumber,
-            endereco1:address1,
-            telefone1: tel,
-            nome: nome,
-            telefone2:tel2,
-            artigo:artigo,
-            endereco2:address2,
-            taxa: taxa,
-            nome2:nome2,
-            estado: 'Pendente',
-            pagamento: selectedValue,
-          };
-      
-          const querySnapshot = await db.collection("pedidos")
-            .where("nome", "==", nome)
-            .where("pedido", "==", randomNumber)
-            .get();
-      
-          if (querySnapshot.empty) { // se não encontrar documentos, adiciona
-            const docRef = await db.collection("pedidos").doc(artigo).set(dados);
-            console.log("cadastrado");
-            setMessage('sucesso');
-            setLoad(false);
-            toast.success('Seus pedido foi adicionado com sucesso, estamos indo!');
-          } else { // se encontrar documentos, informa que já existe
-            console.log("usuario cadastrado.");
-          }
+            const dados = {
+                dataEnvio: new Date(),
+                email: email,
+                pedido: randomNumber,
+                endereco1: address1,
+                telefone1: tel,
+                nome: nome,
+                telefone2: tel2,
+                artigo: artigo,
+                endereco2: address2,
+                taxa: taxa,
+                nome2: nome2,
+                estado: 'Pendente',
+                pagamento: selectedValue,
+            };
+
+            const querySnapshot = await db.collection("pedidos")
+                .where("nome", "==", nome)
+                .where("pedido", "==", randomNumber)
+                .get();
+
+            if (querySnapshot.empty) { // se não encontrar documentos, adiciona
+                const docRef = await db.collection("pedidos").doc(artigo).set(dados);
+                console.log("cadastrado");
+                setMessage('sucesso');
+                let link = `https://meucarrinho-zeta.vercel.app/track/${randomNumber}`;
+                let texto = `Caro ${nome}, seu pedido foi recebido com sucesso, abaixo anexamos o seu link de rastreio do seu pedido, qualquer dúvida não hesite em nos contatar:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n\nForma de pagamento: **${selectedValue}** \nP. Recolha: **${address1}**\nP. Entrega: **${address2}**\nReceptor: **${nome2}**\nTotal: **${taxa} AOA**\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                
+                 msg(tel, texto)
+                setLoad(false);
+                toast.success('Seus pedido foi adicionado com sucesso, estamos indo!');
+            } else { // se encontrar documentos, informa que já existe
+                console.log("usuario cadastrado.");
+            }
         } catch (error) {
             toast.error('Ocorreu um erro, verifique sua conexão ou tente mais tarde!');
-          console.error("Erro ao adicionar documento: ", error);
+            console.error("Erro ao adicionar documento: ", error);
         }
-      }
+    }
 
 
     document.title = 'Solicitacao de servico de Mobilidade | Meu Carrinho ';
@@ -223,8 +246,19 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" name="" placeholder='Digite seu email' id="" className="form-control in" />
                             </div>
                             <div className="input py-2">
-                                <span className="text-secondary f-14">Telefone <span className="text-danger">*</span></span>
-                                <input value={tel} onChange={(e) => setTel(e.target.value)} type="text" name="" placeholder='Digite seu tel' id="" className="form-control in" />
+                                <span className="text-secondary f-14">Telefone (Whatsapp)<span className="text-danger">*</span></span>
+                                {/* <PhoneInput className="f "
+                                    country="ao"
+                                    value={tel}
+                                    onChange={setTel}
+                                    inputProps={{
+                                        name: 'phone',
+                                        required: true,
+                                        pattern: "\\d{6}", // Formato de 9 dígitos
+                                        placeholder: "901 000 000", // Exemplo de número de telefone de Angola
+                                    }}
+                                /> */}
+                                <input value={tel} maxLength={9} onChange={(e) => setTel(e.target.value)} type="text" name="" placeholder='Digite seu telefone' id="" className="form-control in" />
                             </div>
                             <div className="input py-2">
                                 <span className="text-secondary f-14">Endereço <span className="text-danger">*</span></span>
@@ -247,10 +281,23 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                                 <input type="text" autoComplete='false' value={nome2} onChange={(e) => setN2(e.target.value)} name="" placeholder='Digite o nome da pessoa' id="" className="form-control in" />
 
                             </div>
-                            <div className="input py-2">
-                                <span className="text-secondary f-14">Telefone <span className="text-danger">*</span></span>
-                                <input type="text" autoComplete='false' value={tel2} onChange={(e) => setTel2(e.target.value)} name="" placeholder='Digite o tel da pessoa' id="" className="form-control in" />
 
+                            <div className=" py-2">
+                                <span className="text-secondary f-14">Telefone <span className="text-danger">*</span></span>
+                                {/* <input type="text" autoComplete='false' value={tel2} onChange={(e) => setTel2(e.target.value)} name="" placeholder='Digite o tel da pessoa' id="" className="form-control in" /> */}
+                                {/* <PhoneInput className="f "
+                                    country="ao"
+                                    value={tel2}
+                                    onChange={setTel2}
+                                    inputProps={{
+                                        name: 'phone',
+                                        required: true,
+                                        pattern: "\\d{6}", // Formato de 9 dígitos
+                                        placeholder: "901 000 000", // Exemplo de número de telefone de Angola
+                                    }}
+                                /> */}
+                                <input value={tel2} maxLength={9} onChange={(e) => setTel2(e.target.value)} type="text" name="" placeholder='Digite seu telefone' id="" className="form-control in" />
+                          
                             </div>
                             <div className="input py-2">
                                 <span className="text-secondary f-14">Endereço <span className="text-danger">*</span></span>
@@ -267,7 +314,7 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                             <br />
                             {
                                 load == false ?
-                                    <button disabled={!address1 || !nome || !tel2 || !artigo || !tel} data-bs-toggle="modal" onClick={()=>gerar()} data-bs-target="#staticBackdrop" className="btn rounded-1 w-100 btn-danger">
+                                    <button disabled={!address1 || !nome || !tel2 || !artigo || !tel} data-bs-toggle="modal" onClick={() => gerar()} data-bs-target="#staticBackdrop" className="btn rounded-1 w-100 btn-danger">
                                         Finalizar Pedido
                                     </button>
                                     :
@@ -374,41 +421,41 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
                                     <div className="" style={{ display: 'flex', flexDirection: 'column' }}>
                                         <b className="text-secondary f-14">Metodo de pagamento </b>
-                                      
-                                        
-    <div>
-      <label>
-        <input
-          type="radio"
-          value="Pay Pay"
-          checked={selectedValue === 'Pay Pay'}
-          onChange={handleRadioChange}
-        />
-        <b className="text-danger ms-1 f-lilita">Pay Pay</b>
-      </label>
 
-      <label className='mx-2'>
-        <input
-          type="radio"
-          value="Multicaixa Express"
-          checked={selectedValue === 'Multicaixa Express'}
-          onChange={handleRadioChange}
-        />
-        <b className="text-danger ms-1 f-lilita">MCX</b>
-      </label>
 
-      <label>
-        <input
-          type="radio"
-          value="Pagar no Local"
-          checked={selectedValue === 'Pagar no Local'}
-          onChange={handleRadioChange}
-        />
-        <b className="text-danger f-lilita ms-1">Pagar no Local</b>
-      </label>
-<br />
-      <p>Escolhido: <b className="f-lilita">{selectedValue}</b></p>
-    </div>
+                                        <div>
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    value="Pay Pay"
+                                                    checked={selectedValue === 'Pay Pay'}
+                                                    onChange={handleRadioChange}
+                                                />
+                                                <b className="text-danger ms-1 f-lilita">Pay Pay</b>
+                                            </label>
+
+                                            <label className='mx-2'>
+                                                <input
+                                                    type="radio"
+                                                    value="Multicaixa Express"
+                                                    checked={selectedValue === 'Multicaixa Express'}
+                                                    onChange={handleRadioChange}
+                                                />
+                                                <b className="text-danger ms-1 f-lilita">MCX</b>
+                                            </label>
+
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    value="Pagar no Local"
+                                                    checked={selectedValue === 'Pagar no Local'}
+                                                    onChange={handleRadioChange}
+                                                />
+                                                <b className="text-danger f-lilita ms-1">Pagar no Local</b>
+                                            </label>
+                                            <br />
+                                            <p>Escolhido: <b className="f-lilita">{selectedValue}</b></p>
+                                        </div>
 
                                     </div>
                                     <div className="">
