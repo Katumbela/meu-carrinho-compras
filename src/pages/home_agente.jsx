@@ -296,17 +296,15 @@ const [load3, setLoad3] = useState(false);
                     setLoad3(false);  
                     let linkk = 'https://meucarrinho-zeta.vercel.app/track/'+pp;
                     let textoo3 = `Olá Boss o agente ${use.name}, acabou de recolher o artigo: ${pedidos.artigo} 📦 ✅ da/o Sr/a ${pedidos.nome} - ${pedidos.telefone1} em ${formattedDate} as ${formattedTime} e está em trânsito neste momento para o P. entrega: ${pedidos.endereco2} 🚦🚥🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
-                    let textoo = `Caríssimo/a ${pedidos.nome}, Seu artigo: __${pedidos.artigo}__ 📦✅ foi recolhido  em ${formattedDate} as ${formattedTime} e está em trânsito neste momento 🚦🚥🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                    let textoo = `Boss **${pedidos.nome}**, Seu artigo: __${pedidos.artigo}__ 📦✅ foi recolhido  em ${formattedDate} as ${formattedTime} e está em trânsito neste momento 🚦🚥🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
                     let texto2 = `Olá ${pedidos.nome2}, temos uma encomenda para sí em nome de ${pedidos.nome}, artigo: ${pedidos.artigo} 📦✅ , o mesmo já foi recolhido  em ${formattedDate} as ${formattedTime} e está em trânsito neste momento com o agente ${use.name} 🚦🚥🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
                         msg(pedidos.telefone1, textoo)
 
                         setTimeout(() => {
                             msg(pedidos.telefone2, texto2)
+                            msg(924358193, textoo3)
                         }, 500);
 
-                        setTimeout(() => {
-                            msg(924358193, textoo3)
-                        }, 600);
                 });
             }
 
@@ -368,8 +366,8 @@ const [load3, setLoad3] = useState(false);
                     toast.success('Estado alterado com sucesso! ');
                     setLoad(false);  
                     let linkk = `https://meucarrinho-zeta.vercel.app/track/${pp}`;
-                    let textoo = `Caríssimo/a ${pedidos.nome},o seu artigo: ${pedidos.artigo} 📦 ✅ chegou ao destino de entrega [${pedidos.endereco2}] aguardando pela recepção 👀👌📦🧾\n\n Veja aqui: ${linkk}\n\n\n Avalie nos na plataforma, conte-nos conte-nos como foi sua experiência ?a ?a.\n\nTotal a pagar: **${pedidos.taxa} Kz** 💵\nForma de pagamento: **${pedidos.pagamento}** 🧾 \n\n\n\n**Atenciosamente, Meu Carrinho LTDA.**`;
-                    let textoo2 = `Caríssimo/a ${pedidos.nome2},o artigo que lhe foi enviado(${pedidos.artigo}) pelo/a Sr(a). **_${pedidos.nome}_** 📦✅  chegou ao destino de entrega [**${pedidos.endereco2}**] 🏠 que é supostamente o seu endereço, o Agente ${use.name} está aguardando pela recepção 👀👌📦🧾\n\n Veja aqui: ${linkk}\n\n\nTotal: **${pedidos.taxa}  Kz** 💵 \n\n Avalie nos na plataforma, conte-nos conte-nos como foi sua experiência ?a ?a\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                    let textoo = `Boss ${pedidos.nome},o seu artigo: ${pedidos.artigo} 📦 ✅ chegou ao destino de entrega [${pedidos.endereco2}] aguardando pela recepção 👀👌📦🧾\n\n Veja aqui: ${linkk}\n\n\n Avalie nos na plataforma, conte-nos conte-nos como foi sua experiência ?a ?a.\n\nTotal a pagar: **${pedidos.taxa} Kz** 💵\nForma de pagamento: **${pedidos.pagamento}** 🧾 \n\n\n\n**Atenciosamente, Meu Carrinho LTDA.**`;
+                    let textoo2 = `Boss ${pedidos.nome2},o artigo que lhe foi enviado(${pedidos.artigo}) pelo/a Sr(a). **_${pedidos.nome}_** 📦✅  chegou ao destino de entrega [**${pedidos.endereco2}**] 🏠 que é supostamente o seu endereço, o Agente ${use.name} está aguardando pela recepção 👀👌📦🧾\n\n Veja aqui: ${linkk}\n\n\nTotal: **${pedidos.taxa}  Kz** 💵 \n\n Avalie nos na plataforma, conte-nos conte-nos como foi sua experiência ?a ?a\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
                     let textoo3 = `Olá Boss o agente ${use.name}, já fez a entrega do artigo: ${pedidos.artigo} 📦 da/o Sr/a ${pedidos.nome} - ${pedidos.telefone1} com sucesso ✅ em/no entrega: ${pedidos.endereco2} 🏠 🛵!\nRecebido por: ${pedidos.nome2}\n\n Veja o estado aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
                     msg(pedidos.telefone1, textoo)
                     msg(pedidos.telefone2, textoo2)

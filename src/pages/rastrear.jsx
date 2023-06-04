@@ -142,8 +142,8 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
           const formattedTime = currentDate.toLocaleTimeString();
           
           let linkk = `https://meucarrinho-zeta.vercel.app/track/${pp}`;
-          let textoo = `Caríssimo/a ${info.nome},o seu artigo: **${info.artigo}** 📦✅ chegou ao destino de entrega [${info.endereco2}] e foi recebido/a por ${info.nome2} 👀👌📦🧾 as ${formattedTime}.\n\n Veja aqui: ${linkk}\n\n Obs: Não partilhe este link!\n\n\n Avalie nos na plataforma, conte-nos como foi sua experiência ?a.\n\nTotal a pagar: **${info.taxa} Kz** \nForma de pagamento: **${info.pagamento}** \n\n\n\n**Atenciosamente, Meu Carrinho LTDA.**`;
-          let textoo2 = `Caríssimo/a ${info.nome2},você confirmou que recebeu o artigo enviado(${info.artigo}) 📦✅. Obrigado por usar ps nossos serviços. \n\nEntregue pelo agente ${ainfo.nome} 📦👌\n\n Veja aqui: ${linkk}\n\n\nTotal: **${info.taxa} Kz**  \n\n Avalie nos na plataforma, conte-nos como foi sua experiência ?a **Atenciosamente, Meu Carrinho LTDA.**`;
+          let textoo = `Boss ${info.nome},o seu artigo: **${info.artigo}** 📦✅ chegou ao destino de entrega [${info.endereco2}] e foi recebido/a por ${info.nome2} 👀👌📦🧾 as ${formattedTime}.\n\n Veja aqui: ${linkk}\n\n Obs: Não partilhe este link!\n\n\n Avalie nos na plataforma, conte-nos como foi sua experiência ?a.\n\nTotal a pagar: **${info.taxa} Kz** \nForma de pagamento: **${info.pagamento}** \n\n\n\n**Atenciosamente, Meu Carrinho LTDA.**`;
+          let textoo2 = `Boss ${info.nome2},você confirmou que recebeu o artigo enviado(${info.artigo}) 📦✅. Obrigado por usar ps nossos serviços. \n\nEntregue pelo agente ${ainfo.nome} 📦👌\n\n Veja aqui: ${linkk}\n\n\nTotal: **${info.taxa} Kz**  \n\n Avalie nos na plataforma, conte-nos como foi sua experiência ?a **Atenciosamente, Meu Carrinho LTDA.**`;
           let textoo3 = `Olá Boss o artigo ${info.artigo} 📦 , foi entregue com sucesso ✅ em ${info.endereco2}, recebido por __${info.nome2}__ em ${formattedDate} as ${formattedTime}. Entregue pelo agente ${ainfo.nome} - ${ainfo.telefone} 🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
           let textoo4 = `Olá Agente ${ainfo.nome} voce concluiu sua entrega com sucesso, parabéns 📦 🛵✅✅, \n\nEncomenda: **${info.artigo}**\n\nTotal facturado: **${info.taxa} Kz** 💵 \nP. Entrega: **${info.endereco2}** \nPagamento: **${info.pagamento}** 🧾\n\nFeito em ${formattedDate} pelas ${formattedTime}.. \nObrigado!\n\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
          setTimeout(() => {
@@ -270,8 +270,16 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                       info.estado != 'Entregue' ?
 
                         <>
-                          <button onClick={() => Confirmar()} className="btn mx-auto f-14 rounded-1 btn-outline-danger">{load == false ? <span >Confirmar recebimento / Entrega</span> : <Loader />}</button>
+                        {
+                          info.estado === 'Chegou' ?
+                          <button disabled={info.estado == 'Chegou'}  onClick={() => Confirmar()} className="btn mx-auto f-14 rounded-1 btn-outline-danger">{load == false ? <span >Confirmar recebimento / Entrega</span> : <Loader />}</button>
 
+                          :
+                          <p>
+                            Aguardando a Entrega da encomenda!
+                          </p>
+                        }
+                         
                           <div className="d-flex position-relative justify-content-between">
 
                             <div className="">
@@ -303,8 +311,8 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
                 <b className=" ">
                   {info.estado == 'Pendente' && <span><span className="text-info">Pendente:</span> <span className="fw-light text-info">ainda não foi recolhido!</span></span>}
-                  {info.estado == 'Recolhido' && <span><span className="text-warning">Recolhido:</span> <span className="fw-light text-warning"> está em trânsito agora!</span> <br /> <center>Agente: {ainfo.nome}</center></span>}
-                  {info.estado == 'Chegou' && <span><span className="text-success">Chegou ao destino:</span> <span className="fw-light text-success"> chegou ao seu destino!</span> <br /> <center>Agente: {ainfo.nome}</center></span>}
+                  {info.estado == 'Recolhido' && <span><span className="text-warning">Recolhido:</span> <span className="fw-light text-warning"> está em trânsito agora!</span> <br /> <center className='text-danger'>Agente: {ainfo.nome}</center></span>}
+                  {info.estado == 'Chegou' && <span><span className="text-success">Chegou ao destino:</span> <span className="fw-light text-success"> chegou ao seu destino!</span> <br /> <center className='text-danger'>Agente: {ainfo.nome}</center></span>}
                   {info.estado == 'Recebido' && <span><span className="text-success">Entregue:</span> <span className="fw-light"> este artigo já foi recebido!</span></span>}
                 </b>
                 <hr />

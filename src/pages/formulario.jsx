@@ -160,19 +160,16 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 const formattedTime = currentDate.toLocaleTimeString();
                 
                 let link = `https://meucarrinho-zeta.vercel.app/track/${randomNumber}`;
-                let texto = `Caro ${nome}, seu pedido foi submetido com sucesso na data ${formattedDate} pelas ${formattedTime}, abaixo anexamos o seu link de rastreio do seu pedido, qualquer dúvida não hesite em nos contatar:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n*Obs:* Não partilhe este link.\n\nArtigo: **${artigo}** 📦\nForma de pagamento: **${selectedValue}** 💵 \nP. Recolha: **${address1}** 🏠\nP. Entrega: **${address2}** 🏠\nReceptor: **${nome2}** 👤\nTelefone: **${tel2}** ☎️ \nTotal: **${taxa} Kz**🧾\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
-                let texto3 = `Caro ${nome2}, ${nome} acabou de submeter uma encomenda a ser entregue para sí, feito em ${formattedDate} pelas ${formattedTime}, abaixo anexamos o link de rastreio do pedido, qualquer dúvida não hesite em nos contatar:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n*Obs:* Não partilhe este link.\n\nArtigo: **${artigo}** 📦\nDe: **${nome2}** 👤\nForma de pagamento: **${selectedValue}** 💵 \nP. Recolha: **${address1}** 🏠\nP. Entrega: **${address2}** 🏠\nReceptor: **${nome2}** 👤\nTotal: **${taxa} Kz**🧾\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                let texto = `Boss ${nome}, seu pedido foi submetido com sucesso na data ${formattedDate} pelas ${formattedTime}, abaixo anexamos o seu link de rastreio do seu pedido, qualquer dúvida não hesite em nos contatar:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n*Obs:* Não partilhe este link.\n\nArtigo: **${artigo}** 📦\nForma de pagamento: **${selectedValue}** 💵 \nP. Recolha: **${address1}** 🏠\nP. Entrega: **${address2}** 🏠\nReceptor: **${nome2}** 👤\nTelefone: **${tel2}** ☎️ \nTotal: **${taxa} Kz**🧾\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                let texto3 = `Boss ${nome2}, ${nome} acabou de submeter uma encomenda a ser entregue para sí, feito em ${formattedDate} pelas ${formattedTime}, abaixo anexamos o link de rastreio do pedido, qualquer dúvida não hesite em nos contatar:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n*Obs:* Não partilhe este link.\n\nArtigo: **${artigo}** 📦\nDe: **${nome2}** 👤\nForma de pagamento: **${selectedValue}** 💵 \nP. Recolha: **${address1}** 🏠\nP. Entrega: **${address2}** 🏠\nReceptor: **${nome2}** 👤\nTotal: **${taxa} Kz**🧾\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
                 let texto2 = `Boss ${nome} - ${tel} ☎️, fez um pedido em ${formattedDate} as ${formattedTime}, abaixo anexamos o link de rastreio e os dados do pedido:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n\nForma de pagamento: **${selectedValue}** 💵 \nP. Recolha: **${address1}** 🏠\nP. Entrega: **${address2}** 🏠\nReceptor: **${nome2}** 👤\nTelefone: **${tel2}** ☎️\nTotal: **${taxa} Kz** 🧾\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
                 
                  msg(tel, texto)
 
                  setTimeout(() => {
                     msg(924358193, texto2)
-                 }, 200);
-
-                 setTimeout(() => {
                     msg(tel2, texto3)
-                 }, 300);
+                 }, 200);
 
                 setLoad(false);
                 toast.success('Seus pedido foi adicionado com sucesso, estamos indo!');
