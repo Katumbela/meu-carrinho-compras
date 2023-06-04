@@ -276,7 +276,7 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
                           :
                           <p>
-                            Aguardando a Entrega da encomenda!
+                            Aguardando a Entrega da encomenda para confirmar.
                           </p>
                         }
                          
