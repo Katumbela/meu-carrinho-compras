@@ -333,7 +333,7 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                     P. Recolha: <b> {info.endereco1}</b>
                   </span><br />
                   <span className="text-secondary">
-                    Email: <b>+244 {info.email}</b>
+                    Email: <b> {info.email}</b>
                   </span>
                   <hr />
                   <span className='text-secondary'>Local de Entrega:</span><br />
