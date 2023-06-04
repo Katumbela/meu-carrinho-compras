@@ -37,7 +37,7 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
   const msg = async (phoneNumber, text) => {
     const encodedText = encodeURIComponent(text);
-    const url = `http://api.textmebot.com/send.php?recipient=+244${phoneNumber}&apikey=QKp5DRLU3HnH&text=${encodedText}`;
+    const url = `https://api.textmebot.com/send.php?recipient=+244${phoneNumber}&apikey=QKp5DRLU3HnH&text=${encodedText}`;
 
     try {
       const response = await fetch(url);
@@ -147,9 +147,16 @@ const Track = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
           let textoo3 = `Olá Boss o artigo ${info.artigo} 📦 , foi entregue com sucesso em ${info.endereco2}, recebido por ${info.nome2} em ${formattedDate} as ${formattedTime}. Entregue pelo agente ${ainfo.nome} - ${ainfo.telefone} 🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
           let textoo4 = `Olá Agente ${ainfo.nome} voce concluiu sua entrega com sucesso, parabéns 📦 🛵, \n\nEncomenda: **${info.artigo}**\n\n Total: **${info.taxa} Kz** \n Pagamento: **${info.pagamento}**\n\nFeito em ${formattedDate} as ${formattedTime}.. \nObrigado!\n\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
           msg(info.telefone1, textoo)
-          msg(info.telefone2, textoo2)
-          msg(924358193, textoo3)
-          msg(ainfo.telefone, textoo4)
+
+          setTimeout(() => {
+            msg(info.telefone2, textoo2)
+          }, 100);
+          setTimeout(() => {
+            msg(924358193, textoo3)
+          }, 200);
+          setTimeout(() => {
+            msg(ainfo.telefone, textoo4)
+          }, 300);
            
         });
       }

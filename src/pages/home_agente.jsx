@@ -152,7 +152,7 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
     const msg = async (phoneNumber, text) => {
         const encodedText = encodeURIComponent(text);
-        const url = `http://api.textmebot.com/send.php?recipient=+244${phoneNumber}&apikey=QKp5DRLU3HnH&text=${encodedText}`;
+        const url = `https://api.textmebot.com/send.php?recipient=+244${phoneNumber}&apikey=QKp5DRLU3HnH&text=${encodedText}`;
 
         try {
             const response = await fetch(url);
@@ -294,13 +294,19 @@ const [load3, setLoad3] = useState(false);
                     console.log("Estado alterado co sucesso!");
                     toast.success('Estado alterado com sucesso!');
                     setLoad3(false);  
-                    let linkk = `https://meucarrinho-zeta.vercel.app/track/${pp}`;
+                    let linkk = 'https://meucarrinho-zeta.vercel.app/track/'+pp;
                     let textoo3 = `Olá Boss o agente ${use.name}, já recolheu o artigo: ${pedidos.artigo} 📦 da/o Sr/a ${pedidos.nome} - ${pedidos.telefone1} em ${formattedDate} as ${formattedTime} e está em trânsito neste momento para o P. entrega: ${pedidos.endereco2} 🚦🚥🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
                     let textoo = `Caríssimo/a ${pedidos.nome}, Seu artigo: ${pedidos.artigo} 📦 foi recolhido  em ${formattedDate} as ${formattedTime} e está em trânsito neste momento 🚦🚥🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
                     let texto2 = `Olá ${pedidos.nome2}, temos uma encomenda para sí em nome de ${pedidos.nome}, artigo: ${pedidos.artigo} 📦 , o mesmo já foi recolhido  em ${formattedDate} as ${formattedTime} e está em trânsito neste momento com o agente ${use.name} 🚦🚥🛵!\n\nAcompanhe aqui: ${linkk}\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
                         msg(pedidos.telefone1, textoo)
-                        msg(pedidos.telefone2, texto2)
-                        msg(924358193, textoo3)
+
+                        setTimeout(() => {
+                            msg(pedidos.telefone2, texto2)
+                        }, 500);
+                        
+                        setTimeout(() => {
+                            msg(924358193, textoo3)
+                        }, 600);
                 });
             }
 
