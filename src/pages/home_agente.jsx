@@ -140,7 +140,7 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 });
             }
         } catch (error) {
-            console.error("Erro ao buscar documento: ", error);
+            console.log("Erro ao buscar documento: ", error);
         }
     }
 
@@ -165,7 +165,7 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 console.log('Erro ao enviar a mensagem.');
             }
         } catch (error) {
-            console.error('Ocorreu um erro na chamada da API:', error);
+            console.log('Ocorreu um erro na chamada da API:', error);
         }
     };
 
@@ -196,7 +196,7 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 });
             }
         } catch (error) {
-            console.error("Erro ao atualizar telefone: ", error);
+            console.log("Erro ao atualizar telefone: ", error);
             toast.success('Ocorreu um erro ao tentar actualizar seu numero!');
             setLoad(false);
         }
@@ -228,7 +228,7 @@ const HAgente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 console.log("usuario cadastrado.");
             }
         } catch (error) {
-            console.error("Erro ao adicionar documento: ", error);
+            console.log("Erro ao adicionar documento: ", error);
         }
     }
 
@@ -287,7 +287,7 @@ const [load3, setLoad3] = useState(false);
                 console.log("Usuário não cadastrado.");
             } else {
                 querySnapshot.forEach(async (doc) => {
-                    // Atualize o campo "telefone" do documento
+                    
                     await db.collection("pedidos").doc(doc.id).update({
                         estado: 'Recolhido',
                     });
@@ -303,9 +303,39 @@ const [load3, setLoad3] = useState(false);
                         msg(924358193, textoo3)
                 });
             }
+
+
+            try {
+                // Recupere o documento do usuário que deseja atualizar
+                const querySnapshot = await db.collection("agentes")
+                    .where("email", "==", use.email)
+                    .where("id", "==", use.uid)
+                    .get();
+    
+                if (querySnapshot.empty) {
+                    console.log("Usuário não cadastrado.");
+                } else {
+                    querySnapshot.forEach(async (doc) => {
+                        // Atualize o campo "telefone" do documento
+                        await db.collection("agentes").doc(doc.id).update({
+                            encomenda: ped
+                        });
+                       
+                        setLoad(false);
+                        //  let link = `https://meucarrinho-zeta.vercel.app/track/${randomNumber}`;
+                    let texto = `Agente ${use.name}, Seu whatsapp foi actualizado com sucesso! 👍👌\n\nVamos ao trabalho 🤝🛵 !!!\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                        msg(novoTel, texto)
+                    });
+                }
+            } catch (error) {
+                console.log("Erro ao atualizar telefone: ", error);
+                toast.success('Ocorreu um erro ao tentar actualizar seu numero!');
+                setLoad(false);
+            }
+
         } catch (error) {
             setLoad3(false)
-            console.error("Erro ao atualizar telefone: ", error);
+            console.log("Erro ao atualizar telefone: ", error);
             toast.success('Ocorreu um erro ao tentar actualizar seu estado de compra!');
         }
     }
@@ -342,7 +372,7 @@ const [load3, setLoad3] = useState(false);
             }
         } catch (error) {
             setLoad(false)
-            console.error("Erro ao atualizar telefone: ", error);
+            console.log("Erro ao atualizar telefone: ", error);
             toast.success('Ocorreu um erro ao tentar actualizar seu estado de compra!');
         }
     }
@@ -374,7 +404,7 @@ const [load3, setLoad3] = useState(false);
             } catch (error) {
 
                 setLoad2(false);
-                console.error("Erro ao atualizar encomenda: ", error);
+                console.log("Erro ao atualizar encomenda: ", error);
             }
         } else {
             console.log("Usuário não autenticado.");
