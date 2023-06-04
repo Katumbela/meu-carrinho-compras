@@ -101,7 +101,7 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
 
 
-    const options = ['Futungo', 'Sequele', 'Cacuaco', 'Cidade', 'Maianga', 'Porto de Luanda', 'Zango 5mil', 'zango 8mil', 'Viana', 'Zango 3', 'Mártires', 'Zango 4', 'Kimbangu', 'Aeroporto', 'Zango 2', 'Rocha Pinto', 'Zango 8000', 'Zango 5000', 'Kapolo', 'Zango 1', 'São Paulo', 'Kilamba', 'Cassenda', 'Nova vida', 'Golf 2', 'Mutamba', 'Golf 1', 'Via Expressa', 'camama', 'patriota', 'benfica', 'Zango 0', 'Alvalade', 'Vila Alice', 'Projecto Nova Vida', 'Gamek', 'Talatona', 'Morro Bento', 'Kinaxixi', 'Miramar'];
+    const options = ['Futungo', 'Sequele', 'Cacuaco', 'Cidade', 'Maianga', 'Porto de Luanda', 'Zango 5mil', 'zango 8mil', 'Viana', 'Zango 3', 'Mártires', 'Zango 4', 'Kimbangu', 'Aeroporto', 'Zango 2', 'Rocha Pinto', 'Zango 8000', 'Zango 5000', 'Kapolo', 'Zango 1', 'São Paulo', 'Kilamba', 'Cassenda', 'Nova vida', 'Golf 2', 'Mutamba', 'Golf 1', 'Via Expressa', 'Camama', 'patriota', 'benfica', 'Zango 0', 'Alvalade', 'Vila Alice', 'Projecto Nova Vida', 'Gamek', 'Talatona', 'Morro Bento', 'Kinaxixi', 'Miramar'];
 
 
 
@@ -160,13 +160,18 @@ const Formulario = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                 const formattedTime = currentDate.toLocaleTimeString();
                 
                 let link = `https://meucarrinho-zeta.vercel.app/track/${randomNumber}`;
-                let texto = `Caro ${nome}, seu pedido foi submetido com sucesso na data ${formattedDate} pelas ${formattedTime}, abaixo anexamos o seu link de rastreio do seu pedido, qualquer dúvida não hesite em nos contatar:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n*Obs:* Não partilhe este link.\n\nForma de pagamento: **${selectedValue}** \nP. Recolha: **${address1}**\nP. Entrega: **${address2}**\nReceptor: **${nome2}**\nTotal: **${taxa} AOA**\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
-                let texto2 = `Boss ${nome}, fez um pedido em ${formattedDate} as ${formattedTime}, abaixo anexamos o link de rastreio e os dados do pedido:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n\nForma de pagamento: **${selectedValue}** \nP. Recolha: **${address1}**\nP. Entrega: **${address2}**\nReceptor: **${nome2}**\nTotal: **${taxa} AOA**\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                let texto = `Caro ${nome}, seu pedido foi submetido com sucesso na data ${formattedDate} pelas ${formattedTime}, abaixo anexamos o seu link de rastreio do seu pedido, qualquer dúvida não hesite em nos contatar:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n*Obs:* Não partilhe este link.\n\nArtigo: **${artigo}** 📦\nForma de pagamento: **${selectedValue}** 💵 \nP. Recolha: **${address1}** 🏠\nP. Entrega: **${address2}** 🏠\nReceptor: **${nome2}** 👤\nTelefone: **${tel2}** ☎️ \nTotal: **${taxa} Kz**🧾\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                let texto3 = `Caro ${nome2}, ${nome} acabou de submeter uma encomenda a ser entregue para sí, feito em ${formattedDate} pelas ${formattedTime}, abaixo anexamos o link de rastreio do pedido, qualquer dúvida não hesite em nos contatar:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n*Obs:* Não partilhe este link.\n\nArtigo: **${artigo}** 📦\nDe: **${nome2}** 👤\nForma de pagamento: **${selectedValue}** 💵 \nP. Recolha: **${address1}** 🏠\nP. Entrega: **${address2}** 🏠\nReceptor: **${nome2}** 👤\nTotal: **${taxa} Kz**🧾\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
+                let texto2 = `Boss ${nome} - ${tel} ☎️, fez um pedido em ${formattedDate} as ${formattedTime}, abaixo anexamos o link de rastreio e os dados do pedido:\n\nRastreie: [Clique aqui para rastrear ${artigo}](${link})\n\nForma de pagamento: **${selectedValue}** 💵 \nP. Recolha: **${address1}** 🏠\nP. Entrega: **${address2}** 🏠\nReceptor: **${nome2}** 👤\nTelefone: **${tel2}** ☎️\nTotal: **${taxa} Kz** 🧾\n\n **Atenciosamente, Meu Carrinho LTDA.**`;
                 
                  msg(tel, texto)
 
                  setTimeout(() => {
                     msg(924358193, texto2)
+                 }, 200);
+
+                 setTimeout(() => {
+                    msg(tel2, texto3)
                  }, 300);
 
                 setLoad(false);
