@@ -126,7 +126,7 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                                     <i className="bi bi-hand-thumbs-up-fill f-60 text-danger"></i>
                                 </span>
                                 <br />
-                                <b className="f-lilita text-danger f-30">Seu Cadastro foi recebido com sucesso agente {nome.split(" ")[0]}</b>
+                                <b className="f-lilita text-danger f-30">Seu Cadastro foi recebido com sucesso agente {nome}</b>
                                 <br />
 
                                 <p className="f-20 text-secondary">Entraremos em contacto</p>
