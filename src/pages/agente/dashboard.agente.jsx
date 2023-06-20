@@ -14,6 +14,29 @@ import { db } from '../firebase';
 
 const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
 
+    const [cityData, setCityData] = useState(null);
+
+    useEffect(() => {
+      async function fetchCityData() {
+        try {
+          const response = await fetch('http://ip-api.com/json');
+          const data = await response.json();
+    
+          if (response.ok) {
+            setCityData(data);
+          } else {
+            throw new Error('Não foi possível obter os dados da cidade.');
+          }
+        } catch (error) {
+          console.error(error);
+          setCityData(null);
+        }
+      }
+    
+      fetchCityData();
+    }, []);
+    
+
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [tel, setTel] = useState("");
@@ -139,6 +162,23 @@ const Agente = ({ handleClick, cart, adicionar, pro_p_cat, remover }) => {
                         :
                         <div className="formulario">
                             <center>
+                            <center>
+    
+    {cityData ? (
+          <div>
+            <h2>Dados da Cidade:</h2>
+            <p>País: {cityData.country}</p>
+            <p>Região: {cityData.regionName}</p>
+            <p>Cidade: {cityData.city}</p>
+            <p>Latitude: {cityData.lat}</p>
+            <p>Longitude: {cityData.lon}</p>
+            <p>Quarteirões: {cityData.district}</p>
+            {/* Exibir outros dados conforme necessário */}
+          </div>
+        ) : (
+          <p>Carregando...</p>
+        )}
+        </center>
                                 <i className="bi bi-cash-coin f-50 text-danger"></i>
                                 <br />
                             </center>

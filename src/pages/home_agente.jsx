@@ -422,6 +422,29 @@ const [load3, setLoad3] = useState(false);
     useEffect(() => {
         cadastro();
     }, [])
+    const [cityData, setCityData] = useState(null);
+
+    useEffect(() => {
+      async function fetchCityData() {
+        try {
+          const response = await fetch('http://ip-api.com/json');
+          const data = await response.json();
+    
+          if (response.ok) {
+            setCityData(data);
+          } else {
+            throw new Error('Não foi possível obter os dados da cidade.');
+          }
+        } catch (error) {
+          console.error(error);
+          setCityData(null);
+        }
+      }
+    
+      fetchCityData();
+    }, []);
+    
+
 
     return (
         <div className="w-100">
@@ -444,7 +467,24 @@ const [load3, setLoad3] = useState(false);
                     <img src={`${use.pictureUrl}`} style={{ height: '6.2em', border: '2px solid red', }} className='rounded-circle ' alt={use.name} /> <br />
                     <b>Agente: <b className="text-danger">{use.name}</b></b><br />
                     <b>Email: <b className="text-danger">{use.email}</b></b>
-
+<center>
+    
+{cityData ? (
+      <div>
+        <h2>Dados da Cidade:</h2>
+        <p>País: {cityData.country}</p>
+        <p>Região: {cityData.regionName}</p>
+        <p>Cidade: {cityData.city}</p>
+        <p>CEP: {cityData.zip}</p>
+        <p>Latitude: {cityData.lat}</p>
+        <p>Longitude: {cityData.lon}</p>
+        <p>Quarteirões: {cityData.district}</p>
+        {/* Exibir outros dados conforme necessário */}
+      </div>
+    ) : (
+      <p>Carregando...</p>
+    )}
+    </center>
                     <img src={bann} style={{ position: 'absolute', height: '4em', right: '0', bottom: '0', top: '0rem', opacity: '.1' }} alt="" />
                 </div>
                 <br />
